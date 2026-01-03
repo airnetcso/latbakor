@@ -6,204 +6,145 @@
 <title>Latihan Reading Korea - 40 Soal</title>
 
 <style>
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    color: #333;
-    min-height: 100vh;
-    background: #f5f5f5;
+body{
+font-family:'Segoe UI',Arial,sans-serif;
+margin:0;background:#f5f5f5;color:#333;
 }
 
-/* Login Page */
-#login-page {
-    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-    url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
-    center/cover no-repeat fixed;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* LOGIN */
+#login-page{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
+center/cover no-repeat fixed;
 }
 
-.login-container {
-    max-width: 380px;
-    width: 90%;
-    background: rgba(255,255,255,0.95);
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-    text-align: center;
+.login-container{
+background:rgba(255,255,255,.95);
+padding:40px;
+border-radius:20px;
+width:90%;
+max-width:380px;
+text-align:center;
 }
 
-.login-container h1 {
-    color: #1a237e;
-    margin-bottom: 10px;
-    font-size: 1.8em;
+.login-container input{
+width:100%;
+padding:14px;
+margin:10px 0;
+border-radius:10px;
+border:2px solid #bbb;
+font-size:1em;
 }
 
-.login-container p {
-    color: #555;
-    margin-bottom: 30px;
+button{
+width:100%;
+padding:14px;
+background:#3f51b5;
+color:#fff;
+border:none;
+border-radius:10px;
+font-size:1.1em;
+font-weight:bold;
+cursor:pointer;
 }
 
-.login-container h2 {
-    color: #4a148c;
-    margin-bottom: 30px;
+button:hover{background:#283593}
+
+/* QUIZ */
+#quiz-page{display:none}
+.container{
+max-width:600px;
+margin:auto;
+padding:90px 15px 15px;
+background:#fff;
 }
 
-/* Quiz Page */
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 15px;
-    background: white;
-    padding-top: 90px;
+.header-fixed{
+position:fixed;
+top:0;width:100%;
+background:#fff;
+padding:15px;
+display:flex;
+justify-content:center;
+box-shadow:0 4px 15px rgba(0,0,0,.1);
+z-index:1000;
 }
 
-.header-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: white;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    z-index: 1000;
-    padding: 15px;
-    display: flex;
-    justify-content: center;
+.timer{
+background:#4caf50;
+color:#fff;
+padding:10px 30px;
+border-radius:12px;
+font-size:1.4em;
+font-weight:bold;
 }
 
-.timer {
-    padding: 12px 40px;
-    background: #4caf50;
-    color: white;
-    border-radius: 12px;
-    font-size: 1.6em;
-    font-weight: bold;
+.question-wrapper{display:none}
+.question-wrapper.active{display:block}
+
+.box-passage{
+background:#e3f2fd;
+padding:20px;
+border-radius:14px;
+margin-bottom:15px;
 }
 
-.progress {
-    height: 20px;
-    background: #c5cae9;
-    border-radius: 10px;
-    margin: 20px 0;
-    overflow: hidden;
+.box-question{
+background:#fff3e0;
+padding:20px;
+border-radius:14px;
 }
 
-.progress-bar {
-    height: 100%;
-    background: #3f51b5;
-    width: 0%;
-    transition: width 0.4s;
+/* OPSI */
+.options{margin-top:20px}
+.option-item{
+display:flex;
+align-items:center;
+gap:12px;
+margin:12px 0;
 }
 
-input {
-    padding: 16px;
-    margin: 12px 0;
-    width: 100%;
-    border-radius: 12px;
-    border: 2px solid #bbb;
-    font-size: 1.1em;
+.option-item input{display:none}
+
+.option-number{
+width:34px;height:34px;
+border-radius:50%;
+border:2px solid #3f51b5;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+color:#3f51b5;
+flex-shrink:0;
 }
 
-button {
-    padding: 16px;
-    width: 100%;
-    background: #3f51b5;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
+.option-text{cursor:pointer}
+
+.option-item input:checked + .option-number{
+background:#3f51b5;
+color:#fff;
 }
 
-button:hover {
-    background: #283593;
+/* NAV */
+.nav-buttons{
+display:flex;
+gap:10px;
+margin:30px 0;
 }
 
-.question-wrapper { display:none; }
-.question-wrapper.active { display:block; }
+.nav-buttons button{flex:1}
 
-.box-passage {
-    background: #e3f2fd;
-    padding: 25px;
-    border-radius: 16px;
-    margin-bottom: 20px;
-    border: 2px solid #bbdefb;
-}
-
-.box-question {
-    background: #fff3e0;
-    padding: 25px;
-    border-radius: 16px;
-    border: 2px solid #ffcc80;
-}
-
-/* ===== OPSI JAWABAN ANGKA DALAM BULATAN ===== */
-.options { margin-top: 20px; }
-
-.option-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 12px 0;
-    font-size: 1.1em;
-}
-
-.option-item input[type="radio"] {
-    display: none;
-}
-
-.option-number {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 2px solid #3f51b5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #3f51b5;
-    flex-shrink: 0;
-}
-
-.option-text {
-    flex: 1;
-    line-height: 1.5;
-    cursor: pointer;
-}
-
-.option-item input[type="radio"]:checked + .option-number {
-    background: #3f51b5;
-    color: white;
-}
-
-/* Navigation */
-.nav-buttons {
-    display: flex;
-    gap: 10px;
-    margin: 40px 0;
-}
-
-.nav-buttons button { flex:1; }
-
-#result {
-    display:none;
-    text-align:center;
-    font-size:1.8em;
-    background:#e8f5e9;
-    padding:40px;
-    border-radius:16px;
-    border:3px solid #4caf50;
-}
-
-.footer {
-    text-align:center;
-    margin:60px 0 20px;
-    color:#555;
-    font-size:0.9em;
+#result{
+display:none;
+text-align:center;
+font-size:1.6em;
+background:#e8f5e9;
+padding:30px;
+border-radius:16px;
 }
 </style>
 </head>
@@ -215,34 +156,29 @@ button:hover {
 <h1>Latihan Reading Korea</h1>
 <p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 <h2>🔐 Masuk ke Latihan</h2>
-<input id="username" placeholder="Username / 이름">
+<input type="text" id="username" placeholder="Username / 이름">
 <input type="password" id="password" placeholder="Password / 비밀번호">
-<input id="kode" placeholder="Kode Soal / 시험코드">
+<input type="text" id="kode" placeholder="Kode Soal / 시험코드">
 <button onclick="login()">MULAI / 시작</button>
 </div>
 </div>
 
-<div id="quiz-page" style="display:none;">
+<div id="quiz-page">
 <div class="header-fixed">
 <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
 </div>
 
 <div class="container">
-<div class="progress"><div class="progress-bar" id="progress"></div></div>
 <div id="loading">Memuat soal... sabar ya bro 😎</div>
 <form id="quiz-form"></form>
 
 <div class="nav-buttons">
-<button id="prev" disabled>PREV</button>
+<button id="prev">PREV</button>
 <button id="submit">SUBMIT</button>
 <button id="next">NEXT</button>
 </div>
 
 <div id="result"></div>
-</div>
-
-<div class="footer">
-© 2026 <strong>Denzuka - KimJongUn</strong>
 </div>
 </div>
 
@@ -253,78 +189,76 @@ const validCredentials={
 };
 
 const kodeMapping={
-"B12345":"soal1.json","A09008":"soal2.json",
-"W11765":"soal3.json","H66633":"soal4.json"
+"B12345":"soal1.json",
+"A09008":"soal2.json",
+"W11765":"soal3.json",
+"H66633":"soal4.json"
 };
 
-const GITHUB_RAW_BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
-const totalQuestions=40;
-let questions=[],userAnswers=Array(totalQuestions).fill(null);
-let current=0,timeLeft=3000,isSubmitted=false,timerInterval,currentFile="";
+const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
+let questions=[],current=0,userAnswers=[],timer=3000,timerInt;
 
 function login(){
-const u=username.value.trim(),p=password.value.trim(),k=kode.value.trim().toUpperCase();
+const u=document.getElementById("username").value.trim();
+const p=document.getElementById("password").value.trim();
+const k=document.getElementById("kode").value.trim().toUpperCase();
+
 if(validCredentials[u]===p && kodeMapping[k]){
-currentFile=kodeMapping[k];
-login-page.style.display="none";
-quiz-page.style.display="block";
-startTimer();loadQuestions();
+document.getElementById("login-page").style.display="none";
+document.getElementById("quiz-page").style.display="block";
+loadQuestions(kodeMapping[k]);
+startTimer();
 }else alert("Username, Password, atau Kode Soal salah bro!");
 }
 
 function startTimer(){
-timerInterval=setInterval(()=>{
-timeLeft--;
-timer.textContent=`Waktu Tersisa: ${String(timeLeft/60|0).padStart(2,"0")}:${String(timeLeft%60).padStart(2,"0")}`;
-if(timeLeft<=0 && !isSubmitted) submitQuiz(true);
+timerInt=setInterval(()=>{
+timer--;
+document.getElementById("timer").textContent=
+"Waktu Tersisa: "+String(timer/60|0).padStart(2,"0")+":"+
+String(timer%60).padStart(2,"0");
 },1000);
 }
 
-async function loadQuestions(){
-const r=await fetch(`${GITHUB_RAW_BASE}/${currentFile}`);
-questions=await r.json();renderQuestions();loading.style.display="none";showQuestion(0);
+async function loadQuestions(file){
+const r=await fetch(`${BASE}/${file}`);
+questions=await r.json();
+render();
+document.getElementById("loading").style.display="none";
+show(0);
 }
 
-function renderQuestions(){
-quiz-form.innerHTML="";
+function render(){
+const f=document.getElementById("quiz-form");
+f.innerHTML="";
 questions.forEach((q,i)=>{
-const w=document.createElement("div");
-w.className="question-wrapper";
+const d=document.createElement("div");
+d.className="question-wrapper";
 let h=`
-<div class="box-passage"><p><strong>Passage ${i+1}:</strong><br>${q.passage}</p></div>
-<div class="box-question">
-<p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p>
-<div class="options">`;
+<div class="box-passage"><p>${q.passage}</p></div>
+<div class="box-question"><p>${q.question}</p><div class="options">`;
 Object.keys(q.options).forEach((k,idx)=>{
 h+=`
 <div class="option-item">
 <input type="radio" name="q${i}" value="${k}" id="o${i}${k}">
 <span class="option-number">${idx+1}</span>
-<label for="o${i}${k}" class="option-text">${q.options[k]}</label>
+<label class="option-text" for="o${i}${k}">${q.options[k]}</label>
 </div>`;
 });
 h+=`</div></div>`;
-w.innerHTML=h;quiz-form.appendChild(w);
+d.innerHTML=h;
+f.appendChild(d);
 });
 }
 
-function showQuestion(n){
-document.querySelectorAll(".question-wrapper").forEach((q,i)=>q.classList.toggle("active",i===n));
-progress.style.width=((n+1)/totalQuestions*100)+"%";
+function show(n){
+document.querySelectorAll(".question-wrapper")
+.forEach((q,i)=>q.classList.toggle("active",i===n));
 current=n;
 }
 
-prev.onclick=()=>current>0&&showQuestion(current-1);
-next.onclick=()=>current<totalQuestions-1&&showQuestion(current+1);
-submit.onclick=()=>confirm("Yakin submit sekarang?")&&submitQuiz();
-
-function submitQuiz(){
-isSubmitted=true;clearInterval(timerInterval);
-let s=0;questions.forEach((q,i)=>userAnswers[i]===q.correct&&s++);
-result.innerHTML=`Skor: <strong>${s}/${totalQuestions}</strong>`;
-result.style.display="block";
-document.querySelector(".nav-buttons").style.display="none";
-}
+document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
+document.getElementById("prev").onclick=()=>current>0&&show(current-1);
 </script>
 
 </body>

@@ -6,53 +6,61 @@
 <title>Latihan Reading Korea</title>
 
 <style>
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:#f4f4f4}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5}
+#login-page,#quiz-page,#result-page{display:none}
 
 /* LOGIN */
-#login-page{min-height:100vh;display:flex;justify-content:center;align-items:center;
-background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover}
-.login-box{background:#fff;width:90%;max-width:380px;padding:30px;text-align:center}
-.login-box input{width:100%;padding:14px;margin:8px 0}
-.login-box button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-weight:bold}
+#login-page{
+  display:flex;min-height:100vh;
+  justify-content:center;align-items:center;
+  background:#263238
+}
+.login-box{
+  background:#fff;padding:30px;
+  width:90%;max-width:380px;text-align:center
+}
+input,button{width:100%;padding:14px;margin:8px 0}
+button{background:#3f51b5;color:#fff;border:none;font-weight:bold}
 
 /* QUIZ */
-#quiz-page{display:none;padding-top:70px;padding-bottom:70px}
-.header-fixed{position:fixed;top:0;left:0;width:100%;display:flex;z-index:1000}
-.submit-top,.timer{flex:1;padding:12px;text-align:center;color:#fff;font-weight:bold}
-.submit-top{background:#f44336}
-.timer{background:#4caf50}
+#quiz-page{padding-top:60px;padding-bottom:60px}
+.header{position:fixed;top:0;left:0;width:100%;display:flex}
+.submit-btn,.timer{flex:1;padding:12px;color:#fff;font-weight:bold;text-align:center}
+.submit-btn{background:#e53935}
+.timer{background:#43a047}
 
-.container{max-width:520px;margin:auto;padding:10px;height:calc(100vh - 140px);overflow:auto}
-.question-wrapper{display:none}
-.question-wrapper.active{display:block}
+.container{
+  max-width:540px;margin:auto;
+  padding:10px;height:calc(100vh - 120px);
+  overflow:auto
+}
+.qbox{display:none}
+.qbox.active{display:block}
 
-.box-passage{background:#e3f2fd;padding:15px;margin-bottom:10px}
-.box-question{background:#fff;padding:15px}
+.option{display:flex;margin:6px 0}
+.option input{display:none}
+.circle{
+  width:24px;height:24px;border:2px solid #888;
+  border-radius:50%;text-align:center;
+  line-height:22px;margin-right:8px
+}
+.option input:checked + .circle{
+  background:#bbdefb;border-color:#2196f3
+}
 
-.option-item{display:flex;margin:8px 0;align-items:flex-start}
-.option-circle{width:24px;height:24px;border:2px solid #aaa;
-text-align:center;line-height:22px;margin-right:8px}
-.option-item input{display:none}
-.option-item input:checked + .option-circle{background:#bbdefb;border-color:#2196f3}
-
-.nav-bottom{position:fixed;bottom:0;left:0;width:100%;display:flex}
-.nav-bottom button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold}
-#prev{background:#2196f3}
-#next{background:#ff9800}
+.nav{position:fixed;bottom:0;left:0;width:100%;display:flex}
+.nav button{flex:1;padding:12px;border:none;color:#fff;font-weight:bold}
+#prev{background:#1e88e5}
+#next{background:#fb8c00}
 
 /* RESULT */
-#result-page{display:none;padding:20px}
-.result-box{background:#fff;padding:20px;max-width:520px;margin:auto}
-.result-box h2{text-align:center}
-.wrong-item{background:#ffebee;padding:10px;margin:10px 0}
-.back-btn{margin-top:20px;width:100%;padding:14px;background:#3f51b5;color:#fff;border:none}
+#result-page{padding:20px}
+.wrong{background:#ffebee;padding:10px;margin:8px 0}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div id="login-page">
   <div class="login-box">
     <h2>Latihan Reading Korea</h2>
@@ -63,35 +71,35 @@ text-align:center;line-height:22px;margin-right:8px}
   </div>
 </div>
 
-<!-- QUIZ -->
 <div id="quiz-page">
-  <div class="header-fixed">
-    <div class="submit-top" id="submitTop">SUBMIT</div>
+  <div class="header">
+    <div class="submit-btn" id="submitBtn">SUBMIT</div>
     <div class="timer" id="timer">50:00</div>
   </div>
 
-  <div class="container">
-    <form id="quiz-form"></form>
-  </div>
+  <div class="container" id="quizForm"></div>
 
-  <div class="nav-bottom">
+  <div class="nav">
     <button id="prev">PREV</button>
     <button id="next">NEXT</button>
   </div>
 </div>
 
-<!-- RESULT -->
 <div id="result-page">
-  <div class="result-box">
-    <h2>HASIL UJIAN</h2>
-    <div id="scoreText"></div>
-    <div id="reviewBox"></div>
-    <button class="back-btn" id="backLogin">KEMBALI</button>
-  </div>
+  <h2>Hasil</h2>
+  <div id="score"></div>
+  <div id="review"></div>
+  <button onclick="location.reload()">KEMBALI</button>
 </div>
 
 <script>
-/* ===== DATA LOGIN ===== */
+/* === ELEMENT === */
+const loginPage=document.getElementById("login-page");
+const quizPage=document.getElementById("quiz-page");
+const resultPage=document.getElementById("result-page");
+const quizForm=document.getElementById("quizForm");
+
+/* === LOGIN DATA === */
 const validCredentials={
   "uus":"123",
   "kimjong2":"kimju456",
@@ -107,30 +115,29 @@ const kodeMapping={
 };
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-/* ===== ELEMENT ===== */
-const loginPage=document.getElementById("login-page");
-const quizPage=document.getElementById("quiz-page");
-const resultPage=document.getElementById("result-page");
-const quizForm=document.getElementById("quiz-form");
-const timerEl=document.getElementById("timer");
-
-/* ===== STATE ===== */
+/* === STATE === */
 let questions=[],answers=[],current=0;
-let timeLeft=50*60,timerInterval,submitted=false;
+let timeLeft=50*60,timerInt,submitted=false;
 
-/* ===== LOGIN ===== */
-btnLogin.onclick=()=>{
-  if(validCredentials[username.value]!==password.value
-     || !kodeMapping[kode.value.toUpperCase()]){
-    alert("Login salah"); return;
+/* === LOGIN === */
+btnLogin.onclick=async()=>{
+  const u=username.value.trim();
+  const p=password.value.trim();
+  const k=kode.value.trim().toUpperCase();
+
+  if(validCredentials[u]!==p||!kodeMapping[k]){
+    alert("Login salah");
+    return;
   }
+
   loginPage.style.display="none";
   quizPage.style.display="block";
+
   startTimer();
-  loadSoal(kodeMapping[kode.value.toUpperCase()]);
+  loadSoal(kodeMapping[k]);
 };
 
-/* ===== LOAD SOAL ===== */
+/* === LOAD === */
 async function loadSoal(file){
   const r=await fetch(BASE+file+"?t="+Date.now());
   questions=(await r.json()).slice(0,25);
@@ -138,80 +145,81 @@ async function loadSoal(file){
   render(); show(0);
 }
 
+/* === RENDER === */
 function render(){
   quizForm.innerHTML="";
   questions.forEach((q,i)=>{
     const d=document.createElement("div");
-    d.className="question-wrapper";
+    d.className="qbox";
     d.innerHTML=`
-      <div class="box-passage">
-        ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
-        ${q.image?`<img src="${q.image}" width="100%">`:""}
-      </div>
-      <div class="box-question">
-        <b>${i+1}.</b> ${q.question}
-        ${Object.entries(q.options).map(([k,v],n)=>`
-          <label class="option-item">
-            <input type="radio" name="q${i}" value="${k}">
-            <span class="option-circle">${n+1}</span>${v}
-          </label>`).join("")}
-      </div>`;
-    d.querySelectorAll("input").forEach(r=>r.onchange=()=>answers[i]=r.value);
+      ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
+      ${q.image?`<img src="${q.image}" width="100%">`:""}
+      <p><b>${i+1}.</b> ${q.question}</p>
+      ${Object.entries(q.options).map(([k,v],n)=>`
+        <label class="option">
+          <input type="radio" name="q${i}" value="${k}">
+          <span class="circle">${n+1}</span>${v}
+        </label>`).join("")}
+    `;
+    d.querySelectorAll("input").forEach(r=>{
+      r.onchange=()=>answers[i]=r.value;
+    });
     quizForm.appendChild(d);
   });
 }
+
+/* === NAV === */
 function show(n){
-  document.querySelectorAll(".question-wrapper")
+  document.querySelectorAll(".qbox")
     .forEach((q,i)=>q.classList.toggle("active",i===n));
   current=n;
 }
-
-/* ===== NAV ===== */
 prev.onclick=()=>current>0&&show(current-1);
 next.onclick=()=>current<questions.length-1&&show(current+1);
-submitTop.onclick=()=>submitQuiz();
 
-/* ===== SUBMIT ===== */
-function submitQuiz(){
+/* === SUBMIT === */
+submitBtn.onclick=()=>submitQuiz(false);
+
+function submitQuiz(auto){
   if(submitted) return;
+  if(!auto){
+    const idx=answers.findIndex(a=>a===null);
+    if(idx!==-1){alert("Soal "+(idx+1)+" belum dijawab");show(idx);return;}
+  }
   submitted=true;
-  clearInterval(timerInterval);
+  clearInterval(timerInt);
 
   quizPage.style.display="none";
   resultPage.style.display="block";
 
-  let score=0;
-  reviewBox.innerHTML="";
+  let benar=0;
+  review.innerHTML="";
   questions.forEach((q,i)=>{
-    if(answers[i]===q.correct){
-      score+=4;
-    }else{
-      reviewBox.innerHTML+=`
-        <div class="wrong-item">
-          <b>Soal ${i+1}</b><br>
-          Jawaban benar: <b>${q.correct}</b><br>
-          Penjelasan: ${q.explanation||"-"}
-        </div>`;
-    }
+    if(answers[i]===q.correct) benar++;
+    else review.innerHTML+=`
+      <div class="wrong">
+        Soal ${i+1}<br>
+        Jawaban benar: ${q.correct}<br>
+        ${q.explanation||""}
+      </div>`;
   });
-  scoreText.innerHTML=`<h3>Nilai Akhir: ${score}</h3>`;
+  score.innerHTML="<h3>Nilai: "+(benar*4)+"</h3>";
 }
 
-/* ===== TIMER ===== */
+/* === TIMER === */
 function startTimer(){
-  timerInterval=setInterval(()=>{
+  timerInt=setInterval(()=>{
     const m=String(Math.floor(timeLeft/60)).padStart(2,"0");
     const s=String(timeLeft%60).padStart(2,"0");
-    timerEl.textContent=`${m}:${s}`;
+    timer.textContent=m+":"+s;
     timeLeft--;
-    if(timeLeft<0) submitQuiz();
+    if(timeLeft<0) submitQuiz(true);
   },1000);
 }
 
-/* ===== BACK ===== */
-backLogin.onclick=()=>{
-  location.reload();
-};
+/* INIT */
+loginPage.style.display="flex";
 </script>
+
 </body>
 </html>

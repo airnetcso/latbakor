@@ -8,16 +8,19 @@
 <style>
 body{
 font-family:'Segoe UI',Arial,sans-serif;
-margin:0;background:#f5f5f5;color:#333;
+margin:0;
+background:#f5f5f5;
+color:#333;
 }
 
-/* LOGIN */
+/* ================= LOGIN ================= */
 #login-page{
 min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+background:
+linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
 url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
 center/cover no-repeat fixed;
 }
@@ -53,29 +56,27 @@ cursor:pointer;
 
 button:hover{background:#283593}
 
-/* QUIZ */
+/* ================= QUIZ ================= */
 #quiz-page{display:none}
 
-.container{
-max-width:600px;
-margin:auto;
-padding:110px 15px 15px;
-background:#fff;
-}
-
-/* HEADER ATAS */
+/* HEADER FIXED (HP FRIENDLY) */
 .header-fixed{
 position:fixed;
 top:0;
 left:0;
 width:100%;
+background:#fff;
+box-shadow:0 4px 15px rgba(0,0,0,.1);
+z-index:1000;
+}
+
+.header-inner{
+max-width:600px;
+margin:0 auto;
 padding:15px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-background:#fff;
-box-shadow:0 4px 15px rgba(0,0,0,.1);
-z-index:1000;
 }
 
 /* SUBMIT ATAS KIRI */
@@ -100,7 +101,15 @@ font-size:1.4em;
 font-weight:bold;
 }
 
-/* QUESTION */
+/* CONTAINER */
+.container{
+max-width:600px;
+margin:0 auto;
+padding:110px 15px 15px;
+background:#fff;
+}
+
+/* ================= SOAL ================= */
 .question-wrapper{display:none}
 .question-wrapper.active{display:block}
 
@@ -117,7 +126,7 @@ padding:20px;
 border-radius:14px;
 }
 
-/* OPSI */
+/* ================= OPSI JAWABAN ================= */
 .options{margin-top:20px}
 
 .option-item{
@@ -130,7 +139,8 @@ margin:12px 0;
 .option-item input{display:none}
 
 .option-number{
-width:34px;height:34px;
+width:34px;
+height:34px;
 border-radius:50%;
 border:2px solid #3f51b5;
 display:flex;
@@ -141,14 +151,17 @@ color:#3f51b5;
 flex-shrink:0;
 }
 
-.option-text{cursor:pointer}
+.option-text{
+cursor:pointer;
+line-height:1.5;
+}
 
 .option-item input:checked + .option-number{
 background:#3f51b5;
 color:#fff;
 }
 
-/* NAV */
+/* ================= NAV ================= */
 .nav-buttons{
 display:flex;
 gap:10px;
@@ -157,6 +170,7 @@ margin:30px 0;
 
 .nav-buttons button{flex:1}
 
+/* ================= RESULT ================= */
 #result{
 display:none;
 text-align:center;
@@ -170,6 +184,7 @@ border-radius:16px;
 
 <body>
 
+<!-- LOGIN -->
 <div id="login-page">
 <div class="login-container">
 <h1>Latihan Reading Korea</h1>
@@ -182,10 +197,14 @@ border-radius:16px;
 </div>
 </div>
 
+<!-- QUIZ -->
 <div id="quiz-page">
+
 <div class="header-fixed">
+<div class="header-inner">
 <button id="submit" class="submit-top">SUBMIT</button>
 <div class="timer" id="timer">50:00</div>
+</div>
 </div>
 
 <div class="container">
@@ -199,6 +218,7 @@ border-radius:16px;
 
 <div id="result"></div>
 </div>
+
 </div>
 
 <script>
@@ -215,19 +235,27 @@ const kodeMapping={
 };
 
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
-let questions=[],current=0,userAnswers=[],timeLeft=3000,timerInt,isSubmitted=false;
+
+let questions=[];
+let current=0;
+let userAnswers=[];
+let timeLeft=3000;
+let timerInt;
+let isSubmitted=false;
 
 function login(){
-const u=username.value.trim();
-const p=password.value.trim();
-const k=kode.value.trim().toUpperCase();
+const u=document.getElementById("username").value.trim();
+const p=document.getElementById("password").value.trim();
+const k=document.getElementById("kode").value.trim().toUpperCase();
 
 if(validCredentials[u]===p && kodeMapping[k]){
 document.getElementById("login-page").style.display="none";
 document.getElementById("quiz-page").style.display="block";
 startTimer();
 loadQuestions(kodeMapping[k]);
-}else alert("Username, Password, atau Kode Soal salah bro!");
+}else{
+alert("Username, Password, atau Kode Soal salah bro!");
+}
 }
 
 function startTimer(){
@@ -236,57 +264,79 @@ timeLeft--;
 document.getElementById("timer").textContent=
 String(timeLeft/60|0).padStart(2,"0")+":"+
 String(timeLeft%60).padStart(2,"0");
-if(timeLeft<=0 && !isSubmitted) submitQuiz(true);
+
+if(timeLeft<=0 && !isSubmitted){
+submitQuiz(true);
+}
 },1000);
 }
 
 async function loadQuestions(file){
 const r=await fetch(`${BASE}/${file}`);
 questions=await r.json();
-render();
+renderQuestions();
 document.getElementById("loading").style.display="none";
-show(0);
+showQuestion(0);
 }
 
-function render(){
-const f=document.getElementById("quiz-form");
-f.innerHTML="";
+function renderQuestions(){
+const form=document.getElementById("quiz-form");
+form.innerHTML="";
 questions.forEach((q,i)=>{
-const d=document.createElement("div");
-d.className="question-wrapper";
-let h=`
+const w=document.createElement("div");
+w.className="question-wrapper";
+
+let html=`
 <div class="box-passage"><p>${q.passage}</p></div>
-<div class="box-question"><p>${q.question}</p><div class="options">`;
+<div class="box-question">
+<p>${q.question}</p>
+<div class="options">`;
+
 Object.keys(q.options).forEach((k,idx)=>{
-h+=`
+html+=`
 <div class="option-item">
 <input type="radio" name="q${i}" value="${k}" id="o${i}${k}">
 <span class="option-number">${idx+1}</span>
 <label for="o${i}${k}" class="option-text">${q.options[k]}</label>
 </div>`;
 });
-h+=`</div></div>`;
-d.innerHTML=h;
-f.appendChild(d);
+
+html+=`</div></div>`;
+w.innerHTML=html;
+form.appendChild(w);
 });
 }
 
-function show(n){
+function showQuestion(n){
 document.querySelectorAll(".question-wrapper")
 .forEach((q,i)=>q.classList.toggle("active",i===n));
 current=n;
 }
 
-document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
-document.getElementById("prev").onclick=()=>current>0&&show(current-1);
-document.getElementById("submit").onclick=()=>confirm("Yakin submit sekarang?")&&submitQuiz();
+document.getElementById("next").onclick=()=>{
+if(current<questions.length-1) showQuestion(current+1);
+};
+
+document.getElementById("prev").onclick=()=>{
+if(current>0) showQuestion(current-1);
+};
+
+document.getElementById("submit").onclick=()=>{
+if(confirm("Yakin submit sekarang?")) submitQuiz();
+};
 
 function submitQuiz(){
+if(isSubmitted) return;
 isSubmitted=true;
 clearInterval(timerInt);
-let s=0;
-questions.forEach((q,i)=>userAnswers[i]===q.correct&&s++);
-document.getElementById("result").innerHTML=`Skor: <strong>${s}/${questions.length}</strong>`;
+
+let score=0;
+questions.forEach((q,i)=>{
+if(userAnswers[i]===q.correct) score++;
+});
+
+document.getElementById("result").innerHTML=
+`Skor: <strong>${score}/${questions.length}</strong>`;
 document.getElementById("result").style.display="block";
 }
 </script>

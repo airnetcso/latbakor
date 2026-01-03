@@ -7,8 +7,8 @@
 
 <style>
 body{
-font-family:'Segoe UI',Arial,sans-serif;
 margin:0;
+font-family:'Segoe UI',Arial,sans-serif;
 background:#f5f5f5;
 color:#333;
 }
@@ -56,10 +56,7 @@ cursor:pointer;
 
 button:hover{background:#283593}
 
-/* ================= QUIZ ================= */
-#quiz-page{display:none}
-
-/* HEADER FIXED (HP FRIENDLY) */
+/* ================= HEADER ATAS ================= */
 .header-fixed{
 position:fixed;
 top:0;
@@ -79,15 +76,11 @@ justify-content:space-between;
 align-items:center;
 }
 
-/* SUBMIT ATAS KIRI */
 .submit-top{
 width:130px;
 height:52px;
-border-radius:12px;
-font-size:1.1em;
 }
 
-/* TIMER ATAS KANAN */
 .timer{
 width:130px;
 height:52px;
@@ -101,12 +94,37 @@ font-size:1.4em;
 font-weight:bold;
 }
 
-/* CONTAINER */
+/* ================= FOOTER BAWAH ================= */
+.footer-fixed{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+background:#fff;
+box-shadow:0 -4px 15px rgba(0,0,0,.1);
+z-index:1000;
+}
+
+.footer-inner{
+max-width:600px;
+margin:0 auto;
+padding:15px;
+display:flex;
+gap:10px;
+}
+
+/* ================= KONTEN TENGAH ================= */
+#quiz-page{display:none}
+
 .container{
 max-width:600px;
 margin:0 auto;
-padding:110px 15px 15px;
+padding:
+110px   /* jarak header */
+15px
+100px;  /* jarak footer */
 background:#fff;
+min-height:100vh;
 }
 
 /* ================= SOAL ================= */
@@ -126,7 +144,7 @@ padding:20px;
 border-radius:14px;
 }
 
-/* ================= OPSI JAWABAN ================= */
+/* ================= OPSI ================= */
 .options{margin-top:20px}
 
 .option-item{
@@ -161,15 +179,6 @@ background:#3f51b5;
 color:#fff;
 }
 
-/* ================= NAV ================= */
-.nav-buttons{
-display:flex;
-gap:10px;
-margin:30px 0;
-}
-
-.nav-buttons button{flex:1}
-
 /* ================= RESULT ================= */
 #result{
 display:none;
@@ -190,9 +199,9 @@ border-radius:16px;
 <h1>Latihan Reading Korea</h1>
 <p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 <h2>🔐 Masuk ke Latihan</h2>
-<input type="text" id="username" placeholder="Username / 이름">
+<input id="username" placeholder="Username / 이름">
 <input type="password" id="password" placeholder="Password / 비밀번호">
-<input type="text" id="kode" placeholder="Kode Soal / 시험코드">
+<input id="kode" placeholder="Kode Soal / 시험코드">
 <button onclick="login()">MULAI / 시작</button>
 </div>
 </div>
@@ -200,6 +209,7 @@ border-radius:16px;
 <!-- QUIZ -->
 <div id="quiz-page">
 
+<!-- HEADER -->
 <div class="header-fixed">
 <div class="header-inner">
 <button id="submit" class="submit-top">SUBMIT</button>
@@ -207,16 +217,19 @@ border-radius:16px;
 </div>
 </div>
 
+<!-- KONTEN -->
 <div class="container">
 <div id="loading">Memuat soal... sabar ya bro 😎</div>
 <form id="quiz-form"></form>
-
-<div class="nav-buttons">
-<button id="prev">PREV</button>
-<button id="next">NEXT</button>
+<div id="result"></div>
 </div>
 
-<div id="result"></div>
+<!-- FOOTER -->
+<div class="footer-fixed">
+<div class="footer-inner">
+<button id="prev" style="flex:1">PREV</button>
+<button id="next" style="flex:1">NEXT</button>
+</div>
 </div>
 
 </div>
@@ -244,30 +257,25 @@ let timerInt;
 let isSubmitted=false;
 
 function login(){
-const u=document.getElementById("username").value.trim();
-const p=document.getElementById("password").value.trim();
-const k=document.getElementById("kode").value.trim().toUpperCase();
+const u=username.value.trim();
+const p=password.value.trim();
+const k=kode.value.trim().toUpperCase();
 
 if(validCredentials[u]===p && kodeMapping[k]){
-document.getElementById("login-page").style.display="none";
-document.getElementById("quiz-page").style.display="block";
+login-page.style.display="none";
+quiz-page.style.display="block";
 startTimer();
 loadQuestions(kodeMapping[k]);
-}else{
-alert("Username, Password, atau Kode Soal salah bro!");
-}
+}else alert("Username, Password, atau Kode Soal salah bro!");
 }
 
 function startTimer(){
 timerInt=setInterval(()=>{
 timeLeft--;
-document.getElementById("timer").textContent=
+timer.textContent=
 String(timeLeft/60|0).padStart(2,"0")+":"+
 String(timeLeft%60).padStart(2,"0");
-
-if(timeLeft<=0 && !isSubmitted){
-submitQuiz(true);
-}
+if(timeLeft<=0 && !isSubmitted) submitQuiz();
 },1000);
 }
 
@@ -275,35 +283,34 @@ async function loadQuestions(file){
 const r=await fetch(`${BASE}/${file}`);
 questions=await r.json();
 renderQuestions();
-document.getElementById("loading").style.display="none";
+loading.style.display="none";
 showQuestion(0);
 }
 
 function renderQuestions(){
-const form=document.getElementById("quiz-form");
-form.innerHTML="";
+quiz-form.innerHTML="";
 questions.forEach((q,i)=>{
 const w=document.createElement("div");
 w.className="question-wrapper";
 
-let html=`
+let h=`
 <div class="box-passage"><p>${q.passage}</p></div>
 <div class="box-question">
 <p>${q.question}</p>
 <div class="options">`;
 
 Object.keys(q.options).forEach((k,idx)=>{
-html+=`
+h+=`
 <div class="option-item">
-<input type="radio" name="q${i}" value="${k}" id="o${i}${k}">
+<input type="radio" name="q${i}" value="${k}">
 <span class="option-number">${idx+1}</span>
-<label for="o${i}${k}" class="option-text">${q.options[k]}</label>
+<label class="option-text">${q.options[k]}</label>
 </div>`;
 });
 
-html+=`</div></div>`;
-w.innerHTML=html;
-form.appendChild(w);
+h+=`</div></div>`;
+w.innerHTML=h;
+quiz-form.appendChild(w);
 });
 }
 
@@ -313,31 +320,18 @@ document.querySelectorAll(".question-wrapper")
 current=n;
 }
 
-document.getElementById("next").onclick=()=>{
-if(current<questions.length-1) showQuestion(current+1);
-};
-
-document.getElementById("prev").onclick=()=>{
-if(current>0) showQuestion(current-1);
-};
-
-document.getElementById("submit").onclick=()=>{
-if(confirm("Yakin submit sekarang?")) submitQuiz();
-};
+next.onclick=()=>current<questions.length-1&&showQuestion(current+1);
+prev.onclick=()=>current>0&&showQuestion(current-1);
+submit.onclick=()=>confirm("Yakin submit sekarang?")&&submitQuiz();
 
 function submitQuiz(){
 if(isSubmitted) return;
 isSubmitted=true;
 clearInterval(timerInt);
-
-let score=0;
-questions.forEach((q,i)=>{
-if(userAnswers[i]===q.correct) score++;
-});
-
-document.getElementById("result").innerHTML=
-`Skor: <strong>${score}/${questions.length}</strong>`;
-document.getElementById("result").style.display="block";
+let s=0;
+questions.forEach((q,i)=>userAnswers[i]===q.correct&&s++);
+result.innerHTML=`Skor: <strong>${s}/${questions.length}</strong>`;
+result.style.display="block";
 }
 </script>
 

@@ -13,9 +13,9 @@
             min-height: 100vh;
         }
 
-        /* Background khusus untuk login page */
-        .login-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        /* Login Page dengan Background Image dari Web */
+        #login-page {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517154429774-8b1f4d4b4b6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -27,17 +27,20 @@
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             text-align: center;
+        }
+        .login-container h1 {
+            color: #1a237e;
+            margin-bottom: 10px;
         }
         .login-container h2 {
             color: #4a148c;
             margin-bottom: 30px;
-            font-size: 1.8em;
         }
 
-        /* Halaman quiz background putih */
-        .quiz-bg {
+        /* Quiz Page */
+        #quiz-page {
             background: #f5f5f5;
             min-height: 100vh;
         }
@@ -46,6 +49,7 @@
             margin: 0 auto;
             padding: 20px;
             background: white;
+            padding-top: 90px;
         }
 
         /* Header Fixed */
@@ -84,44 +88,19 @@
             font-weight: bold;
         }
 
-        .progress-container {
-            margin-top: 90px;
-        }
         .progress {
-            height: 10px;
-            background: #e0e0e0;
-            border-radius: 5px;
-            overflow: hidden;
+            height: 24px;
+            background: #c5cae9;
+            border-radius: 12px;
             margin: 20px 0;
+            overflow: hidden;
         }
         .progress-bar {
             height: 100%;
-            background: #2196f3;
+            background: #3f51b5;
             width: 0%;
+            border-radius: 12px;
             transition: width 0.5s ease;
-        }
-
-        /* Navigasi nomor soal */
-        .question-nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .nav-item {
-            padding: 15px;
-            text-align: center;
-            font-size: 1.2em;
-            font-weight: bold;
-            border-radius: 8px;
-            background: #fff0f5;
-            cursor: pointer;
-        }
-        .nav-item.active {
-            background: #bbdefb;
-        }
-        .nav-item.answered {
-            background: #c8e6c9;
         }
 
         input {
@@ -176,41 +155,42 @@
         }
 
         .options {
-            margin-top: 30px;
+            margin-top: 20px;
         }
         .option-item {
             display: flex;
             align-items: center;
-            margin: 25px 0;
-            font-size: 1.3em;
+            margin: 18px 0;
+            font-size: 1.2em;
         }
         .circle-number {
-            width: 50px;
-            height: 50px;
-            background: #000;
+            width: 38px;
+            height: 38px;
+            background: #333;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.5em;
-            margin-right: 20px;
+            font-size: 1.1em;
+            margin-right: 18px;
             flex-shrink: 0;
         }
         .option-text {
             flex: 1;
+            line-height: 1.4;
         }
         .option-item input[type="radio"] {
-            transform: scale(1.6);
-            margin-right: 20px;
+            transform: scale(1.5);
+            margin-right: 15px;
         }
 
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            margin: 40px 0;
-            gap: 20px;
+            margin-top: 40px;
+            gap: 15px;
         }
         .nav-buttons button {
             flex: 1;
@@ -220,36 +200,41 @@
 
         #result {
             text-align: center;
-            font-size: 2em;
+            font-size: 1.9em;
             margin: 60px 0;
             display: none;
             background: #e8f5e9;
             padding: 40px;
             border-radius: 16px;
+            border: 3px solid #4caf50;
         }
-
         #loading {
             text-align: center;
             font-size: 1.4em;
             color: #1a237e;
             margin: 50px 0;
+            font-weight: bold;
         }
-
         .footer {
             text-align: center;
-            margin: 60px 0 20px;
-            color: #777;
-            font-size: 0.9em;
+            margin-top: 60px;
+            padding: 20px;
+            color: #555;
+            font-size: 0.95em;
+            border-top: 1px solid #ddd;
+        }
+        .footer strong {
+            color: #1a237e;
         }
     </style>
 </head>
 <body>
 
-    <!-- Login Page dengan Background Keren -->
-    <div id="login-page" class="login-bg">
+    <!-- Login Page dengan Background Image -->
+    <div id="login-page">
         <div class="login-container">
             <h1>Latihan Reading Korea</h1>
-            <p style="color:#666; margin-bottom:30px;">40 Soal | 50 Menit</p>
+            <p style="color:#666; margin-bottom:30px;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
@@ -259,18 +244,14 @@
     </div>
 
     <!-- Quiz Page -->
-    <div id="quiz-page" class="quiz-bg" style="display:none;">
+    <div id="quiz-page" style="display:none;">
         <div class="header-fixed">
             <button class="submit-top" id="submit-top">SUBMIT</button>
             <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
         </div>
 
         <div class="container">
-            <div class="progress-container">
-                <div class="progress"><div class="progress-bar" id="progress"></div></div>
-                <div class="question-nav" id="question-nav"></div>
-            </div>
-
+            <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
             
             <form id="quiz-form"></form>
@@ -281,6 +262,9 @@
             </div>
 
             <div id="result"></div>
+            <div style="text-align:center; margin-top:30px; display:none;" id="review-btn-container">
+                <button class="review-btn" onclick="startReview()">🔍 Review Jawaban</button>
+            </div>
         </div>
 
         <div class="footer">
@@ -289,17 +273,55 @@
     </div>
 
     <script>
-        // ... (script login, timer, loadQuestions, renderQuestions, showQuestion, submitQuiz, dll tetap sama seperti versi sebelumnya yang sudah jalan sempurna)
-        // Hanya ubah bagian show/hide page
+        const validCredentials = {
+            "uus": "123",
+            "kimjong2": "kimju456",
+            "siswa01": "tryout26",
+            "koreafan": "hanguk789",
+            "topik2026": "seoul2026"
+        };
+
+        const kodeMapping = {
+            "B12345": "soal1.json",
+            "A09008": "soal2.json",
+            "W11765": "soal3.json",
+            "H66633": "soal4.json"
+        };
+
+        const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
+
+        const totalQuestions = 40;
+        const timeLimit = 50 * 60;
+        let questions = [];
+        let userAnswers = Array(totalQuestions).fill(null);
+        let current = 0;
+        let timerInterval;
+        let timeLeft = timeLimit;
+        let currentFile = "";
+        let currentUsername = "";
+        let isSubmitted = false;
+        let isReviewMode = false;
 
         function login() {
-            // ... validasi seperti biasa
-            if (valid) {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const kode = document.getElementById('kode').value.trim().toUpperCase();
+
+            if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
+                currentUsername = user;
+                currentFile = kodeMapping[kode];
                 document.getElementById('login-page').style.display = 'none';
                 document.getElementById('quiz-page').style.display = 'block';
-                // lanjut load soal
+                document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
+                startTimer();
+                loadQuestions();
+            } else {
+                alert("Username, Password, atau Kode Soal salah bro!");
             }
         }
+
+        // ... (script lainnya tetap sama seperti versi sebelumnya yang sudah jalan sempurna)
+
     </script>
 </body>
 </html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Hasil Latihan Reading</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #d32f2f; }
+        .login { text-align: center; margin: 50px 0; }
+        input, button { padding: 12px; margin: 10px; font-size: 1.1em; border-radius: 8px; border: 1px solid #ccc; }
+        button { background: #d32f2f; color: white; border: none; cursor: pointer; width: 200px; }
+        button:hover { background: #b71c1c; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #d32f2f; color: white; }
+        tr:hover { background: #fff3e0; }
+        .actions { text-align: center; margin-top: 30px; }
+        .actions button { background: #f57c00; width: auto; padding: 10px 20px; }
+        .actions button:hover { background: #e65100; }
+        #data-container { display: none; }
+        .empty { text-align: center; color: #999; font-size: 1.2em; margin: 50px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ADMIN - Hasil Latihan Reading</h1>
+
+        <div id="login-admin" class="login">
+            <h2>Login Admin</h2>
+            <input type="password" id="admin-pass" placeholder="Password Admin">
+            <br>
+            <button onclick="loginAdmin()">Masuk</button>
+            <p style="margin-top:20px; color:#666;">Password default: <strong>admin123</strong></p>
+        </div>
+
+        <div id="data-container">
+            <h2 style="text-align:center;">Daftar Hasil Latihan Siswa</h2>
+            <div id="empty-message" class="empty">Belum ada data hasil latihan.</div>
+            <table id="tabel-hasil" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Username</th>
+                        <th>Paket Soal</th>
+                        <th>Skor</th>
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <div class="actions">
+                <button onclick="hapusSemuaData()">🗑️ Hapus Semua Data</button>
+                <button onclick="location.reload()">🔄 Refresh Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_PASSWORD = "admin123"; // Ganti kalau mau lebih aman
+
+        function loginAdmin() {
+            const pass = document.getElementById('admin-pass').value;
+            if (pass === ADMIN_PASSWORD) {
+                document.getElementById('login-admin').style.display = 'none';
+                document.getElementById('data-container').style.display = 'block';
+                loadData();
+            } else {
+                alert("Password admin salah bro!");
+            }
+        }
+
+        function loadData() {
+            const data = JSON.parse(localStorage.getItem('hasilLatihanReading') || '[]');
+            const tbody = document.querySelector('#tabel-hasil tbody');
+            const emptyMsg = document.getElementById('empty-message');
+            const table = document.getElementById('tabel-hasil');
+
+            if (data.length === 0) {
+                emptyMsg.style.display = 'block';
+                table.style.display = 'none';
+                return;
+            }
+
+            emptyMsg.style.display = 'none';
+            table.style.display = 'table';
+
+            tbody.innerHTML = '';
+            data.sort((a,b) => b.timestamp - a.timestamp); // terbaru di atas
+
+            data.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${item.username}</strong></td>
+                    <td>${item.paket}</td>
+                    <td><strong>${item.skor}/${item.total} (${item.persentase}%)</strong></td>
+                    <td>${item.tanggal}</td>
+                    <td>${item.jam}</td>
+                    <td>${item.waktuHabis ? '⏰ Waktu Habis' : '✅ Selesai Tepat Waktu'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function hapusSemuaData() {
+            if (confirm("Yakin mau hapus SEMUA data hasil latihan? Ini nggak bisa dibalikin loh!")) {
+                localStorage.removeItem('hasilLatihanReading');
+                alert("Semua data sudah dihapus!");
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

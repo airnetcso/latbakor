@@ -74,11 +74,7 @@
             justify-content: center;
             align-items: center;
         }
-        .timer-wrapper {
-            text-align: center;
-        }
         .timer {
-            display: inline-block;
             padding: 12px 50px;
             background: #4caf50;
             color: white;
@@ -165,17 +161,17 @@
         }
 
         .options {
-            margin-top: 25px;
+            margin-top: 20px;
         }
         .option-item {
             display: flex;
-            align-items: center;
-            margin: 20px 0;
+            align-items: flex-start; /* rata atas, biar bulatan rata kiri dengan teks */
+            margin: 12px 0; /* lebih rapat */
             font-size: 1.2em;
         }
         .circle-number {
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             background: #333;
             color: white;
             border-radius: 50%;
@@ -183,20 +179,21 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.2em;
-            margin-right: 20px;
+            font-size: 1.1em;
+            margin-right: 18px;
             flex-shrink: 0;
         }
         .option-text {
             flex: 1;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         .option-item input[type="radio"] {
-            transform: scale(1.6);
-            margin-right: 18px;
+            transform: scale(1.5);
+            margin-right: 15px;
+            margin-top: 4px; /* biar radio button rata dengan bulatan */
         }
 
-        /* Tombol Bawah - ukuran & warna sama */
+        /* Tombol Bawah */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -261,9 +258,7 @@
     <!-- Quiz Page -->
     <div id="quiz-page" style="display:none;">
         <div class="header-fixed">
-            <div class="timer-wrapper">
-                <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
-            </div>
+            <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
         </div>
 
         <div class="container">
@@ -273,9 +268,9 @@
             <form id="quiz-form"></form>
 
             <div class="nav-buttons">
-                <button id="prev" disabled>PREV</button>
-                <button id="submit">SUBMIT</button>
-                <button id="next">NEXT</button>
+                <button id="prev" disabled>◄ Sebelumnya</button>
+                <button id="submit">Submit Sekarang</button>
+                <button id="next">Berikutnya ►</button>
             </div>
 
             <div id="result"></div>

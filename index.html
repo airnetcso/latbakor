@@ -41,12 +41,11 @@ font-size:1em;
 }
 
 button{
-width:100%;
 padding:14px;
 background:#3f51b5;
 color:#fff;
 border:none;
-border-radius:10px;
+border-radius:12px;
 font-size:1.1em;
 font-weight:bold;
 cursor:pointer;
@@ -56,33 +55,52 @@ button:hover{background:#283593}
 
 /* QUIZ */
 #quiz-page{display:none}
+
 .container{
 max-width:600px;
 margin:auto;
-padding:90px 15px 15px;
+padding:110px 15px 15px;
 background:#fff;
 }
 
+/* HEADER ATAS */
 .header-fixed{
 position:fixed;
-top:0;width:100%;
-background:#fff;
+top:0;
+left:0;
+width:100%;
 padding:15px;
 display:flex;
-justify-content:center;
+justify-content:space-between;
+align-items:center;
+background:#fff;
 box-shadow:0 4px 15px rgba(0,0,0,.1);
 z-index:1000;
 }
 
+/* SUBMIT ATAS KIRI */
+.submit-top{
+width:130px;
+height:52px;
+border-radius:12px;
+font-size:1.1em;
+}
+
+/* TIMER ATAS KANAN */
 .timer{
+width:130px;
+height:52px;
+display:flex;
+align-items:center;
+justify-content:center;
 background:#4caf50;
 color:#fff;
-padding:10px 30px;
-border-radius:0px;
+border-radius:12px;
 font-size:1.4em;
 font-weight:bold;
 }
 
+/* QUESTION */
 .question-wrapper{display:none}
 .question-wrapper.active{display:block}
 
@@ -101,6 +119,7 @@ border-radius:14px;
 
 /* OPSI */
 .options{margin-top:20px}
+
 .option-item{
 display:flex;
 align-items:center;
@@ -165,7 +184,8 @@ border-radius:16px;
 
 <div id="quiz-page">
 <div class="header-fixed">
-<div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+<button id="submit" class="submit-top">SUBMIT</button>
+<div class="timer" id="timer">50:00</div>
 </div>
 
 <div class="container">
@@ -174,7 +194,6 @@ border-radius:16px;
 
 <div class="nav-buttons">
 <button id="prev">PREV</button>
-<button id="submit">SUBMIT</button>
 <button id="next">NEXT</button>
 </div>
 
@@ -196,27 +215,28 @@ const kodeMapping={
 };
 
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
-let questions=[],current=0,userAnswers=[],timer=3000,timerInt;
+let questions=[],current=0,userAnswers=[],timeLeft=3000,timerInt,isSubmitted=false;
 
 function login(){
-const u=document.getElementById("username").value.trim();
-const p=document.getElementById("password").value.trim();
-const k=document.getElementById("kode").value.trim().toUpperCase();
+const u=username.value.trim();
+const p=password.value.trim();
+const k=kode.value.trim().toUpperCase();
 
 if(validCredentials[u]===p && kodeMapping[k]){
 document.getElementById("login-page").style.display="none";
 document.getElementById("quiz-page").style.display="block";
-loadQuestions(kodeMapping[k]);
 startTimer();
+loadQuestions(kodeMapping[k]);
 }else alert("Username, Password, atau Kode Soal salah bro!");
 }
 
 function startTimer(){
 timerInt=setInterval(()=>{
-timer--;
+timeLeft--;
 document.getElementById("timer").textContent=
-"Waktu Tersisa: "+String(timer/60|0).padStart(2,"0")+":"+
-String(timer%60).padStart(2,"0");
+String(timeLeft/60|0).padStart(2,"0")+":"+
+String(timeLeft%60).padStart(2,"0");
+if(timeLeft<=0 && !isSubmitted) submitQuiz(true);
 },1000);
 }
 
@@ -242,7 +262,7 @@ h+=`
 <div class="option-item">
 <input type="radio" name="q${i}" value="${k}" id="o${i}${k}">
 <span class="option-number">${idx+1}</span>
-<label class="option-text" for="o${i}${k}">${q.options[k]}</label>
+<label for="o${i}${k}" class="option-text">${q.options[k]}</label>
 </div>`;
 });
 h+=`</div></div>`;
@@ -259,8 +279,17 @@ current=n;
 
 document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
 document.getElementById("prev").onclick=()=>current>0&&show(current-1);
+document.getElementById("submit").onclick=()=>confirm("Yakin submit sekarang?")&&submitQuiz();
+
+function submitQuiz(){
+isSubmitted=true;
+clearInterval(timerInt);
+let s=0;
+questions.forEach((q,i)=>userAnswers[i]===q.correct&&s++);
+document.getElementById("result").innerHTML=`Skor: <strong>${s}/${questions.length}</strong>`;
+document.getElementById("result").style.display="block";
+}
 </script>
 
 </body>
 </html>
-

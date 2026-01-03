@@ -1,266 +1,330 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Latihan Reading Korea - 40 Soal</title>
-
+<title>Latihan Reading Korea</title>
 <style>
 body{
-font-family:'Segoe UI',Arial,sans-serif;
-margin:0;background:#f5f5f5;color:#333;
+  margin:0;
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#f5f5f5;
 }
 
 /* LOGIN */
 #login-page{
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
-url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
-center/cover no-repeat fixed;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+    url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
+    center/cover no-repeat;
 }
 
 .login-container{
-background:rgba(255,255,255,.95);
-padding:40px;
-border-radius:20px;
-width:90%;
-max-width:380px;
-text-align:center;
+  width:90%;
+  max-width:380px;
+  background:#fff;
+  padding:35px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  border-radius:0; /* hilangkan border-radius */
 }
 
-.login-container input{
-width:100%;
-padding:14px;
-margin:10px 0;
-border-radius:10px;
-border:2px solid #bbb;
-font-size:1em;
+.login-container h1{color:#1a237e}
+.login-container h2{color:#4a148c}
+.login-container p{color:#555}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:2px solid #bbb;
+  border-radius:0; /* hilangkan border-radius */
 }
 
 button{
-width:100%;
-padding:14px;
-background:#3f51b5;
-color:#fff;
-border:none;
-border-radius:10px;
-font-size:1.1em;
-font-weight:bold;
-cursor:pointer;
+  width:100%;
+  padding:16px;
+  margin-top:10px;
+  background:#3f51b5;
+  color:#fff;
+  border:none;
+  border-radius:0; /* hilangkan border-radius */
+  font-weight:bold;
+  cursor:pointer;
 }
 
-button:hover{background:#283593}
-
 /* QUIZ */
-#quiz-page{display:none}
-.container{
-max-width:600px;
-margin:auto;
-padding:90px 15px 15px;
-background:#fff;
+#quiz-page{
+  display:none;
+  min-height:100vh;
+  padding-top:70px;
+  padding-bottom:70px;
 }
 
 .header-fixed{
-position:fixed;
-top:0;width:100%;
-background:#fff;
-padding:15px;
-display:flex;
-justify-content:center;
-box-shadow:0 4px 15px rgba(0,0,0,.1);
-z-index:1000;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  z-index:1000;
+  padding:6px 6px; /* dikurangi kanan/kiri */
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.timer{
-background:#4caf50;
-color:#fff;
-padding:10px 30px;
-border-radius:12px;
-font-size:1.4em;
-font-weight:bold;
+.timer, .submit-top{
+  flex:1;
+  text-align:center;
+  padding:12px 0;
+  margin:0 4px;
+  font-weight:bold;
+  font-size:1em;
+  color:#fff;
+  border-radius:0; /* hilangkan border-radius */
 }
 
-.question-wrapper{display:none}
+.timer{background:#4caf50;}      /* hijau */
+.submit-top{background:#f44336;} /* merah */
+
+/* Container soal lebih sempit supaya tidak mepet kanan */
+.container{
+  max-width:540px; /* dikurangi dari sebelumnya 580px */
+  margin:auto;
+  padding:10px 5px; /* padding kiri & kanan lebih kecil */
+  overflow:auto;
+  height:calc(100vh - 140px);
+}
+
+.question-wrapper{display:none; margin-bottom:30px;}
 .question-wrapper.active{display:block}
 
 .box-passage{
-background:#e3f2fd;
-padding:20px;
-border-radius:14px;
-margin-bottom:15px;
+  background:#e3f2fd;
+  padding:20px;
+  border:2px solid #bbdefb;
+  margin-bottom:15px;
+  border-radius:0; /* hilangkan border-radius */
 }
+.box-passage audio, .box-passage img{width:100%; margin-top:10px; border-radius:0;}
 
 .box-question{
-background:#fff3e0;
-padding:20px;
-border-radius:14px;
+  background:#fff3e0;
+  padding:20px;
+  border:2px solid #ffcc80;
+  border-radius:0; /* hilangkan border-radius */
 }
 
-/* OPSI */
-.options{margin-top:20px}
+.options {margin-top:15px;}
 .option-item{
-display:flex;
-align-items:center;
-gap:12px;
-margin:12px 0;
+  display:flex;
+  align-items:flex-start;
+  margin:10px 0;
+  cursor:pointer;
+}
+.option-item input[type="radio"]{
+  width:20px;
+  height:20px;
+  margin-right:10px;
+  margin-top:3px;
+}
+.option-letter{
+  font-weight:bold;
+  color:#1976d2;
+  min-width:20px;
+  display:inline-block;
+}
+.option-text{
+  line-height:1.4;
+  flex:1;
 }
 
-.option-item input{display:none}
-
-.option-number{
-width:34px;height:34px;
-border-radius:50%;
-border:2px solid #3f51b5;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-color:#3f51b5;
-flex-shrink:0;
+/* NAV BOTTOM */
+.nav-bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  gap:6px;
+  padding:6px 6px; /* dikurangi kanan/kiri */
+  box-shadow:0 -4px 10px rgba(0,0,0,.1);
+}
+.nav-bottom button{
+  flex:1;
+  padding:12px 0;
+  font-weight:bold;
+  font-size:1em;
+  border:none;
+  color:#fff;
+  border-radius:0; /* hilangkan border-radius */
 }
 
-.option-text{cursor:pointer}
-
-.option-item input:checked + .option-number{
-background:#3f51b5;
-color:#fff;
-}
-
-/* NAV */
-.nav-buttons{
-display:flex;
-gap:10px;
-margin:30px 0;
-}
-
-.nav-buttons button{flex:1}
-
-#result{
-display:none;
-text-align:center;
-font-size:1.6em;
-background:#e8f5e9;
-padding:30px;
-border-radius:16px;
-}
+#prev{background:#2196f3;}  /* biru */
+#next{background:#ff9800;}  /* oranye */
 </style>
 </head>
-
 <body>
 
+<!-- LOGIN PAGE -->
 <div id="login-page">
-<div class="login-container">
-<h1>Latihan Reading Korea</h1>
-<p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
-<h2>🔐 Masuk ke Latihan</h2>
-<input type="text" id="username" placeholder="Username / 이름">
-<input type="password" id="password" placeholder="Password / 비밀번호">
-<input type="text" id="kode" placeholder="Kode Soal / 시험코드">
-<button onclick="login()">MULAI / 시작</button>
-</div>
+  <div class="login-container">
+    <h1>Latihan Reading Korea</h1>
+    <p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
+    <h2>🔐 Masuk ke Latihan</h2>
+    <input id="username" placeholder="Username / 이름">
+    <input id="password" type="password" placeholder="Password / 비밀번호">
+    <input id="kode" placeholder="Kode Soal / 시험코드">
+    <button id="btnLogin">MULAI / 시작</button>
+  </div>
 </div>
 
+<!-- QUIZ PAGE -->
 <div id="quiz-page">
-<div class="header-fixed">
-<div class="timer" id="timer">Waktu Tersisa: 50:00</div>
-</div>
+  <div class="header-fixed">
+    <div class="submit-top" id="submitTop">SUBMIT</div>
+    <div class="timer" id="timer">50:00</div>
+  </div>
 
-<div class="container">
-<div id="loading">Memuat soal... sabar ya bro 😎</div>
-<form id="quiz-form"></form>
+  <div class="container">
+    <form id="quiz-form"></form>
+  </div>
 
-<div class="nav-buttons">
-<button id="prev">PREV</button>
-<button id="submit">SUBMIT</button>
-<button id="next">NEXT</button>
-</div>
-
-<div id="result"></div>
-</div>
+  <div class="nav-bottom">
+    <button id="prev">PREV</button>
+    <button id="next">NEXT</button>
+  </div>
 </div>
 
 <script>
-const validCredentials={
-"uus":"123","kimjong2":"kimju456","siswa01":"tryout26",
-"koreafan":"hanguk789","topik2026":"seoul2026"
-};
+document.addEventListener("DOMContentLoaded",()=>{
+  const loginPage=document.getElementById("login-page");
+  const quizPage=document.getElementById("quiz-page");
+  const btnLogin=document.getElementById("btnLogin");
+  const form=document.getElementById("quiz-form");
+  const prev=document.getElementById("prev");
+  const next=document.getElementById("next");
+  const submitTop=document.getElementById("submitTop");
 
-const kodeMapping={
-"B12345":"soal1.json",
-"A09008":"soal2.json",
-"W11765":"soal3.json",
-"H66633":"soal4.json"
-};
+  const validCredentials={
+    "uus":"123",
+    "kimjong2":"kimju456",
+    "siswa01":"tryout26",
+    "koreafan":"hanguk789",
+    "topik2026":"seoul2026"
+  };
 
-const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
-let questions=[],current=0,userAnswers=[],timer=3000,timerInt;
+  const kodeMapping={
+    "B12345":"soal1.json",
+    "A09008":"soal2.json",
+    "W11765":"soal3.json",
+    "H66633":"soal4.json"
+  };
 
-function login(){
-const u=document.getElementById("username").value.trim();
-const p=document.getElementById("password").value.trim();
-const k=document.getElementById("kode").value.trim().toUpperCase();
+  const GITHUB_RAW_BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-if(validCredentials[u]===p && kodeMapping[k]){
-document.getElementById("login-page").style.display="none";
-document.getElementById("quiz-page").style.display="block";
-loadQuestions(kodeMapping[k]);
-startTimer();
-}else alert("Username, Password, atau Kode Soal salah bro!");
-}
+  let questions=[];
+  let current=0;
+  let userAnswers=[];
+  let timerInterval;
+  let timeLeft=50*60;
 
-function startTimer(){
-timerInt=setInterval(()=>{
-timer--;
-document.getElementById("timer").textContent=
-"Waktu Tersisa: "+String(timer/60|0).padStart(2,"0")+":"+
-String(timer%60).padStart(2,"0");
-},1000);
-}
+  btnLogin.addEventListener("click",()=>{
+    const u=username.value.trim();
+    const p=password.value.trim();
+    const k=kode.value.trim().toUpperCase();
+    if(validCredentials[u] && validCredentials[u]===p && kodeMapping[k]){
+      loginPage.style.display="none";
+      quizPage.style.display="block";
+      startTimer();
+      loadSoal(kodeMapping[k]);
+    }else{
+      alert("Username, Password, atau Kode Soal salah bro!");
+    }
+  });
 
-async function loadQuestions(file){
-const r=await fetch(`${BASE}/${file}`);
-questions=await r.json();
-render();
-document.getElementById("loading").style.display="none";
-show(0);
-}
+  async function loadSoal(file){
+    try{
+      const res=await fetch(GITHUB_RAW_BASE+file+"?t="+Date.now());
+      if(!res.ok) throw new Error("File tidak ditemukan");
+      questions=await res.json();
+      userAnswers=Array(questions.length).fill(null);
+      render();
+      show(0);
+    }catch(e){
+      alert("Gagal load file soal! "+e.message);
+      console.error(e);
+    }
+  }
 
-function render(){
-const f=document.getElementById("quiz-form");
-f.innerHTML="";
-questions.forEach((q,i)=>{
-const d=document.createElement("div");
-d.className="question-wrapper";
-let h=`
-<div class="box-passage"><p>${q.passage}</p></div>
-<div class="box-question"><p>${q.question}</p><div class="options">`;
-Object.keys(q.options).forEach((k,idx)=>{
-h+=`
-<div class="option-item">
-<input type="radio" name="q${i}" value="${k}" id="o${i}${k}">
-<span class="option-number">${idx+1}</span>
-<label class="option-text" for="o${i}${k}">${q.options[k]}</label>
-</div>`;
+  function render(){
+    form.innerHTML="";
+    questions.forEach((q,i)=>{
+      const div=document.createElement("div");
+      div.className="question-wrapper";
+      let html=`
+        <div class="box-passage">
+          ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
+          ${q.image?`<img src="${q.image}" alt="Gambar ${i+1}">`:""}
+        </div>
+        <div class="box-question">
+          <p><strong>Pertanyaan ${i+1}:</strong> ${q.question}</p>
+          <div class="options">
+      `;
+      const letters=["1","2","3","4"];
+      letters.forEach((l,idx)=>{
+        const keys=Object.keys(q.options);
+        if(idx<keys.length){
+          const key=keys[idx];
+          const val=q.options[key];
+          html+=`
+            <label class="option-item">
+              <input type="radio" name="q${i}" value="${key}">
+              <span class="option-letter">${l}</span>
+              <span class="option-text">${val}</span>
+            </label>
+          `;
+        }
+      });
+      html+="</div></div>";
+      div.innerHTML=html;
+      form.appendChild(div);
+
+      div.querySelectorAll("input[type=radio]").forEach(r=>{
+        r.addEventListener("change",()=>userAnswers[i]=r.value);
+      });
+    });
+  }
+
+  function show(n){
+    document.querySelectorAll(".question-wrapper")
+      .forEach((q,i)=>q.classList.toggle("active",i===n));
+    current=n;
+  }
+
+  prev.onclick=()=>current>0 && show(current-1);
+  next.onclick=()=>current<questions.length-1 && show(current+1);
+  submitTop.onclick=()=>alert("SUBMIT OK (dummy)");
+
+  function startTimer(){
+    timerInterval=setInterval(()=>{
+      const mins=String(Math.floor(timeLeft/60)).padStart(2,'0');
+      const secs=String(timeLeft%60).padStart(2,'0');
+      document.getElementById("timer").textContent=`${mins}:${secs}`;
+      timeLeft--;
+      if(timeLeft<0) clearInterval(timerInterval);
+    },1000);
+  }
 });
-h+=`</div></div>`;
-d.innerHTML=h;
-f.appendChild(d);
-});
-}
-
-function show(n){
-document.querySelectorAll(".question-wrapper")
-.forEach((q,i)=>q.classList.toggle("active",i===n));
-current=n;
-}
-
-document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
-document.getElementById("prev").onclick=()=>current>0&&show(current-1);
 </script>
 
 </body>
 </html>
+

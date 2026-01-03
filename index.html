@@ -11,12 +11,12 @@
             padding: 0;
             color: #333;
             min-height: 100vh;
-            background: #f5f5f5;
         }
 
         /* Login Page */
         #login-page {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -47,19 +47,20 @@
             font-size: 1.5em;
         }
 
-        /* Quiz Page - Lebar statik untuk HP */
+        /* Quiz Page */
         #quiz-page {
+            background: #f5f5f5;
             min-height: 100vh;
         }
         .container {
-            max-width: 600px; /* lebar tetap, pas di HP */
+            max-width: 600px;
             margin: 0 auto;
             padding: 15px;
             background: white;
-            padding-top: 90px; /* space untuk timer fixed */
+            padding-top: 90px;
         }
 
-        /* Timer fixed di atas, posisi tengah */
+        /* Timer fixed tengah atas */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -80,7 +81,6 @@
             border-radius: 12px;
             font-size: 1.6em;
             font-weight: bold;
-            text-align: center;
         }
 
         .progress {
@@ -137,7 +137,6 @@
         .question-wrapper.active {
             display: block;
         }
-
         .box-passage {
             background: #e3f2fd;
             padding: 25px;
@@ -154,7 +153,6 @@
             border-radius: 12px;
             margin: 15px 0;
         }
-
         .box-question {
             background: #fff3e0;
             padding: 25px;
@@ -194,7 +192,7 @@
             margin-right: 18px;
         }
 
-        /* 3 Tombol Bawah - ukuran & warna sama */
+        /* Tombol Bawah - ukuran & warna sama */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -251,7 +249,7 @@
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username / 이름">
             <input type="password" id="password" placeholder="Password / 비밀번호">
-            <input type="text" id="kode" placeholder="Kode Soaㅣ / 시험코드" maxlength="6">
+            <input type="text" id="kode" placeholder="Kode Soal / 시험코드" maxlength="6">
             <button onclick="login()">MULAI / 시작</button>
         </div>
     </div>
@@ -269,16 +267,16 @@
             <form id="quiz-form"></form>
 
             <div class="nav-buttons">
-                <button id="prev" disabled>PREV</button>
-                <button id="submit">SUBMIT</button>
-                <button id="next">NEXT</button>
+                <button id="prev" disabled>◄ Sebelumnya</button>
+                <button id="submit">Submit Sekarang</button>
+                <button id="next">Berikutnya ►</button>
             </div>
 
             <div id="result"></div>
         </div>
 
         <div class="footer">
-            © 2026 <strong>Denzuka - Kim JongUn</strong><br>All Rights Reserved.
+            © 2026 <strong>Denzuka - KimJongUn</strong><br>All Rights Reserved.
         </div>
     </div>
 
@@ -335,7 +333,9 @@
                 const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
                 const secs = String(timeLeft % 60).padStart(2, '0');
                 document.getElementById('timer').textContent = `Waktu Tersisa: ${mins}:${secs}`;
-                if (timeLeft <= 120) document.getElementById('timer').style.background = '#f44336';
+                if (timeLeft <= 120) {
+                    document.getElementById('timer').style.background = '#f44336';
+                }
                 if (timeLeft <= 0 && !isSubmitted) {
                     clearInterval(timerInterval);
                     submitQuiz(true);
@@ -366,7 +366,7 @@
                 let html = `
                     <div class="box-passage">
                         <p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>
-                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Audio tidak support</audio>` : ''}
+                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Browser tidak support audio.</audio>` : ''}
                         ${q.image ? `<img src="${q.image}" alt="Gambar ${i+1}">` : ''}
                     </div>
                     <div class="box-question">
@@ -390,7 +390,11 @@
                     }
                 });
 
-                html += `</div></div>`;
+                html += `
+                        </div>
+                    </div>
+                `;
+
                 wrapper.innerHTML = html;
                 form.appendChild(wrapper);
 
@@ -401,7 +405,9 @@
         }
 
         function showQuestion(n) {
-            document.querySelectorAll('.question-wrapper').forEach((q, i) => q.classList.toggle('active', i === n));
+            document.querySelectorAll('.question-wrapper').forEach((q, i) => {
+                q.classList.toggle('active', i === n);
+            });
             document.getElementById('prev').disabled = n === 0;
             document.getElementById('next').disabled = n === totalQuestions - 1;
             document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
@@ -409,8 +415,12 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
-        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
+        document.getElementById('next').onclick = () => {
+            if (current < totalQuestions - 1) showQuestion(current + 1);
+        };
+        document.getElementById('prev').onclick = () => {
+            if (current > 0) showQuestion(current - 1);
+        };
         document.getElementById('submit').onclick = () => {
             if (confirm("Yakin submit sekarang?")) submitQuiz(false);
         };
@@ -437,4 +447,3 @@
     </script>
 </body>
 </html>
-

@@ -11,12 +11,11 @@
             padding: 0;
             color: #333;
             min-height: 100vh;
+            background: #f5f5f5;
         }
-
         /* Login Page */
         #login-page {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat fixed;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -46,10 +45,8 @@
             margin-bottom: 30px;
             font-size: 1.5em;
         }
-
-        /* Quiz Page */
+        /* Quiz Page - Lebar statik untuk HP */
         #quiz-page {
-            background: #f5f5f5;
             min-height: 100vh;
         }
         .container {
@@ -59,8 +56,7 @@
             background: white;
             padding-top: 90px;
         }
-
-        /* Timer fixed tengah atas */
+        /* Timer fixed di atas, posisi tengah */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -69,20 +65,20 @@
             background: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
-            padding: 15px 0;
+            padding: 15px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         .timer {
-            padding: 12px 50px;
+            padding: 12px 40px;
             background: #4caf50;
             color: white;
             border-radius: 12px;
             font-size: 1.6em;
             font-weight: bold;
+            text-align: center;
         }
-
         .progress {
             height: 20px;
             background: #c5cae9;
@@ -97,7 +93,6 @@
             border-radius: 10px;
             transition: width 0.5s ease;
         }
-
         input {
             padding: 16px;
             margin: 12px 0;
@@ -128,7 +123,6 @@
         button:hover {
             background: #283593;
         }
-
         /* Box Soal Dibagi 2 */
         .question-wrapper {
             display: none;
@@ -159,19 +153,18 @@
             border-radius: 16px;
             border: 2px solid #ffcc80;
         }
-
         .options {
-            margin-top: 20px;
+            margin-top: 25px;
         }
         .option-item {
             display: flex;
-            align-items: flex-start; /* rata atas, biar bulatan rata kiri dengan teks */
-            margin: 12px 0; /* lebih rapat */
+            align-items: flex-start; /* rata atas */
+            margin: 10px 0; /* lebih rapat */
             font-size: 1.2em;
         }
         .circle-number {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             background: #333;
             color: white;
             border-radius: 50%;
@@ -179,21 +172,20 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.1em;
+            font-size: 1.2em;
             margin-right: 18px;
             flex-shrink: 0;
         }
         .option-text {
             flex: 1;
-            line-height: 1.4;
+            line-height: 1.5;
         }
         .option-item input[type="radio"] {
-            transform: scale(1.5);
-            margin-right: 15px;
-            margin-top: 4px; /* biar radio button rata dengan bulatan */
+            transform: scale(1.6);
+            margin-right: 18px;
+            margin-top: 6px; /* penyesuaian agar rata dengan lingkaran */
         }
-
-        /* Tombol Bawah */
+        /* 3 Tombol Bawah */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -209,7 +201,6 @@
         .nav-buttons button:hover {
             background: #283593;
         }
-
         #result {
             text-align: center;
             font-size: 1.8em;
@@ -241,7 +232,6 @@
     </style>
 </head>
 <body>
-
     <!-- Login Page -->
     <div id="login-page">
         <div class="login-container">
@@ -264,13 +254,13 @@
         <div class="container">
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
-            
+           
             <form id="quiz-form"></form>
 
             <div class="nav-buttons">
-                <button id="prev" disabled>◄ Sebelumnya</button>
-                <button id="submit">Submit Sekarang</button>
-                <button id="next">Berikutnya ►</button>
+                <button id="prev" disabled>PREV</button>
+                <button id="submit">SUBMIT</button>
+                <button id="next">NEXT</button>
             </div>
 
             <div id="result"></div>
@@ -289,16 +279,13 @@
             "koreafan": "hanguk789",
             "topik2026": "seoul2026"
         };
-
         const kodeMapping = {
             "B12345": "soal1.json",
             "A09008": "soal2.json",
             "W11765": "soal3.json",
             "H66633": "soal4.json"
         };
-
         const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
-
         const totalQuestions = 40;
         const timeLimit = 50 * 60;
         let questions = [];
@@ -314,7 +301,6 @@
             const user = document.getElementById('username').value.trim();
             const pass = document.getElementById('password').value.trim();
             const kode = document.getElementById('kode').value.trim().toUpperCase();
-
             if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
                 currentUsername = user;
                 currentFile = kodeMapping[kode];
@@ -334,9 +320,7 @@
                 const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
                 const secs = String(timeLeft % 60).padStart(2, '0');
                 document.getElementById('timer').textContent = `Waktu Tersisa: ${mins}:${secs}`;
-                if (timeLeft <= 120) {
-                    document.getElementById('timer').style.background = '#f44336';
-                }
+                if (timeLeft <= 120) document.getElementById('timer').style.background = '#f44336';
                 if (timeLeft <= 0 && !isSubmitted) {
                     clearInterval(timerInterval);
                     submitQuiz(true);
@@ -363,7 +347,6 @@
             questions.forEach((q, i) => {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'question-wrapper';
-
                 let html = `
                     <div class="box-passage">
                         <p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>
@@ -374,7 +357,6 @@
                         <p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p>
                         <div class="options">
                 `;
-
                 const letters = ['1', '2', '3', '4'];
                 letters.forEach((letter, idx) => {
                     const keys = Object.keys(q.options);
@@ -390,15 +372,9 @@
                         `;
                     }
                 });
-
-                html += `
-                        </div>
-                    </div>
-                `;
-
+                html += `</div></div>`;
                 wrapper.innerHTML = html;
                 form.appendChild(wrapper);
-
                 wrapper.querySelectorAll('input[type="radio"]').forEach(radio => {
                     radio.addEventListener('change', () => userAnswers[i] = radio.value);
                 });
@@ -424,17 +400,14 @@
             if (isSubmitted) return;
             isSubmitted = true;
             clearInterval(timerInterval);
-
             let score = 0;
             questions.forEach((q, i) => {
                 if (userAnswers[i] === q.correct) score++;
             });
-
             const percent = Math.round(score / totalQuestions * 100);
             let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
             message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
             message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
-
             document.getElementById('result').innerHTML = message;
             document.getElementById('result').style.display = 'block';
             document.querySelector('.nav-buttons').style.display = 'none';

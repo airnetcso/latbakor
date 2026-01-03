@@ -6,74 +6,173 @@
 <title>Latihan Reading Korea</title>
 
 <style>
-body{margin:0;font-family:Arial,sans-serif;background:#f5f5f5}
-#login-page,#quiz-page,#result-page{display:none}
+body{
+  margin:0;
+  font-family:'Segoe UI',Arial,sans-serif;
+  background:#f5f5f5;
+}
 
 /* LOGIN */
 #login-page{
-  min-height:100vh;display:flex;
-  justify-content:center;align-items:center;
-  background:#263238
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:
+    linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+    url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg')
+    center/cover no-repeat;
 }
-.login-box{
-  background:#fff;padding:30px;
-  width:90%;max-width:380px;text-align:center
+
+.login-container{
+  width:90%;
+  max-width:380px;
+  background:#fff;
+  padding:35px;
+  text-align:center;
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
 }
-input,button{width:100%;padding:14px;margin:8px 0}
-button{background:#3f51b5;color:#fff;border:none;font-weight:bold;cursor:pointer}
+
+input,button{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:2px solid #bbb;
+  font-size:1em;
+}
+
+button{
+  background:#3f51b5;
+  color:#fff;
+  border:none;
+  font-weight:bold;
+  cursor:pointer;
+}
 
 /* QUIZ */
-#quiz-page{padding-top:60px;padding-bottom:60px}
-.header{
-  position:fixed;top:0;left:0;width:100%;
-  display:flex;z-index:1000
+#quiz-page{
+  display:none;
+  padding-top:70px;
+  padding-bottom:70px;
 }
-.submit-btn,.timer{
-  flex:1;padding:12px;
-  color:#fff;font-weight:bold;text-align:center
-}
-.submit-btn{background:#e53935}
-.timer{background:#43a047}
 
-.container{
-  max-width:540px;margin:auto;
-  padding:10px;height:calc(100vh - 120px);
-  overflow:auto
+/* HEADER */
+.header-fixed{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  gap:6px;
+  padding:6px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+  z-index:1000;
 }
-.qbox{display:none}
-.qbox.active{display:block}
 
-.option{display:flex;margin:8px 0;cursor:pointer}
-.option input{display:none}
-.circle{
-  width:24px;height:24px;
-  border:2px solid #888;
+.timer,.submit-top{
+  flex:1;
   text-align:center;
-  line-height:22px;
-  margin-right:8px
-}
-.option input:checked + .circle{
-  background:#bbdefb;border-color:#2196f3
+  padding:12px 0;
+  font-weight:bold;
+  color:#fff;
 }
 
-.nav{
-  position:fixed;bottom:0;left:0;width:100%;
-  display:flex
-}
-.nav button{
-  flex:1;padding:12px;
-  border:none;color:#fff;
-  font-weight:bold
-}
-#prev{background:#1e88e5}
-#next{background:#fb8c00}
+.timer{background:#4caf50;}
+.submit-top{background:#f44336;}
 
-/* RESULT */
-#result-page{padding:20px}
-.wrong{
-  background:#ffebee;
-  padding:10px;margin:8px 0
+/* CONTENT */
+.container{
+  max-width:540px;
+  margin:auto;
+  padding:10px 6px;
+  height:calc(100vh - 140px);
+  overflow:auto;
 }
+
+.question-wrapper{display:none}
+.question-wrapper.active{display:block}
+
+.box-passage{
+  background:#e3f2fd;
+  padding:15px;
+  border:2px solid #bbdefb;
+}
+.box-passage img,
+.box-passage audio{
+  width:100%;
+  margin-top:10px;
+}
+
+.box-question{
+  background:#fff3e0;
+  padding:15px;
+  border:2px solid #ffcc80;
+  margin-top:10px;
+}
+
+/* === OPSI JAWABAN (FINAL FIX) === */
+.options{
+  margin-top:15px;
+}
+
+.option-item{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin:12px 0;
+  cursor:pointer;
+}
+
+.option-item input{
+  display:none;
+}
+
+.option-circle{
+  width:28px;
+  height:28px;
+  border:2px solid #999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  background:#fff;
+  flex-shrink:0;
+}
+
+.option-item input:checked + .option-circle{
+  background:#bbdefb;
+  border-color:#1e88e5;
+}
+
+.option-text{
+  flex:1;
+  line-height:1.5;
+}
+
+/* NAV */
+.nav-bottom{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:#fff;
+  display:flex;
+  gap:6px;
+  padding:6px;
+  box-shadow:0 -4px 10px rgba(0,0,0,.1);
+}
+
+.nav-bottom button{
+  flex:1;
+  padding:12px 0;
+  font-weight:bold;
+  color:#fff;
+  border:none;
+}
+
+#prev{background:#2196f3;}
+#next{background:#ff9800;}
 </style>
 </head>
 
@@ -81,7 +180,7 @@ button{background:#3f51b5;color:#fff;border:none;font-weight:bold;cursor:pointer
 
 <!-- LOGIN -->
 <div id="login-page">
-  <div class="login-box">
+  <div class="login-container">
     <h2>Latihan Reading Korea</h2>
     <input id="username" placeholder="Username">
     <input id="password" type="password" placeholder="Password">
@@ -92,35 +191,22 @@ button{background:#3f51b5;color:#fff;border:none;font-weight:bold;cursor:pointer
 
 <!-- QUIZ -->
 <div id="quiz-page">
-  <div class="header">
-    <div class="submit-btn" id="submitBtn">SUBMIT</div>
+  <div class="header-fixed">
+    <div class="submit-top" id="submitTop">SUBMIT</div>
     <div class="timer" id="timer">50:00</div>
   </div>
 
-  <div class="container" id="quizForm"></div>
+  <div class="container">
+    <form id="quiz-form"></form>
+  </div>
 
-  <div class="nav">
+  <div class="nav-bottom">
     <button id="prev">PREV</button>
     <button id="next">NEXT</button>
   </div>
 </div>
 
-<!-- RESULT -->
-<div id="result-page">
-  <h2>Hasil Ujian</h2>
-  <div id="score"></div>
-  <div id="review"></div>
-  <button onclick="backToLogin()">KEMBALI</button>
-</div>
-
 <script>
-/* ===== ELEMENT ===== */
-const loginPage=document.getElementById("login-page");
-const quizPage=document.getElementById("quiz-page");
-const resultPage=document.getElementById("result-page");
-const quizForm=document.getElementById("quizForm");
-
-/* ===== LOGIN DATA ===== */
 const validCredentials={
   "uus":"123",
   "kimjong2":"kimju456",
@@ -128,144 +214,106 @@ const validCredentials={
   "koreafan":"hanguk789",
   "topik2026":"seoul2026"
 };
+
 const kodeMapping={
   "B12345":"soal1.json",
   "A09008":"soal2.json",
   "W11765":"soal3.json",
   "H66633":"soal4.json"
 };
+
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-/* ===== STATE ===== */
-let questions=[],answers=[],current=0;
-let timeLeft=50*60,timerInt,submitted=false;
+let questions=[],current=0,answers=[];
+let timeLeft=50*60,timerInt;
 
-/* ===== LOGIN ===== */
-btnLogin.onclick=()=>{
-  const u=username.value.trim();
-  const p=password.value.trim();
-  const k=kode.value.trim().toUpperCase();
+/* LOGIN */
+document.getElementById("btnLogin").onclick=()=>{
+  const u=document.getElementById("username").value.trim();
+  const p=document.getElementById("password").value.trim();
+  const k=document.getElementById("kode").value.trim().toUpperCase();
 
-  if(validCredentials[u]!==p || !kodeMapping[k]){
-    alert("Username, Password, atau Kode Soal salah!");
+  if(!validCredentials[u]||validCredentials[u]!==p){
+    alert("Username / Password salah");
+    return;
+  }
+  if(!kodeMapping[k]){
+    alert("Kode soal salah");
     return;
   }
 
-  loginPage.style.display="none";
-  quizPage.style.display="block";
-  startTimer();
-  loadSoal(kodeMapping[k]);
+  fetch(BASE+kodeMapping[k]+"?t="+Date.now())
+    .then(r=>r.json())
+    .then(d=>{
+      questions=d;
+      answers=Array(d.length).fill(null);
+      document.getElementById("login-page").style.display="none";
+      document.getElementById("quiz-page").style.display="block";
+      startTimer();
+      render();
+      show(0);
+    })
+    .catch(()=>alert("Gagal load soal"));
 };
 
-/* ===== LOAD SOAL ===== */
-async function loadSoal(file){
-  const r=await fetch(BASE+file+"?t="+Date.now());
-  questions=(await r.json()).slice(0,25);
-  answers=Array(questions.length).fill(null);
-  render();
-  show(0);
-}
-
-/* ===== RENDER ===== */
+/* RENDER */
 function render(){
-  quizForm.innerHTML="";
+  const form=document.getElementById("quiz-form");
+  form.innerHTML="";
   questions.forEach((q,i)=>{
-    const d=document.createElement("div");
-    d.className="qbox";
-    d.innerHTML=`
-      ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
-      ${q.image?`<img src="${q.image}" width="100%">`:""}
-      <p><b>${i+1}.</b> ${q.question}</p>
-      ${Object.entries(q.options).map(([k,v],n)=>`
-        <label class="option">
-          <input type="radio" name="q${i}" value="${k}">
-          <span class="circle">${n+1}</span>${v}
-        </label>
-      `).join("")}
+    const div=document.createElement("div");
+    div.className="question-wrapper";
+    div.innerHTML=`
+      <div class="box-passage">
+        ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
+        ${q.image?`<img src="${q.image}">`:""}
+      </div>
+      <div class="box-question">
+        <b>Soal ${i+1}</b>
+        <p>${q.question}</p>
+        <div class="options">
+          ${Object.entries(q.options).map(([k,v],idx)=>`
+            <label class="option-item">
+              <input type="radio" name="q${i}" value="${k}">
+              <span class="option-circle">${idx+1}</span>
+              <span class="option-text">${v}</span>
+            </label>
+          `).join("")}
+        </div>
+      </div>
     `;
-    d.querySelectorAll("input").forEach(r=>{
+    div.querySelectorAll("input").forEach(r=>{
       r.onchange=()=>answers[i]=r.value;
     });
-    quizForm.appendChild(d);
+    form.appendChild(div);
   });
 }
 
-/* ===== AUDIO STOP ===== */
-function stopAllAudio(){
-  document.querySelectorAll("audio").forEach(a=>{
-    a.pause();
-    a.currentTime=0;
-  });
-}
-
-/* ===== NAV ===== */
 function show(n){
-  stopAllAudio();
-  document.querySelectorAll(".qbox")
+  document.querySelectorAll("audio").forEach(a=>{
+    a.pause(); a.currentTime=0;
+  });
+  document.querySelectorAll(".question-wrapper")
     .forEach((q,i)=>q.classList.toggle("active",i===n));
   current=n;
 }
-prev.onclick=()=>current>0 && show(current-1);
-next.onclick=()=>current<questions.length-1 && show(current+1);
 
-/* ===== SUBMIT ===== */
-submitBtn.onclick=()=>submitQuiz(false);
+document.getElementById("prev").onclick=()=>current>0&&show(current-1);
+document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
 
-function submitQuiz(auto){
-  if(submitted) return;
-
-  if(!auto){
-    const idx=answers.findIndex(a=>a===null);
-    if(idx!==-1){
-      alert("Soal nomor "+(idx+1)+" belum dijawab");
-      show(idx);
-      return;
-    }
-  }
-
-  submitted=true;
-  clearInterval(timerInt);
-  stopAllAudio();
-
-  quizPage.style.display="none";
-  resultPage.style.display="block";
-
-  let benar=0;
-  review.innerHTML="";
-  questions.forEach((q,i)=>{
-    if(answers[i]===q.correct){
-      benar++;
-    }else{
-      review.innerHTML+=`
-        <div class="wrong">
-          <b>Soal ${i+1}</b><br>
-          Jawaban benar: ${q.correct}<br>
-          ${q.explanation||""}
-        </div>
-      `;
-    }
-  });
-  score.innerHTML="<h3>Nilai Akhir: "+(benar*4)+"</h3>";
-}
-
-/* ===== TIMER ===== */
+/* TIMER */
 function startTimer(){
   timerInt=setInterval(()=>{
-    const m=String(Math.floor(timeLeft/60)).padStart(2,"0");
-    const s=String(timeLeft%60).padStart(2,"0");
-    timer.textContent=m+":"+s;
+    const m=String(Math.floor(timeLeft/60)).padStart(2,'0');
+    const s=String(timeLeft%60).padStart(2,'0');
+    document.getElementById("timer").textContent=`${m}:${s}`;
     timeLeft--;
-    if(timeLeft<0) submitQuiz(true);
+    if(timeLeft<0){
+      clearInterval(timerInt);
+      alert("Waktu habis");
+    }
   },1000);
 }
-
-/* ===== BACK ===== */
-function backToLogin(){
-  location.reload();
-}
-
-/* INIT */
-loginPage.style.display="flex";
 </script>
 
 </body>

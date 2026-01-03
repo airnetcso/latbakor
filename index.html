@@ -11,14 +11,12 @@
             margin: 0;
             padding: 0;
             color: #333;
-            min-height: 100vh;
         }
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 20px;
             background: white;
-            min-height: 100vh;
         }
         h1 {
             text-align: center;
@@ -26,7 +24,7 @@
             margin: 20px 0;
         }
 
-        /* Header Fixed: Submit pink kiri, Timer hijau kanan */
+        /* Header Fixed */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -62,9 +60,8 @@
             font-weight: bold;
         }
 
-        /* Progress bar di bawah header */
         .progress-container {
-            margin-top: 80px; /* space untuk header fixed */
+            margin-top: 90px; /* space header */
         }
         .progress {
             height: 10px;
@@ -94,15 +91,51 @@
             font-weight: bold;
             border-radius: 8px;
             background: #fff0f5; /* pink muda */
-            color: #333;
+            cursor: pointer;
         }
         .nav-item.active {
             background: #bbdefb; /* biru muda */
-            color: #1976d2;
         }
         .nav-item.answered {
             background: #c8e6c9; /* hijau muda */
-            color: #2e7d32;
+        }
+
+        .login-box, #quiz-container {
+            display: none;
+        }
+        .login-box.active, #quiz-container.active {
+            display: block;
+        }
+
+        input {
+            padding: 16px;
+            margin: 12px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 12px;
+            border: 2px solid #bbb;
+            font-size: 1.1em;
+        }
+        input:focus {
+            border-color: #3f51b5;
+        }
+        #kode {
+            text-transform: uppercase;
+        }
+        button {
+            padding: 16px;
+            margin: 10px 0;
+            width: 100%;
+            background: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #283593;
         }
 
         .question {
@@ -179,6 +212,13 @@
             border-radius: 16px;
         }
 
+        #loading {
+            text-align: center;
+            font-size: 1.4em;
+            color: #1a237e;
+            margin: 50px 0;
+        }
+
         .footer {
             text-align: center;
             margin: 60px 0 20px;
@@ -192,8 +232,7 @@
         <h1>Latihan Reading Korea</h1>
         <p style="text-align:center; color:#555;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 
-        <!-- Login -->
-        <div id="login-box" style="display:block;">
+        <div id="login-box" class="login-box active">
             <h2 style="text-align:center;">Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
@@ -201,8 +240,7 @@
             <button onclick="login()">Login & Mulai</button>
         </div>
 
-        <!-- Quiz -->
-        <div id="quiz-container" style="display:none;">
+        <div id="quiz-container">
             <div class="header-fixed">
                 <button class="submit-top" id="submit-top">SUBMIT</button>
                 <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
@@ -210,8 +248,6 @@
 
             <div class="progress-container">
                 <div class="progress"><div class="progress-bar" id="progress"></div></div>
-
-                <!-- Navigasi nomor soal 1-40 -->
                 <div class="question-nav" id="question-nav"></div>
             </div>
 
@@ -233,9 +269,122 @@
     </div>
 
     <script>
-        // ... (script login, loadQuestions, renderQuestions, dll sama seperti versi sebelumnya)
+        const validCredentials = {
+            "uus": "123",
+            "kimjong2": "kimju456",
+            "siswa01": "tryout26",
+            "koreafan": "hanguk789",
+            "topik2026": "seoul2026"
+        };
 
-        // Tambahan untuk navigasi nomor soal 1-40
+        const kodeMapping = {
+            "B12345": "soal1.json",
+            "A09008": "soal2.json",
+            "W11765": "soal3.json",
+            "H66633": "soal4.json"
+        };
+
+        const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
+
+        const totalQuestions = 40;
+        const timeLimit = 50 * 60;
+        let questions = [];
+        let userAnswers = Array(totalQuestions).fill(null);
+        let current = 0;
+        let timerInterval;
+        let timeLeft = timeLimit;
+        let currentFile = "";
+        let currentUsername = "";
+        let isSubmitted = false;
+        let isReviewMode = false;
+
+        function login() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const kode = document.getElementById('kode').value.trim().toUpperCase();
+
+            if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
+                currentUsername = user;
+                currentFile = kodeMapping[kode];
+                document.getElementById('login-box').classList.remove('active');
+                document.getElementById('quiz-container').classList.add('active');
+                document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
+                startTimer();
+                loadQuestions();
+            } else {
+                alert("Username, Password, atau Kode Soal salah bro!");
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const secs = String(timeLeft % 60).padStart(2, '0');
+                document.getElementById('timer').textContent = `${mins}:${secs}`;
+                if (timeLeft <= 120) document.getElementById('timer').style.background = '#f44336';
+                if (timeLeft <= 0 && !isSubmitted) {
+                    clearInterval(timerInterval);
+                    submitQuiz(true);
+                }
+            }, 1000);
+        }
+
+        async function loadQuestions() {
+            try {
+                const res = await fetch(`${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`);
+                if (!res.ok) throw new Error();
+                questions = await res.json();
+                renderQuestions();
+                renderQuestionNav();
+                document.getElementById('loading').style.display = 'none';
+                showQuestion(0);
+            } catch (err) {
+                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p>`;
+            }
+        }
+
+        function renderQuestions() {
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                let html = `<p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>`;
+                if (q.audio) html += `<audio controls><source src="${q.audio}"></audio><br>`;
+                if (q.image) html += `<img src="${q.image}">`;
+                html += `<p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p>`;
+                html += `<div class="options">`;
+
+                const letters = ['1', '2', '3', '4'];
+                letters.forEach((letter, idx) => {
+                    const keys = Object.keys(q.options);
+                    if (idx < keys.length) {
+                        const key = keys[idx];
+                        const val = q.options[key];
+                        html += `
+                            <div class="option-item">
+                                <input type="radio" name="q${i+1}" value="${key}" id="opt${i+1}${key}">
+                                <div class="circle-number">${letter}</div>
+                                <label for="opt${i+1}${key}" class="option-text">${val}</label>
+                            </div>
+                        `;
+                    }
+                });
+
+                html += `</div>`;
+                div.innerHTML = html;
+                form.appendChild(div);
+
+                div.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        userAnswers[i] = radio.value;
+                        updateQuestionNav();
+                    });
+                });
+            });
+        }
+
         function renderQuestionNav() {
             const nav = document.getElementById('question-nav');
             nav.innerHTML = '';
@@ -256,13 +405,40 @@
             });
         }
 
-        // Panggil di loadQuestions setelah renderQuestions
-        renderQuestionNav();
-
-        // Update nav saat pindah soal
         function showQuestion(n) {
-            // ... kode showQuestion seperti biasa
+            document.querySelectorAll('.question').forEach((q, i) => q.classList.toggle('active', i === n));
+            document.getElementById('prev').disabled = n === 0;
+            document.getElementById('next').disabled = n === totalQuestions - 1;
+            document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
+            current = n;
             updateQuestionNav();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
+        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
+        document.getElementById('submit-top').onclick = () => {
+            if (confirm("Yakin submit sekarang?")) submitQuiz(false);
+        };
+
+        function submitQuiz(timeUp = false) {
+            if (isSubmitted) return;
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) score++;
+            });
+
+            const percent = Math.round(score / totalQuestions * 100);
+            let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
+            message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
+            message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
+
+            document.getElementById('result').innerHTML = message;
+            document.getElementById('result').style.display = 'block';
+            document.querySelector('.nav-buttons').style.display = 'none';
         }
     </script>
 </body>

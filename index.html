@@ -21,7 +21,7 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.15);
             border-radius: 16px;
             position: relative;
-            padding-top: 80px; /* space untuk header fixed */
+            padding-top: 80px;
         }
         h1 {
             text-align: center;
@@ -29,14 +29,14 @@
             margin-bottom: 10px;
         }
 
-        /* Header Fixed: Timer kanan, Submit kiri */
+        /* Header Fixed */
         .header-fixed {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background: white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
             padding: 15px 20px;
             display: flex;
@@ -141,27 +141,23 @@
             margin: 15px 0;
         }
 
-        /* Pilihan jawaban lebih rapat */
         .options label {
             display: block;
-            padding: 14px 16px; /* dikurangi dari 18px */
-            margin: 8px 0; /* dikurangi dari 12px */
+            padding: 14px 16px;
+            margin: 8px 0;
             background: #e3f2fd;
             border-radius: 12px;
             cursor: pointer;
             font-size: 1.15em;
-            transition: all 0.2s;
         }
         .options label:hover {
             background: #bbdefb;
-            transform: translateY(-1px);
         }
         .options input[type="radio"] {
             transform: scale(1.5);
             margin-right: 14px;
         }
 
-        /* Nav bawah: Sebelumnya kiri, Berikutnya kanan */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -219,9 +215,8 @@
 
         <!-- Quiz -->
         <div id="quiz-container">
-            <!-- Header Fixed -->
             <div class="header-fixed">
-                <button class="submit-top" onclick="document.getElementById('submit').click()">Submit Sekarang</button>
+                <button class="submit-top" id="submit-top">Submit Sekarang</button>
                 <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
             </div>
 
@@ -230,12 +225,10 @@
             
             <form id="quiz-form"></form>
 
-            <!-- Nav Bawah -->
             <div class="nav-buttons">
                 <button id="prev" disabled>◄ Sebelumnya</button>
                 <button id="next">Berikutnya ►</button>
             </div>
-            <button id="submit" class="submit-btn" style="display:none;">Submit Sekarang</button>
 
             <div id="result"></div>
             <div style="text-align:center; margin-top:30px; display:none;" id="review-btn-container">
@@ -248,11 +241,159 @@
         </div>
     </div>
 
-    <!-- Script tetap sama seperti versi sebelumnya yang sudah jalan -->
     <script>
-        // ... (copy semua script dari versi sebelumnya yang sudah berhasil load soal)
-        // Pastikan pakai yang sudah fix loadQuestions, renderQuestions, showQuestion, dll
-        // Kalau ragu, aku bisa kirim full script lagi
+        const validCredentials = {
+            "uus": "123",
+            "kimjong2": "kimju456",
+            "siswa01": "tryout26",
+            "koreafan": "hanguk789",
+            "topik2026": "seoul2026"
+        };
+
+        const kodeMapping = {
+            "B12345": "soal1.json",
+            "A09008": "soal2.json",
+            "W11765": "soal3.json",
+            "H66633": "soal4.json"
+        };
+
+        const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal";
+
+        const totalQuestions = 40;
+        const timeLimit = 50 * 60;
+        let questions = [];
+        let userAnswers = Array(totalQuestions).fill(null);
+        let current = 0;
+        let timerInterval;
+        let timeLeft = timeLimit;
+        let currentFile = "";
+        let currentUsername = "";
+        let isSubmitted = false;
+        let isReviewMode = false;
+
+        function login() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+            const kode = document.getElementById('kode').value.trim().toUpperCase();
+
+            if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
+                currentUsername = user;
+                currentFile = kodeMapping[kode];
+                document.getElementById('login-box').classList.remove('active');
+                document.getElementById('quiz-container').classList.add('active');
+                document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
+                startTimer();
+                loadQuestions();
+            } else {
+                alert("Username, Password, atau Kode Soal salah bro!");
+            }
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const secs = String(timeLeft % 60).padStart(2, '0');
+                document.getElementById('timer').textContent = `Waktu Tersisa: ${mins}:${secs}`;
+                if (timeLeft <= 120) document.getElementById('timer').style.background = '#ffcdd2';
+                if (timeLeft <= 0 && !isSubmitted) {
+                    clearInterval(timerInterval);
+                    submitQuiz(true);
+                }
+            }, 1000);
+        }
+
+        async function loadQuestions() {
+            try {
+                const res = await fetch(`${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`);
+                if (!res.ok) throw new Error("File tidak ditemukan");
+                questions = await res.json();
+                renderQuestions();
+                document.getElementById('loading').style.display = 'none';
+                showQuestion(0);
+            } catch (err) {
+                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>${err.message}</p>`;
+            }
+        }
+
+        function renderQuestions() {
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                let html = `<p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>`;
+                if (q.audio) html += `<audio controls><source src="${q.audio}" type="audio/mpeg">Audio tidak support</audio><br>`;
+                if (q.image) html += `<img src="${q.image}" alt="Gambar ${i+1}" loading="lazy">`;
+                html += `<p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p><div class="options">`;
+                for (const [key, val] of Object.entries(q.options)) {
+                    html += `<label><input type="radio" name="q${i+1}" value="${key}"> ${key}. ${val}</label>`;
+                }
+                html += `</div>`;
+                div.innerHTML = html;
+                form.appendChild(div);
+
+                div.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => userAnswers[i] = radio.value);
+                });
+            });
+        }
+
+        function showQuestion(n) {
+            document.querySelectorAll('.question').forEach((q, i) => q.classList.toggle('active', i === n));
+            document.getElementById('prev').disabled = n === 0;
+            document.getElementById('next').disabled = n === totalQuestions - 1;
+            document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
+            current = n;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
+        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
+        document.getElementById('submit-top').onclick = () => {
+            if (confirm("Yakin submit sekarang?")) submitQuiz(false);
+        };
+
+        function submitQuiz(timeUp = false) {
+            if (isSubmitted) return;
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) score++;
+            });
+
+            const percent = Math.round(score / totalQuestions * 100);
+            let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
+            message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
+            message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
+
+            document.getElementById('result').innerHTML = message;
+            document.getElementById('result').style.display = 'block';
+            document.querySelector('.nav-buttons').style.display = 'none';
+            document.getElementById('review-btn-container').style.display = 'block';
+        }
+
+        function startReview() {
+            isReviewMode = true;
+            document.getElementById('review-btn-container').style.display = 'none';
+            document.querySelector('.nav-buttons').style.display = 'flex';
+            questions.forEach((_, i) => applyReviewHighlight(i));
+        }
+
+        function applyReviewHighlight(index) {
+            const labels = document.querySelectorAll(`.question:nth-child(${index + 1}) .options label`);
+            const correctKey = questions[index].correct;
+            const userAnswer = userAnswers[index];
+
+            labels.forEach(label => {
+                const key = label.querySelector('input').value;
+                label.classList.remove('correct', 'wrong', 'correct-answer');
+                if (key === correctKey) label.classList.add('correct-answer');
+                if (userAnswer === key) label.classList.add(userAnswer === correctKey ? 'correct' : 'wrong');
+            });
+        }
     </script>
 </body>
 </html>

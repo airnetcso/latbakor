@@ -29,10 +29,6 @@
         .options label { display: block; padding: 18px; margin: 12px 0; background: #e3f2fd; border-radius: 12px; cursor: pointer; font-size: 1.2em; }
         .options label:hover { background: #bbdefb; transform: translateY(-2px); }
         .options input[type="radio"] { transform: scale(1.6); margin-right: 16px; }
-        .correct { background: #c8e6c9 !important; border: 3px solid #4caf50; }
-        .wrong { background: #ffcdd2 !important; border: 3px solid #f44336; }
-        .unanswered { background: #fff9c4 !important; border: 3px solid #ffeb3b; }
-        .correct-answer { font-weight: bold; color: #2e7d32; }
         #result { text-align: center; font-size: 1.9em; margin: 60px 0; display: none; background: #e8f5e9; padding: 40px; border-radius: 16px; border: 3px solid #4caf50; }
         #loading { text-align: center; font-size: 1.4em; color: #1a237e; margin: 50px 0; font-weight: bold; }
         .nav-buttons { display: flex; justify-content: space-between; margin-top: 40px; flex-wrap: wrap; gap: 10px; }
@@ -45,7 +41,6 @@
         <h1>Latihan Reading Korea</h1>
         <p style="text-align:center; color:#555; font-style:italic;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 
-        <!-- Login 3 kolom -->
         <div id="login-box" class="login-box active">
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
@@ -54,7 +49,6 @@
             <button onclick="login()">Login & Mulai</button>
         </div>
 
-        <!-- Quiz Area -->
         <div id="quiz-container">
             <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
@@ -80,7 +74,6 @@
     </div>
 
     <script>
-        // USER VALID (username + password)
         const validCredentials = {
             "uus":       { pass: "123" },
             "kimjong2":  { pass: "kimju456" },
@@ -89,7 +82,6 @@
             "topik2026": { pass: "seoul2026" }
         };
 
-        // KODE SOAL → FILE
         const kodeMapping = {
             "B12345": "soal1.json",
             "A09008": "soal2.json",
@@ -116,38 +108,24 @@
             const pass = document.getElementById('password').value.trim();
             const kode = document.getElementById('kode').value.trim().toUpperCase();
 
-            console.log("Coba login:", { user, pass, kode }); // debug sementara
+            if (validCredentials[user] && 
+                validCredentials[user].pass === pass && 
+                kodeMapping[kode]) {
 
-            let errorMsg = [];
+                currentUsername = user;
+                currentFile = kodeMapping[kode];
 
-            if (!validCredentials[user]) {
-                errorMsg.push("Username tidak terdaftar");
-            } else if (validCredentials[user].pass !== pass) {
-                errorMsg.push("Password salah");
+                document.getElementById('login-box').classList.remove('active');
+                document.getElementById('quiz-container').classList.add('active');
+                document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
+
+                startTimer();
+                loadQuestions();
+            } else {
+                alert("Username, Password, atau Kode Soal salah bro!");
             }
-
-            if (!kodeMapping[kode]) {
-                errorMsg.push("Kode Soal tidak valid atau belum aktif");
-            }
-
-            if (errorMsg.length > 0) {
-                alert("Login gagal:\n• " + errorMsg.join("\n• "));
-                return;
-            }
-
-            // Semua benar → lanjut
-            currentUsername = user;
-            currentFile = kodeMapping[kode];
-
-            document.getElementById('login-box').classList.remove('active');
-            document.getElementById('quiz-container').classList.add('active');
-            document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
-
-            startTimer();
-            loadQuestions();
         }
 
-        // Sisanya tetap sama...
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -167,26 +145,127 @@
         }
 
         async function loadQuestions() {
+            const url = `${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`;
+            console.log("Trying to load:", url);
+
             try {
-                const url = `${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`;
-                console.log("Loading from:", url); // debug
                 const res = await fetch(url);
-                if (!res.ok) throw new Error("HTTP " + res.status);
-                questions = await res.json();
-                if (questions.length !== totalQuestions) throw new Error("Jumlah soal bukan 40");
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const data = await res.json();
+                console.log("Soal loaded:", data.length, "soal");
+
+                if (!Array.isArray(data) || data.length !== totalQuestions) {
+                    throw new Error("File soal bukan array atau jumlah bukan 40");
+                }
+
+                questions = data;
+                renderQuestions();
+                document.getElementById('loading').style.display = 'none';
+                showQuestion(0);
             } catch (err) {
-                console.error(err);
-                alert("Gagal load soal!\nCek console (F12) untuk detail error.\nKemungkinan: file tidak ada atau internet bermasalah.");
-                return;
+                console.error("Error loading soal:", err);
+                document.getElementById('loading').innerHTML = `
+                    <p style="color:red;">Gagal memuat soal!</p>
+                    <p>Error: ${err.message}</p>
+                    <p>Cek console (F12) untuk detail.</p>
+                    <p>File yang dicoba: ${url}</p>
+                `;
             }
-            renderQuestions();
-            document.getElementById('loading').style.display = 'none';
-            showQuestion(0);
         }
 
-        // renderQuestions, showQuestion, submitQuiz, review, dll tetap sama seperti versi sebelumnya
-        // (sudah lengkap di code atas tadi)
+        function renderQuestions() {
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                let html = `<p><strong>Passage ${i+1}:</strong><br>${q.passage || ''}</p>`;
+                if (q.audio) {
+                    html += `<audio controls style="width:100%; margin:20px 0;"><source src="${q.audio}" type="audio/mpeg">Browser tidak support audio.</audio>`;
+                }
+                if (q.image) {
+                    html += `<img src="${q.image}" alt="Gambar soal ${i+1}" loading="lazy">`;
+                }
+                html += `<p><strong>Pertanyaan ${i+1}:</strong><br>${q.question || ''}</p><div class="options">`;
+                if (q.options && typeof q.options === 'object') {
+                    for (const [key, val] of Object.entries(q.options)) {
+                        html += `<label><input type="radio" name="q${i+1}" value="${key}" ${isReviewMode ? 'disabled' : ''}> ${key}. ${val}</label>`;
+                    }
+                }
+                html += `</div>`;
+                div.innerHTML = html;
+                form.appendChild(div);
 
+                div.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => {
+                        userAnswers[i] = radio.value;
+                    });
+                });
+            });
+        }
+
+        function showQuestion(n) {
+            document.querySelectorAll('.question').forEach((q, i) => q.classList.toggle('active', i === n));
+            document.getElementById('prev').disabled = n === 0;
+            document.getElementById('next').disabled = n === totalQuestions - 1;
+            document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
+            current = n;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
+        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
+        document.getElementById('submit').onclick = () => {
+            if (confirm("Yakin submit sekarang?")) {
+                submitQuiz(false);
+            }
+        };
+
+        function submitQuiz(timeUp = false) {
+            if (isSubmitted) return;
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) score++;
+            });
+
+            const percent = Math.round(score / totalQuestions * 100);
+            let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
+            message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
+            message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
+
+            document.getElementById('result').innerHTML = message;
+            document.getElementById('result').style.display = 'block';
+            document.querySelector('.nav-buttons').style.display = 'none';
+            document.getElementById('review-btn-container').style.display = 'block';
+        }
+
+        function startReview() {
+            isReviewMode = true;
+            document.getElementById('review-btn-container').style.display = 'none';
+            document.querySelector('.nav-buttons').style.display = 'flex';
+            document.getElementById('submit').style.display = 'none';
+            questions.forEach((_, i) => applyReviewHighlight(i));
+        }
+
+        function applyReviewHighlight(index) {
+            const labels = document.querySelectorAll(`.question:nth-child(${index + 1}) .options label`);
+            const correctKey = questions[index].correct;
+            const userAnswer = userAnswers[index];
+
+            labels.forEach(label => {
+                const key = label.querySelector('input').value;
+                label.classList.remove('correct', 'wrong', 'correct-answer');
+                if (key === correctKey) label.classList.add('correct-answer');
+                if (userAnswer === key) {
+                    label.classList.add(userAnswer === correctKey ? 'correct' : 'wrong');
+                }
+            });
+        }
     </script>
 </body>
 </html>

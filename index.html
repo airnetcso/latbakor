@@ -61,8 +61,8 @@ button{
 #quiz-page{
   display:none;
   min-height:100vh;
-  padding-top:70px; /* header space */
-  padding-bottom:70px; /* footer space */
+  padding-top:70px;
+  padding-bottom:70px;
 }
 
 .header-fixed{
@@ -95,7 +95,7 @@ button{
   margin:auto;
   padding:15px;
   overflow:auto;
-  height:calc(100vh - 140px); /* header+footer space */
+  height:calc(100vh - 140px);
 }
 
 .question-wrapper{display:none; margin-bottom:30px;}
@@ -117,24 +117,29 @@ button{
   border:2px solid #ffcc80;
 }
 
-.options{margin-top:15px}
+.options {margin-top:15px;}
 .option-item{
   display:flex;
   align-items:flex-start;
   margin:10px 0;
+  cursor:pointer;
 }
 .option-item input[type="radio"]{
-  transform:scale(1.5);
+  width:20px;
+  height:20px;
   margin-right:10px;
   margin-top:3px;
 }
 .option-letter{
   font-weight:bold;
   color:#1976d2;
-  margin-right:10px;
   min-width:20px;
+  display:inline-block;
 }
-.option-text{flex:1; line-height:1.4}
+.option-text{
+  line-height:1.4;
+  flex:1;
+}
 
 /* NAV BOTTOM */
 .nav-bottom{
@@ -265,11 +270,11 @@ document.addEventListener("DOMContentLoaded",()=>{
           const key=keys[idx];
           const val=q.options[key];
           html+=`
-            <div class="option-item">
-              <input type="radio" name="q${i}" id="opt${i}${key}" value="${key}">
-              <span class="option-letter">${l}.</span>
-              <label for="opt${i}${key}" class="option-text">${val}</label>
-            </div>
+            <label class="option-item">
+              <input type="radio" name="q${i}" value="${key}">
+              <span class="option-letter">${l}</span>
+              <span class="option-text">${val}</span>
+            </label>
           `;
         }
       });

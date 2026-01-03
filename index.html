@@ -7,29 +7,59 @@
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
             margin: 0;
             padding: 0;
             color: #333;
             min-height: 100vh;
         }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            border-radius: 16px;
-            position: relative;
-            padding-top: 80px;
+
+        /* Login Page dengan Background dari Link Kamu */
+        #login-page {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg.jpg') center/cover no-repeat fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        h1 {
+        .login-container {
+            max-width: 420px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             text-align: center;
+        }
+        .login-container h1 {
             color: #1a237e;
             margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        .login-container p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .login-container h2 {
+            color: #4a148c;
+            margin-bottom: 30px;
+            font-size: 1.6em;
         }
 
-        /* Header Fixed */
+        /* Quiz Page */
+        #quiz-page {
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            padding-top: 90px;
+        }
+
+        /* Header Fixed hanya Timer di kanan */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -40,21 +70,8 @@
             z-index: 1000;
             padding: 15px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-        }
-        .submit-top {
-            padding: 12px 40px;
-            background: #ff69b4;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .submit-top:hover {
-            background: #ff1493;
         }
         .timer {
             padding: 12px 40px;
@@ -110,6 +127,12 @@
         button:hover {
             background: #283593;
         }
+        .submit-btn {
+            background: #d50000;
+        }
+        .submit-btn:hover {
+            background: #b71c1c;
+        }
 
         .question {
             display: none;
@@ -125,12 +148,14 @@
             max-width: 100%;
             border-radius: 16px;
             margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
         .question audio {
             width: 100%;
             margin: 20px 0;
         }
 
+        /* Pilihan jawaban lingkaran kecil angka */
         .options {
             margin-top: 20px;
         }
@@ -163,16 +188,25 @@
             margin-right: 15px;
         }
 
+        /* Navigasi bawah: Previous kiri, Submit tengah, Next kanan */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             margin-top: 40px;
             gap: 15px;
         }
         .nav-buttons button {
             flex: 1;
-            padding: 16px;
-            font-size: 1.2em;
+        }
+        #submit {
+            order: 2;
+        }
+        #prev {
+            order: 1;
+        }
+        #next {
+            order: 3;
         }
 
         #result {
@@ -206,26 +240,27 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Latihan Reading Korea</h1>
-        <p style="text-align:center; color:#555; font-style:italic;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 
-        <!-- Login -->
-        <div id="login-box" class="login-box active">
+    <!-- Login Page dengan Background -->
+    <div id="login-page">
+        <div class="login-container">
+            <h1>Latihan Reading Korea</h1>
+            <p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <input type="text" id="kode" placeholder="Kode Soal" maxlength="6">
             <button onclick="login()">Login & Mulai</button>
         </div>
+    </div>
 
-        <!-- Quiz -->
-        <div id="quiz-container">
-            <div class="header-fixed">
-                <button class="submit-top" id="submit-top">SUBMIT</button>
-                <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
-            </div>
+    <!-- Quiz Page -->
+    <div id="quiz-page" style="display:none;">
+        <div class="header-fixed">
+            <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+        </div>
 
+        <div class="container">
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
             
@@ -233,10 +268,14 @@
 
             <div class="nav-buttons">
                 <button id="prev" disabled>◄ Sebelumnya</button>
+                <button id="submit" class="submit-btn">Submit Sekarang</button>
                 <button id="next">Berikutnya ►</button>
             </div>
 
             <div id="result"></div>
+            <div style="text-align:center; margin-top:30px; display:none;" id="review-btn-container">
+                <button class="review-btn" onclick="startReview()">🔍 Review Jawaban</button>
+            </div>
         </div>
 
         <div class="footer">
@@ -272,6 +311,7 @@
         let currentFile = "";
         let currentUsername = "";
         let isSubmitted = false;
+        let isReviewMode = false;
 
         function login() {
             const user = document.getElementById('username').value.trim();
@@ -281,8 +321,8 @@
             if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
                 currentUsername = user;
                 currentFile = kodeMapping[kode];
-                document.getElementById('login-box').classList.remove('active');
-                document.getElementById('quiz-container').classList.add('active');
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('quiz-page').style.display = 'block';
                 document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
                 startTimer();
                 loadQuestions();
@@ -308,15 +348,13 @@
         async function loadQuestions() {
             try {
                 const res = await fetch(`${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`);
-                if (!res.ok) throw new Error("File tidak ditemukan atau error");
+                if (!res.ok) throw new Error("File tidak ditemukan");
                 questions = await res.json();
-                console.log("Soal berhasil loaded:", questions.length); // debug
                 renderQuestions();
                 document.getElementById('loading').style.display = 'none';
                 showQuestion(0);
             } catch (err) {
-                console.error(err);
-                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>Cek console (F12) untuk detail.</p>`;
+                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>${err.message}</p>`;
             }
         }
 
@@ -359,9 +397,7 @@
         }
 
         function showQuestion(n) {
-            document.querySelectorAll('.question').forEach((q, i) => {
-                q.classList.toggle('active', i === n);
-            });
+            document.querySelectorAll('.question').forEach((q, i) => q.classList.toggle('active', i === n));
             document.getElementById('prev').disabled = n === 0;
             document.getElementById('next').disabled = n === totalQuestions - 1;
             document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
@@ -371,7 +407,7 @@
 
         document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
         document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
-        document.getElementById('submit-top').onclick = () => {
+        document.getElementById('submit').onclick = () => {
             if (confirm("Yakin submit sekarang?")) submitQuiz(false);
         };
 

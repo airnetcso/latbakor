@@ -69,13 +69,17 @@
             background: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
-            padding: 15px;
+            padding: 15px 0;
             display: flex;
             justify-content: center;
             align-items: center;
         }
+        .timer-wrapper {
+            text-align: center;
+        }
         .timer {
-            padding: 12px 40px;
+            display: inline-block;
+            padding: 12px 50px;
             background: #4caf50;
             color: white;
             border-radius: 12px;
@@ -257,7 +261,9 @@
     <!-- Quiz Page -->
     <div id="quiz-page" style="display:none;">
         <div class="header-fixed">
-            <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+            <div class="timer-wrapper">
+                <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+            </div>
         </div>
 
         <div class="container">
@@ -267,9 +273,9 @@
             <form id="quiz-form"></form>
 
             <div class="nav-buttons">
-                <button id="prev" disabled>◄ Sebelumnya</button>
-                <button id="submit">Submit Sekarang</button>
-                <button id="next">Berikutnya ►</button>
+                <button id="prev" disabled>PREV</button>
+                <button id="submit">SUBMIT</button>
+                <button id="next">NEXT</button>
             </div>
 
             <div id="result"></div>
@@ -366,7 +372,7 @@
                 let html = `
                     <div class="box-passage">
                         <p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>
-                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Browser tidak support audio.</audio>` : ''}
+                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Audio tidak support</audio>` : ''}
                         ${q.image ? `<img src="${q.image}" alt="Gambar ${i+1}">` : ''}
                     </div>
                     <div class="box-question">
@@ -405,9 +411,7 @@
         }
 
         function showQuestion(n) {
-            document.querySelectorAll('.question-wrapper').forEach((q, i) => {
-                q.classList.toggle('active', i === n);
-            });
+            document.querySelectorAll('.question-wrapper').forEach((q, i) => q.classList.toggle('active', i === n));
             document.getElementById('prev').disabled = n === 0;
             document.getElementById('next').disabled = n === totalQuestions - 1;
             document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
@@ -415,12 +419,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        document.getElementById('next').onclick = () => {
-            if (current < totalQuestions - 1) showQuestion(current + 1);
-        };
-        document.getElementById('prev').onclick = () => {
-            if (current > 0) showQuestion(current - 1);
-        };
+        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
+        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
         document.getElementById('submit').onclick = () => {
             if (confirm("Yakin submit sekarang?")) submitQuiz(false);
         };

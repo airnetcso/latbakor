@@ -7,49 +7,26 @@
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
             margin: 0;
             padding: 0;
             color: #333;
             min-height: 100vh;
         }
-
-        /* Login Page dengan Background Image dari Web */
-        #login-page {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517154429774-8b1f4d4b4b6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover no-repeat;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .login-container {
-            max-width: 400px;
-            width: 90%;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-            text-align: center;
-        }
-        .login-container h1 {
-            color: #1a237e;
-            margin-bottom: 10px;
-        }
-        .login-container h2 {
-            color: #4a148c;
-            margin-bottom: 30px;
-        }
-
-        /* Quiz Page */
-        #quiz-page {
-            background: #f5f5f5;
-            min-height: 100vh;
-        }
         .container {
             max-width: 900px;
-            margin: 0 auto;
+            margin: 20px auto;
             padding: 20px;
             background: white;
-            padding-top: 90px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            position: relative;
+            padding-top: 80px;
+        }
+        h1 {
+            text-align: center;
+            color: #1a237e;
+            margin-bottom: 10px;
         }
 
         /* Header Fixed */
@@ -229,28 +206,26 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <h1>Latihan Reading Korea</h1>
+        <p style="text-align:center; color:#555; font-style:italic;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 
-    <!-- Login Page dengan Background Image -->
-    <div id="login-page">
-        <div class="login-container">
-            <h1>Latihan Reading Korea</h1>
-            <p style="color:#666; margin-bottom:30px;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
+        <!-- Login -->
+        <div id="login-box" class="login-box active">
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <input type="text" id="kode" placeholder="Kode Soal" maxlength="6">
             <button onclick="login()">Login & Mulai</button>
         </div>
-    </div>
 
-    <!-- Quiz Page -->
-    <div id="quiz-page" style="display:none;">
-        <div class="header-fixed">
-            <button class="submit-top" id="submit-top">SUBMIT</button>
-            <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
-        </div>
+        <!-- Quiz -->
+        <div id="quiz-container">
+            <div class="header-fixed">
+                <button class="submit-top" id="submit-top">SUBMIT</button>
+                <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+            </div>
 
-        <div class="container">
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
             
@@ -262,9 +237,6 @@
             </div>
 
             <div id="result"></div>
-            <div style="text-align:center; margin-top:30px; display:none;" id="review-btn-container">
-                <button class="review-btn" onclick="startReview()">🔍 Review Jawaban</button>
-            </div>
         </div>
 
         <div class="footer">
@@ -300,7 +272,6 @@
         let currentFile = "";
         let currentUsername = "";
         let isSubmitted = false;
-        let isReviewMode = false;
 
         function login() {
             const user = document.getElementById('username').value.trim();
@@ -310,8 +281,8 @@
             if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
                 currentUsername = user;
                 currentFile = kodeMapping[kode];
-                document.getElementById('login-page').style.display = 'none';
-                document.getElementById('quiz-page').style.display = 'block';
+                document.getElementById('login-box').classList.remove('active');
+                document.getElementById('quiz-container').classList.add('active');
                 document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
                 startTimer();
                 loadQuestions();
@@ -320,8 +291,109 @@
             }
         }
 
-        // ... (script lainnya tetap sama seperti versi sebelumnya yang sudah jalan sempurna)
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+                const secs = String(timeLeft % 60).padStart(2, '0');
+                document.getElementById('timer').textContent = `Waktu Tersisa: ${mins}:${secs}`;
+                if (timeLeft <= 120) document.getElementById('timer').style.background = '#f44336';
+                if (timeLeft <= 0 && !isSubmitted) {
+                    clearInterval(timerInterval);
+                    submitQuiz(true);
+                }
+            }, 1000);
+        }
 
+        async function loadQuestions() {
+            try {
+                const res = await fetch(`${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`);
+                if (!res.ok) throw new Error("File tidak ditemukan atau error");
+                questions = await res.json();
+                console.log("Soal berhasil loaded:", questions.length); // debug
+                renderQuestions();
+                document.getElementById('loading').style.display = 'none';
+                showQuestion(0);
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>Cek console (F12) untuk detail.</p>`;
+            }
+        }
+
+        function renderQuestions() {
+            const form = document.getElementById('quiz-form');
+            form.innerHTML = '';
+            questions.forEach((q, i) => {
+                const div = document.createElement('div');
+                div.className = 'question';
+                let html = `<p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>`;
+                if (q.audio) html += `<audio controls><source src="${q.audio}" type="audio/mpeg">Audio tidak support</audio><br>`;
+                if (q.image) html += `<img src="${q.image}" alt="Gambar ${i+1}" loading="lazy">`;
+                html += `<p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p>`;
+                html += `<div class="options">`;
+
+                const letters = ['1', '2', '3', '4'];
+                letters.forEach((letter, idx) => {
+                    const keys = Object.keys(q.options);
+                    if (idx < keys.length) {
+                        const key = keys[idx];
+                        const val = q.options[key];
+                        html += `
+                            <div class="option-item">
+                                <input type="radio" name="q${i+1}" value="${key}" id="opt${i+1}${key}">
+                                <div class="circle-number">${letter}</div>
+                                <label for="opt${i+1}${key}" class="option-text">${val}</label>
+                            </div>
+                        `;
+                    }
+                });
+
+                html += `</div>`;
+                div.innerHTML = html;
+                form.appendChild(div);
+
+                div.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', () => userAnswers[i] = radio.value);
+                });
+            });
+        }
+
+        function showQuestion(n) {
+            document.querySelectorAll('.question').forEach((q, i) => {
+                q.classList.toggle('active', i === n);
+            });
+            document.getElementById('prev').disabled = n === 0;
+            document.getElementById('next').disabled = n === totalQuestions - 1;
+            document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';
+            current = n;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('next').onclick = () => { if (current < totalQuestions - 1) showQuestion(current + 1); };
+        document.getElementById('prev').onclick = () => { if (current > 0) showQuestion(current - 1); };
+        document.getElementById('submit-top').onclick = () => {
+            if (confirm("Yakin submit sekarang?")) submitQuiz(false);
+        };
+
+        function submitQuiz(timeUp = false) {
+            if (isSubmitted) return;
+            isSubmitted = true;
+            clearInterval(timerInterval);
+
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) score++;
+            });
+
+            const percent = Math.round(score / totalQuestions * 100);
+            let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
+            message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
+            message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
+
+            document.getElementById('result').innerHTML = message;
+            document.getElementById('result').style.display = 'block';
+            document.querySelector('.nav-buttons').style.display = 'none';
+        }
     </script>
 </body>
 </html>

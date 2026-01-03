@@ -149,13 +149,11 @@ button{
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  /* ====== ELEMENT ====== */
   const loginPage = document.getElementById("login-page");
   const quizPage  = document.getElementById("quiz-page");
   const btnLogin  = document.getElementById("btnLogin");
   const form      = document.getElementById("quiz-form");
 
-  /* ====== LOGIN DATA ====== */
   const validCredentials = {
     "uus": "123",
     "kimjong2": "kimju456",
@@ -164,7 +162,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "topik2026": "seoul2026"
   };
 
-  /* ====== KODE MAPPING (TIDAK DIUBAH) ====== */
   const kodeMapping = {
     "B12345": "soal1.json",
     "A09008": "soal2.json",
@@ -172,10 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
     "H66633": "soal4.json"
   };
 
+  const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+
   let questions = [];
   let current = 0;
+  let timerInterval;
+  let timeLeft = 50*60; // 50 menit
 
-  /* ====== LOGIN ====== */
   btnLogin.addEventListener("click", () => {
     const u = username.value.trim();
     const p = password.value.trim();
@@ -184,26 +184,26 @@ document.addEventListener("DOMContentLoaded", () => {
     if (validCredentials[u] && validCredentials[u] === p && kodeMapping[k]) {
       loginPage.style.display = "none";
       quizPage.style.display  = "block";
+      startTimer();
       loadSoal(kodeMapping[k]);
     } else {
       alert("Username, Password, atau Kode Soal salah bro!");
     }
   });
 
-  /* ====== LOAD SOAL ====== */
   async function loadSoal(file){
     try{
-      const res = await fetch(file + "?t=" + Date.now());
+      const res = await fetch(GITHUB_RAW_BASE + file + "?t=" + Date.now());
+      if(!res.ok) throw new Error("File tidak ditemukan");
       questions = await res.json();
       render();
       show(0);
     }catch(e){
-      alert("Gagal load file soal!");
+      alert("Gagal load file soal! "+e.message);
       console.error(e);
     }
   }
 
-  /* ====== RENDER ====== */
   function render(){
     form.innerHTML = "";
     questions.forEach((q,i)=>{
@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
       div.innerHTML = `
         ${q.audio ? `<audio controls src="${q.audio}" style="width:100%"></audio>` : ""}
         ${q.image ? `<img src="${q.image}" style="max-width:100%;margin-top:10px">` : ""}
-        <p><strong>${q.question}</strong></p>
+        <p><strong>${i+1}. ${q.question}</strong></p>
       `;
       form.appendChild(div);
     });
@@ -224,10 +224,19 @@ document.addEventListener("DOMContentLoaded", () => {
     current = n;
   }
 
-  /* ====== NAV ====== */
   prev.onclick = ()=> current>0 && show(current-1);
   next.onclick = ()=> current<questions.length-1 && show(current+1);
-  submitTop.onclick = ()=> alert("SUBMIT (dummy)");
+  submitTop.onclick = ()=> alert("SUBMIT OK (dummy)");
+
+  function startTimer(){
+    timerInterval = setInterval(()=>{
+      const mins = String(Math.floor(timeLeft/60)).padStart(2,'0');
+      const secs = String(timeLeft%60).padStart(2,'0');
+      document.getElementById("timer").textContent = `${mins}:${secs}`;
+      timeLeft--;
+      if(timeLeft<0) clearInterval(timerInterval);
+    },1000);
+  }
 
 });
 </script>

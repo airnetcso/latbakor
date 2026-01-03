@@ -11,6 +11,7 @@
             padding: 0;
             color: #333;
             min-height: 100vh;
+            background: #f5f5f5;
         }
 
         /* Login Page */
@@ -22,7 +23,7 @@
             justify-content: center;
         }
         .login-container {
-            max-width: 420px;
+            max-width: 380px;
             width: 90%;
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
@@ -33,30 +34,32 @@
         .login-container h1 {
             color: #1a237e;
             margin-bottom: 10px;
+            font-size: 1.8em;
         }
         .login-container p {
             color: #555;
             margin-bottom: 30px;
+            font-size: 1em;
         }
         .login-container h2 {
             color: #4a148c;
             margin-bottom: 30px;
+            font-size: 1.5em;
         }
 
-        /* Quiz Page */
+        /* Quiz Page - Lebar statik untuk HP */
         #quiz-page {
-            background: #f5f5f5;
             min-height: 100vh;
         }
         .container {
-            max-width: 900px;
+            max-width: 600px; /* lebar tetap, pas di HP */
             margin: 0 auto;
-            padding: 20px;
+            padding: 15px;
             background: white;
-            padding-top: 90px;
+            padding-top: 90px; /* space untuk timer fixed */
         }
 
-        /* Header Fixed - Timer kanan */
+        /* Timer fixed di atas, posisi tengah */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -65,24 +68,25 @@
             background: white;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             z-index: 1000;
-            padding: 15px 20px;
+            padding: 15px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
             align-items: center;
         }
         .timer {
             padding: 12px 40px;
             background: #4caf50;
             color: white;
-            border-radius: 8px;
-            font-size: 1.8em;
+            border-radius: 12px;
+            font-size: 1.6em;
             font-weight: bold;
+            text-align: center;
         }
 
         .progress {
-            height: 24px;
+            height: 20px;
             background: #c5cae9;
-            border-radius: 12px;
+            border-radius: 10px;
             margin: 20px 0;
             overflow: hidden;
         }
@@ -90,8 +94,39 @@
             height: 100%;
             background: #3f51b5;
             width: 0%;
-            border-radius: 12px;
+            border-radius: 10px;
             transition: width 0.5s ease;
+        }
+
+        input {
+            padding: 16px;
+            margin: 12px 0;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 12px;
+            border: 2px solid #bbb;
+            font-size: 1.1em;
+        }
+        input:focus {
+            border-color: #3f51b5;
+        }
+        #kode {
+            text-transform: uppercase;
+        }
+        button {
+            padding: 16px;
+            margin: 10px 0;
+            width: 100%;
+            background: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #283593;
         }
 
         /* Box Soal Dibagi 2 */
@@ -134,19 +169,19 @@
             display: flex;
             align-items: center;
             margin: 20px 0;
-            font-size: 1.25em;
+            font-size: 1.2em;
         }
         .circle-number {
-            width: 42px;
-            height: 42px;
-            background: #000;
+            width: 40px;
+            height: 40px;
+            background: #333;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 1.3em;
+            font-size: 1.2em;
             margin-right: 20px;
             flex-shrink: 0;
         }
@@ -159,28 +194,26 @@
             margin-right: 18px;
         }
 
+        /* 3 Tombol Bawah - ukuran & warna sama */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
-            align-items: center;
+            gap: 10px;
             margin: 40px 0;
-            gap: 15px;
         }
         .nav-buttons button {
             flex: 1;
             padding: 16px;
-            font-size: 1.2em;
+            font-size: 1.1em;
+            background: #3f51b5;
         }
-        #submit {
-            background: #d50000;
-        }
-        #submit:hover {
-            background: #b71c1c;
+        .nav-buttons button:hover {
+            background: #283593;
         }
 
         #result {
             text-align: center;
-            font-size: 1.9em;
+            font-size: 1.8em;
             margin: 60px 0;
             display: none;
             background: #e8f5e9;
@@ -200,7 +233,7 @@
             margin-top: 60px;
             padding: 20px;
             color: #555;
-            font-size: 0.95em;
+            font-size: 0.9em;
             border-top: 1px solid #ddd;
         }
         .footer strong {
@@ -237,7 +270,7 @@
 
             <div class="nav-buttons">
                 <button id="prev" disabled>◄ Sebelumnya</button>
-                <button id="submit" class="submit-btn">Submit Sekarang</button>
+                <button id="submit">Submit Sekarang</button>
                 <button id="next">Berikutnya ►</button>
             </div>
 
@@ -333,7 +366,7 @@
                 let html = `
                     <div class="box-passage">
                         <p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>
-                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Browser tidak support audio.</audio>` : ''}
+                        ${q.audio ? `<audio controls><source src="${q.audio}" type="audio/mpeg">Audio tidak support</audio>` : ''}
                         ${q.image ? `<img src="${q.image}" alt="Gambar ${i+1}">` : ''}
                     </div>
                     <div class="box-question">

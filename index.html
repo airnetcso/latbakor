@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Latihan Reading Korea</title>
-
 <style>
 body{
   margin:0;
@@ -62,6 +61,8 @@ button{
 #quiz-page{
   display:none;
   min-height:100vh;
+  padding-top:70px; /* header space */
+  padding-bottom:70px; /* footer space */
 }
 
 .header-fixed{
@@ -83,6 +84,7 @@ button{
   border-radius:12px;
   color:#fff;
   font-weight:bold;
+  font-size:1em;
 }
 
 .timer{background:#4caf50}
@@ -92,13 +94,49 @@ button{
   max-width:600px;
   margin:auto;
   padding:15px;
-  padding-top:90px;
-  padding-bottom:90px;
+  overflow:auto;
+  height:calc(100vh - 140px); /* header+footer space */
 }
 
-.question-wrapper{display:none}
+.question-wrapper{display:none; margin-bottom:30px;}
 .question-wrapper.active{display:block}
 
+.box-passage{
+  background:#e3f2fd;
+  padding:20px;
+  border-radius:16px;
+  border:2px solid #bbdefb;
+  margin-bottom:15px;
+}
+.box-passage audio, .box-passage img{width:100%; margin-top:10px; border-radius:12px;}
+
+.box-question{
+  background:#fff3e0;
+  padding:20px;
+  border-radius:16px;
+  border:2px solid #ffcc80;
+}
+
+.options{margin-top:15px}
+.option-item{
+  display:flex;
+  align-items:flex-start;
+  margin:10px 0;
+}
+.option-item input[type="radio"]{
+  transform:scale(1.5);
+  margin-right:10px;
+  margin-top:3px;
+}
+.option-letter{
+  font-weight:bold;
+  color:#1976d2;
+  margin-right:10px;
+  min-width:20px;
+}
+.option-text{flex:1; line-height:1.4}
+
+/* NAV BOTTOM */
 .nav-bottom{
   position:fixed;
   bottom:0;
@@ -110,10 +148,9 @@ button{
   padding:10px;
   box-shadow:0 -4px 10px rgba(0,0,0,.1);
 }
-.nav-bottom button{flex:1}
+.nav-bottom button{flex:1; padding:12px; font-weight:bold; font-size:1em}
 </style>
 </head>
-
 <body>
 
 <!-- LOGIN PAGE -->
@@ -147,55 +184,58 @@ button{
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",()=>{
+  const loginPage=document.getElementById("login-page");
+  const quizPage=document.getElementById("quiz-page");
+  const btnLogin=document.getElementById("btnLogin");
+  const form=document.getElementById("quiz-form");
+  const prev=document.getElementById("prev");
+  const next=document.getElementById("next");
+  const submitTop=document.getElementById("submitTop");
 
-  const loginPage = document.getElementById("login-page");
-  const quizPage  = document.getElementById("quiz-page");
-  const btnLogin  = document.getElementById("btnLogin");
-  const form      = document.getElementById("quiz-form");
-
-  const validCredentials = {
-    "uus": "123",
-    "kimjong2": "kimju456",
-    "siswa01": "tryout26",
-    "koreafan": "hanguk789",
-    "topik2026": "seoul2026"
+  const validCredentials={
+    "uus":"123",
+    "kimjong2":"kimju456",
+    "siswa01":"tryout26",
+    "koreafan":"hanguk789",
+    "topik2026":"seoul2026"
   };
 
-  const kodeMapping = {
-    "B12345": "soal1.json",
-    "A09008": "soal2.json",
-    "W11765": "soal3.json",
-    "H66633": "soal4.json"
+  const kodeMapping={
+    "B12345":"soal1.json",
+    "A09008":"soal2.json",
+    "W11765":"soal3.json",
+    "H66633":"soal4.json"
   };
 
-  const GITHUB_RAW_BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+  const GITHUB_RAW_BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-  let questions = [];
-  let current = 0;
+  let questions=[];
+  let current=0;
+  let userAnswers=[];
   let timerInterval;
-  let timeLeft = 50*60; // 50 menit
+  let timeLeft=50*60;
 
-  btnLogin.addEventListener("click", () => {
-    const u = username.value.trim();
-    const p = password.value.trim();
-    const k = kode.value.trim().toUpperCase();
-
-    if (validCredentials[u] && validCredentials[u] === p && kodeMapping[k]) {
-      loginPage.style.display = "none";
-      quizPage.style.display  = "block";
+  btnLogin.addEventListener("click",()=>{
+    const u=username.value.trim();
+    const p=password.value.trim();
+    const k=kode.value.trim().toUpperCase();
+    if(validCredentials[u] && validCredentials[u]===p && kodeMapping[k]){
+      loginPage.style.display="none";
+      quizPage.style.display="block";
       startTimer();
       loadSoal(kodeMapping[k]);
-    } else {
+    }else{
       alert("Username, Password, atau Kode Soal salah bro!");
     }
   });
 
   async function loadSoal(file){
     try{
-      const res = await fetch(GITHUB_RAW_BASE + file + "?t=" + Date.now());
+      const res=await fetch(GITHUB_RAW_BASE+file+"?t="+Date.now());
       if(!res.ok) throw new Error("File tidak ditemukan");
-      questions = await res.json();
+      questions=await res.json();
+      userAnswers=Array(questions.length).fill(null);
       render();
       show(0);
     }catch(e){
@@ -205,39 +245,63 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function render(){
-    form.innerHTML = "";
+    form.innerHTML="";
     questions.forEach((q,i)=>{
-      const div = document.createElement("div");
-      div.className = "question-wrapper";
-      div.innerHTML = `
-        ${q.audio ? `<audio controls src="${q.audio}" style="width:100%"></audio>` : ""}
-        ${q.image ? `<img src="${q.image}" style="max-width:100%;margin-top:10px">` : ""}
-        <p><strong>${i+1}. ${q.question}</strong></p>
+      const div=document.createElement("div");
+      div.className="question-wrapper";
+      let html=`
+        <div class="box-passage">
+          ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
+          ${q.image?`<img src="${q.image}" alt="Gambar ${i+1}">`:""}
+        </div>
+        <div class="box-question">
+          <p><strong>Pertanyaan ${i+1}:</strong> ${q.question}</p>
+          <div class="options">
       `;
+      const letters=["1","2","3","4"];
+      letters.forEach((l,idx)=>{
+        const keys=Object.keys(q.options);
+        if(idx<keys.length){
+          const key=keys[idx];
+          const val=q.options[key];
+          html+=`
+            <div class="option-item">
+              <input type="radio" name="q${i}" id="opt${i}${key}" value="${key}">
+              <span class="option-letter">${l}.</span>
+              <label for="opt${i}${key}" class="option-text">${val}</label>
+            </div>
+          `;
+        }
+      });
+      html+="</div></div>";
+      div.innerHTML=html;
       form.appendChild(div);
+
+      div.querySelectorAll("input[type=radio]").forEach(r=>{
+        r.addEventListener("change",()=>userAnswers[i]=r.value);
+      });
     });
   }
 
   function show(n){
     document.querySelectorAll(".question-wrapper")
       .forEach((q,i)=>q.classList.toggle("active",i===n));
-    current = n;
+    current=n;
   }
 
-  prev.onclick = ()=> current>0 && show(current-1);
-  next.onclick = ()=> current<questions.length-1 && show(current+1);
-  submitTop.onclick = ()=> alert("SUBMIT OK (dummy)");
+  prev.onclick=()=>current>0 && show(current-1);
+  next.onclick=()=>current<questions.length-1 && show(current+1);
+  submitTop.onclick=()=>alert("SUBMIT OK (dummy)");
 
   function startTimer(){
-    timerInterval = setInterval(()=>{
-      const mins = String(Math.floor(timeLeft/60)).padStart(2,'0');
-      const secs = String(timeLeft%60).padStart(2,'0');
-      document.getElementById("timer").textContent = `${mins}:${secs}`;
+    timerInterval=setInterval(()=>{
+      const mins=String(Math.floor(timeLeft/60)).padStart(2,'0');
+      const secs=String(timeLeft%60).padStart(2,'0');
+      document.getElementById("timer").textContent=`${mins}:${secs}`;
       timeLeft--;
       if(timeLeft<0) clearInterval(timerInterval);
     },1000);
   }
-
 });
 </script>
 

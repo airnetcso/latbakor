@@ -12,7 +12,7 @@ body{
   background:#f5f5f5;
 }
 
-/* ================= LOGIN ================= */
+/* LOGIN */
 #login-page{
   min-height:100vh;
   display:flex;
@@ -29,16 +29,13 @@ body{
   max-width:280px;
   padding:35px;
   text-align:center;
-  background:rgba(255,255,255,0.12); /* TRANSPARAN */
+  background:rgba(255,255,255,0.12);
   backdrop-filter:blur(6px);
   box-shadow:0 15px 40px rgba(0,0,0,.4);
 }
 
 .login-container h1,
-.login-container h2,
-.login-container p{
-  color:#fff;
-}
+.login-container p{color:#fff}
 
 input{
   width:88%;
@@ -59,7 +56,7 @@ button{
   cursor:pointer;
 }
 
-/* ================= QUIZ ================= */
+/* QUIZ */
 #quiz-page{
   display:none;
   min-height:100vh;
@@ -78,8 +75,6 @@ button{
   z-index:1000;
   padding:6px;
   display:flex;
-  justify-content:space-between;
-  align-items:center;
 }
 
 .timer,.submit-top{
@@ -90,9 +85,8 @@ button{
   font-weight:bold;
   color:#fff;
 }
-
-.timer{background:#4caf50;}
-.submit-top{background:#f44336;}
+.timer{background:#4caf50}
+.submit-top{background:#f44336}
 
 .container{
   max-width:540px;
@@ -102,7 +96,7 @@ button{
   height:calc(100vh - 140px);
 }
 
-.question-wrapper{display:none;margin-bottom:30px;}
+.question-wrapper{display:none;margin-bottom:30px}
 .question-wrapper.active{display:block}
 
 .box-passage{
@@ -112,20 +106,13 @@ button{
   margin-bottom:15px;
 }
 
-.box-passage audio,
-.box-passage img{
-  width:100%;
-  margin-top:10px;
-}
-
 .box-question{
   background:#fff3e0;
   padding:20px;
   border:2px solid #ffcc80;
 }
 
-/* ================= OPTIONS ================= */
-.options{margin-top:15px;}
+.options{margin-top:15px}
 
 .option-item{
   display:flex;
@@ -134,7 +121,7 @@ button{
   cursor:pointer;
 }
 
-.option-item input{display:none;}
+.option-item input{display:none}
 
 .option-circle{
   width:28px;
@@ -154,7 +141,7 @@ button{
   border-color:#1e88e5;
 }
 
-/* ================= NAV ================= */
+/* NAV */
 .nav-bottom{
   position:fixed;
   bottom:0;
@@ -166,7 +153,6 @@ button{
   padding:6px;
   box-shadow:0 -4px 10px rgba(0,0,0,.1);
 }
-
 .nav-bottom button{
   flex:1;
   padding:12px 0;
@@ -174,9 +160,8 @@ button{
   border:none;
   color:#fff;
 }
-
-#prev{background:#2196f3;}
-#next{background:#ff9800;}
+#prev{background:#2196f3}
+#next{background:#ff9800}
 </style>
 </head>
 
@@ -186,12 +171,11 @@ button{
 <div id="login-page">
   <div class="login-container">
     <h1>LATIHAN SOAL</h1>
-	<h1>연습</h1>
     <p>25 Soal | Waktu 50 Menit</p>
-    <input id="username" placeholder="Username / 이름">
-    <input id="password" type="password" placeholder="Password / 비밀번호">
-    <input id="kode" placeholder="Kode Soal / 시험코드">
-    <button id="btnLogin">LOGIN / 로그인</button>
+    <input id="username" placeholder="Username">
+    <input id="password" type="password" placeholder="Password">
+    <input id="kode" placeholder="Kode Soal">
+    <button id="btnLogin">LOGIN</button>
   </div>
 </div>
 
@@ -231,9 +215,11 @@ const kodeMapping={
 };
 
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
-const btnLogin=document.getElementById("btnLogin");
+
 const loginPage=document.getElementById("login-page");
 const quizPage=document.getElementById("quiz-page");
+const btnLogin=document.getElementById("btnLogin");
+const submitTop=document.getElementById("submitTop");
 const form=document.getElementById("quiz-form");
 
 let questions=[],answers=[],current=0,time=50*60,interval;
@@ -242,7 +228,6 @@ btnLogin.onclick=()=>{
   const u=username.value.trim();
   const p=password.value.trim();
   const k=kode.value.trim().toUpperCase();
-
   if(validCredentials[u]===p && kodeMapping[k]){
     loginPage.style.display="none";
     quizPage.style.display="block";
@@ -267,7 +252,7 @@ function render(){
     d.innerHTML=`
       <div class="box-passage">
         ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
-        ${q.image?`<img src="${q.image}">`:""}
+        ${q.image?`<img src="${q.image}" style="width:100%">`:""}
       </div>
       <div class="box-question">
         <p><strong>${i+1}.</strong> ${q.question}</p>
@@ -276,20 +261,24 @@ function render(){
             <label class="option-item">
               <input type="radio" name="q${i}" value="${k}">
               <span class="option-circle">${idx+1}</span>
-              <span class="option-text">${v}</span>
+              <span>${v}</span>
             </label>
           `).join("")}
         </div>
       </div>`;
     form.appendChild(d);
+    d.querySelectorAll("input").forEach(r=>r.onchange=()=>answers[i]=r.value);
+  });
+}
 
-    d.querySelectorAll("input").forEach(r=>{
-      r.onchange=()=>answers[i]=r.value;
-    });
+function stopAllAudio(){
+  document.querySelectorAll("audio").forEach(a=>{
+    a.pause(); a.currentTime=0;
   });
 }
 
 function show(n){
+  stopAllAudio();
   document.querySelectorAll(".question-wrapper")
     .forEach((q,i)=>q.classList.toggle("active",i===n));
   current=n;
@@ -298,12 +287,30 @@ function show(n){
 prev.onclick=()=>current>0&&show(current-1);
 next.onclick=()=>current<questions.length-1&&show(current+1);
 
+function submitQuiz(){
+  const kosong=answers.findIndex(a=>a===null);
+  if(kosong!==-1){
+    alert(`Soal nomor ${kosong+1} belum dijawab`);
+    show(kosong);
+    return;
+  }
+  clearInterval(interval);
+  let score=0;
+  questions.forEach((q,i)=>answers[i]===q.answer&&(score+=4));
+  alert(`Ujian selesai!\nNilai kamu: ${score}`);
+}
+
+submitTop.onclick=submitQuiz;
+
 function startTimer(){
   interval=setInterval(()=>{
     const m=String(Math.floor(time/60)).padStart(2,"0");
     const s=String(time%60).padStart(2,"0");
     timer.textContent=`${m}:${s}`;
-    if(--time<0) clearInterval(interval);
+    if(--time<0){
+      clearInterval(interval);
+      submitQuiz();
+    }
   },1000);
 }
 

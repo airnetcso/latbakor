@@ -153,28 +153,22 @@
             border-radius: 16px;
             border: 2px solid #ffcc80;
         }
+
+        /* Format Jawaban Standar (A. B. C. D.) */
         .options {
             margin-top: 25px;
         }
         .option-item {
             display: flex;
             align-items: flex-start;
-            margin: 8px 0; /* lebih rapat lagi */
+            margin: 15px 0; /* jarak sedang, mudah dibaca */
             font-size: 1.2em;
         }
-        .circle-number {
-            width: 40px;
-            height: 40px;
-            background: #333;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .option-letter {
             font-weight: bold;
-            font-size: 1.2em;
-            margin-right: 20px;
-            flex-shrink: 0;
+            color: #1976d2;
+            margin-right: 15px;
+            min-width: 25px;
         }
         .option-text {
             flex: 1;
@@ -182,10 +176,11 @@
         }
         .option-item input[type="radio"] {
             transform: scale(1.6);
-            margin-right: 20px;
-            margin-top: 8px; /* penyesuaian agar rata sempurna dengan lingkaran */
+            margin-right: 15px;
+            margin-top: 5px;
         }
-        /* 3 Tombol Bawah */
+
+        /* Tombol Bawah */
         .nav-buttons {
             display: flex;
             justify-content: space-between;
@@ -201,6 +196,7 @@
         .nav-buttons button:hover {
             background: #283593;
         }
+
         #result {
             text-align: center;
             font-size: 1.8em;
@@ -232,6 +228,7 @@
     </style>
 </head>
 <body>
+
     <!-- Login Page -->
     <div id="login-page">
         <div class="login-container">
@@ -254,7 +251,7 @@
         <div class="container">
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
-           
+            
             <form id="quiz-form"></form>
 
             <div class="nav-buttons">
@@ -271,8 +268,8 @@
         </div>
     </div>
 
-    <!-- Script tetap sama -->
     <script>
+        // Script tetap sama (tidak diubah)
         const validCredentials = {
             "uus": "123",
             "kimjong2": "kimju456",
@@ -348,6 +345,7 @@
             questions.forEach((q, i) => {
                 const wrapper = document.createElement('div');
                 wrapper.className = 'question-wrapper';
+
                 let html = `
                     <div class="box-passage">
                         <p><strong>Passage ${i+1}:</strong><br>${q.passage}</p>
@@ -358,7 +356,8 @@
                         <p><strong>Pertanyaan ${i+1}:</strong><br>${q.question}</p>
                         <div class="options">
                 `;
-                const letters = ['1', '2', '3', '4'];
+
+                const letters = ['A', 'B', 'C', 'D'];
                 letters.forEach((letter, idx) => {
                     const keys = Object.keys(q.options);
                     if (idx < keys.length) {
@@ -367,15 +366,21 @@
                         html += `
                             <div class="option-item">
                                 <input type="radio" name="q${i+1}" value="${key}" id="opt${i+1}${key}">
-                                <div class="circle-number">${letter}</div>
+                                <span class="option-letter">${letter}.</span>
                                 <label for="opt${i+1}${key}" class="option-text">${val}</label>
                             </div>
                         `;
                     }
                 });
-                html += `</div></div>`;
+
+                html += `
+                        </div>
+                    </div>
+                `;
+
                 wrapper.innerHTML = html;
                 form.appendChild(wrapper);
+
                 wrapper.querySelectorAll('input[type="radio"]').forEach(radio => {
                     radio.addEventListener('change', () => userAnswers[i] = radio.value);
                 });
@@ -401,14 +406,17 @@
             if (isSubmitted) return;
             isSubmitted = true;
             clearInterval(timerInterval);
+
             let score = 0;
             questions.forEach((q, i) => {
                 if (userAnswers[i] === q.correct) score++;
             });
+
             const percent = Math.round(score / totalQuestions * 100);
             let message = timeUp ? "<strong>Waktu Habis!</strong><br><br>" : "<strong>Selesai!</strong><br><br>";
             message += `Skor: <strong>${score}/${totalQuestions} (${percent}%)</strong><br><br>`;
             message += percent >= 80 ? "Mantap bro! 🔥" : "Terus latihan ya! 💪";
+
             document.getElementById('result').innerHTML = message;
             document.getElementById('result').style.display = 'block';
             document.querySelector('.nav-buttons').style.display = 'none';

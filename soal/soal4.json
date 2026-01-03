@@ -26,6 +26,19 @@
     "explanation": "Audio bermakna 'Saya belajar'."
   },
   {
+    "question": "Apa arti kata \"어머니\"?",
+    "options": {
+      "A": "Guru",
+      "B": "Teman",
+      "C": "Orang tua",
+      "D": "Ibu"
+    },
+    "correct": "B",
+    "audio": null,
+    "image": null,
+    "explanation": "친구 berarti teman."
+  },
+  {
     "question": "Benda apa pada gambar berikut?",
     "options": {
       "A": "Televisi",

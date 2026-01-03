@@ -90,8 +90,8 @@ button{
   overflow:auto;
 }
 
-.question-wrapper{display:none}
-.question-wrapper.active{display:block}
+.question-wrapper{display:none;}
+.question-wrapper.active{display:block;}
 
 .box-passage{
   background:#e3f2fd;
@@ -111,11 +111,7 @@ button{
   margin-top:10px;
 }
 
-/* === OPSI JAWABAN (FINAL FIX) === */
-.options{
-  margin-top:15px;
-}
-
+/* OPTIONS */
 .option-item{
   display:flex;
   align-items:flex-start;
@@ -123,20 +119,18 @@ button{
   margin:12px 0;
   cursor:pointer;
 }
-
-.option-item input{
-  display:none;
-}
+.option-item input{display:none;}
 
 .option-circle{
   width:28px;
   height:28px;
-  border:2px solid #999;
+  border:1.5px solid #000;
+  border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
   font-weight:bold;
-  background:#fff;
+  background:transparent;
   flex-shrink:0;
 }
 
@@ -192,7 +186,7 @@ button{
 <!-- QUIZ -->
 <div id="quiz-page">
   <div class="header-fixed">
-    <div class="submit-top" id="submitTop">SUBMIT</div>
+    <div class="submit-top">SUBMIT</div>
     <div class="timer" id="timer">50:00</div>
   </div>
 
@@ -224,11 +218,11 @@ const kodeMapping={
 
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-let questions=[],current=0,answers=[];
+let questions=[],answers=[],current=0;
 let timeLeft=50*60,timerInt;
 
 /* LOGIN */
-document.getElementById("btnLogin").onclick=()=>{
+document.getElementById("btnLogin").addEventListener("click",()=>{
   const u=document.getElementById("username").value.trim();
   const p=document.getElementById("password").value.trim();
   const k=document.getElementById("kode").value.trim().toUpperCase();
@@ -244,17 +238,20 @@ document.getElementById("btnLogin").onclick=()=>{
 
   fetch(BASE+kodeMapping[k]+"?t="+Date.now())
     .then(r=>r.json())
-    .then(d=>{
-      questions=d;
-      answers=Array(d.length).fill(null);
+    .then(data=>{
+      questions=data;
+      answers=Array(data.length).fill(null);
       document.getElementById("login-page").style.display="none";
       document.getElementById("quiz-page").style.display="block";
       startTimer();
       render();
       show(0);
     })
-    .catch(()=>alert("Gagal load soal"));
-};
+    .catch(err=>{
+      alert("Gagal load soal");
+      console.error(err);
+    });
+});
 
 /* RENDER */
 function render(){
@@ -271,15 +268,13 @@ function render(){
       <div class="box-question">
         <b>Soal ${i+1}</b>
         <p>${q.question}</p>
-        <div class="options">
-          ${Object.entries(q.options).map(([k,v],idx)=>`
-            <label class="option-item">
-              <input type="radio" name="q${i}" value="${k}">
-              <span class="option-circle">${idx+1}</span>
-              <span class="option-text">${v}</span>
-            </label>
-          `).join("")}
-        </div>
+        ${Object.entries(q.options).map(([k,v],idx)=>`
+          <label class="option-item">
+            <input type="radio" name="q${i}" value="${k}">
+            <span class="option-circle">${idx+1}</span>
+            <span class="option-text">${v}</span>
+          </label>
+        `).join("")}
       </div>
     `;
     div.querySelectorAll("input").forEach(r=>{
@@ -291,7 +286,8 @@ function render(){
 
 function show(n){
   document.querySelectorAll("audio").forEach(a=>{
-    a.pause(); a.currentTime=0;
+    a.pause();
+    a.currentTime=0;
   });
   document.querySelectorAll(".question-wrapper")
     .forEach((q,i)=>q.classList.toggle("active",i===n));

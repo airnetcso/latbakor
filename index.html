@@ -7,29 +7,59 @@
     <style>
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
             margin: 0;
             padding: 0;
             color: #333;
             min-height: 100vh;
         }
-        .container {
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-            border-radius: 16px;
-            position: relative;
-            padding-top: 80px;
+
+        /* Login Page dengan Background dari Link Kamu */
+        #login-page {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg.jpg') center/cover no-repeat fixed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        h1 {
+        .login-container {
+            max-width: 420px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
             text-align: center;
+        }
+        .login-container h1 {
             color: #1a237e;
             margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+        .login-container p {
+            color: #555;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+        .login-container h2 {
+            color: #4a148c;
+            margin-bottom: 30px;
+            font-size: 1.6em;
         }
 
-        /* Header Fixed */
+        /* Quiz Page */
+        #quiz-page {
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            padding-top: 90px; /* space untuk header fixed */
+        }
+
+        /* Header Fixed: Submit pink kiri, Timer hijau kanan */
         .header-fixed {
             position: fixed;
             top: 0;
@@ -125,12 +155,14 @@
             max-width: 100%;
             border-radius: 16px;
             margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
         }
         .question audio {
             width: 100%;
             margin: 20px 0;
         }
 
+        /* Pilihan jawaban: Lingkaran kecil angka + teks ke bawah */
         .options {
             margin-top: 20px;
         }
@@ -206,26 +238,28 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Latihan Reading Korea</h1>
-        <p style="text-align:center; color:#555; font-style:italic;">40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
 
-        <!-- Login -->
-        <div id="login-box" class="login-box active">
+    <!-- Login Page dengan Background dari Link Kamu -->
+    <div id="login-page">
+        <div class="login-container">
+            <h1>Latihan Reading Korea</h1>
+            <p>40 Soal Pilihan Ganda | Waktu: 50 Menit</p>
             <h2>🔐 Masuk ke Latihan</h2>
             <input type="text" id="username" placeholder="Username">
             <input type="password" id="password" placeholder="Password">
             <input type="text" id="kode" placeholder="Kode Soal" maxlength="6">
             <button onclick="login()">Login & Mulai</button>
         </div>
+    </div>
 
-        <!-- Quiz -->
-        <div id="quiz-container">
-            <div class="header-fixed">
-                <button class="submit-top" id="submit-top">SUBMIT</button>
-                <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
-            </div>
+    <!-- Quiz Page -->
+    <div id="quiz-page" style="display:none;">
+        <div class="header-fixed">
+            <button class="submit-top" id="submit-top">SUBMIT</button>
+            <div class="timer" id="timer">Waktu Tersisa: 50:00</div>
+        </div>
 
+        <div class="container">
             <div class="progress"><div class="progress-bar" id="progress"></div></div>
             <div id="loading">Memuat soal... sabar ya bro 😎</div>
             
@@ -281,8 +315,8 @@
             if (validCredentials[user] && validCredentials[user] === pass && kodeMapping[kode]) {
                 currentUsername = user;
                 currentFile = kodeMapping[kode];
-                document.getElementById('login-box').classList.remove('active');
-                document.getElementById('quiz-container').classList.add('active');
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('quiz-page').style.display = 'block';
                 document.getElementById('loading').textContent = `Memuat paket ${kode}...`;
                 startTimer();
                 loadQuestions();
@@ -296,7 +330,7 @@
                 timeLeft--;
                 const mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
                 const secs = String(timeLeft % 60).padStart(2, '0');
-                document.getElementById('timer').textContent = `Waktu Tersisa: ${mins}:${secs}`;
+                document.getElementById('timer').textContent = `${mins}:${secs}`;
                 if (timeLeft <= 120) document.getElementById('timer').style.background = '#f44336';
                 if (timeLeft <= 0 && !isSubmitted) {
                     clearInterval(timerInterval);
@@ -308,15 +342,13 @@
         async function loadQuestions() {
             try {
                 const res = await fetch(`${GITHUB_RAW_BASE}/${currentFile}?t=${Date.now()}`);
-                if (!res.ok) throw new Error("File tidak ditemukan atau error");
+                if (!res.ok) throw new Error("File tidak ditemukan");
                 questions = await res.json();
-                console.log("Soal berhasil loaded:", questions.length); // debug
                 renderQuestions();
                 document.getElementById('loading').style.display = 'none';
                 showQuestion(0);
             } catch (err) {
-                console.error(err);
-                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>Cek console (F12) untuk detail.</p>`;
+                document.getElementById('loading').innerHTML = `<p style="color:red;">Gagal load soal!</p><p>${err.message}</p>`;
             }
         }
 
@@ -359,9 +391,7 @@
         }
 
         function showQuestion(n) {
-            document.querySelectorAll('.question').forEach((q, i) => {
-                q.classList.toggle('active', i === n);
-            });
+            document.querySelectorAll('.question').forEach((q, i) => q.classList.toggle('active', i === n));
             document.getElementById('prev').disabled = n === 0;
             document.getElementById('next').disabled = n === totalQuestions - 1;
             document.getElementById('progress').style.width = ((n + 1) / totalQuestions * 100) + '%';

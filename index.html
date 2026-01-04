@@ -120,29 +120,14 @@ const timerEl=document.getElementById("timer");
 const resultBox=document.getElementById("resultBox");
 
 const validCredentials={
- "uus":"123",
- "user01":"12345",
- "hanarizka":"Nungkihana24!",
- "user3":"12345",
- "siswa01":"12345",
- "windi":"Windi2000",
- "rismaya97":"bahasakorea",
- "admin":"admin123",
- "Fikrisurya":"464646",
- "Mutiara2003":"Mutiara14",
- "sita77":"minyooki",
- "Aini185":"Doraemon",
- "Hangeulfei":"studykorea02",
- "Hamdan106":"Fukuo106",
- "koreafan":"hanguk789",
- "topik2026":"seoul2026"
+ "uus":"123","user01":"12345","hanarizka":"Nungkihana24!","user3":"12345","siswa01":"12345",
+ "windi":"Windi2000","rismaya97":"bahasakorea","admin":"admin123","Fikrisurya":"464646",
+ "Mutiara2003":"Mutiara14","sita77":"minyooki","Aini185":"Doraemon","Hangeulfei":"studykorea02",
+ "Hamdan106":"Fukuo106","koreafan":"hanguk789","topik2026":"seoul2026"
 };
 const kodeMapping={
- "B12345":"soal1.json",
- "A09008":"soal2.json",
- "SAREWAE":"soal5.json",
- "W11765":"soal3.json",
- "H66633":"soal4.json"
+ "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"soal5.json",
+ "W11765":"soal3.json","H66633":"soal4.json"
 };
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
@@ -187,7 +172,7 @@ async function loadSoal(file){
    </div>
    </div>`;
  });
- document.querySelectorAll("input").forEach(r=>{
+ document.querySelectorAll("input[type=radio]").forEach(r=>{
   r.onchange=()=>answers[+r.name.slice(1)]=r.value;
  });
  show(0);
@@ -221,17 +206,21 @@ submitTop.onclick=()=>{
    </div>`;
  });
 
- // KIRIM DATA KE ADMIN VIA localStorage
+ // KIRIM KE ADMIN PUSAT
  const resultData = {
   username: currentUser,
   kode: currentKode,
   nilai: score,
-  tanggal: new Date().toLocaleString('id-ID')
+  tanggal: new Date().toLocaleString('id-ID'),
+  app: "latbakor"
  };
 
  let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
- allResults.push(resultData);
- localStorage.setItem("quizResults", JSON.stringify(allResults));
+ const duplicate = allResults.some(r => r.username === resultData.username && r.kode === resultData.kode && r.nilai === resultData.nilai && r.app === "latbakor");
+ if(!duplicate){
+  allResults.push(resultData);
+  localStorage.setItem("quizResults", JSON.stringify(allResults));
+ }
 
  resultBox.innerHTML=`
   <h2>Nilai: ${score}</h2>
@@ -241,9 +230,7 @@ submitTop.onclick=()=>{
 
 function startTimer(){
  interval=setInterval(()=>{
-  timerEl.textContent=
-  String(Math.floor(time/60)).padStart(2,"0")+":"+
-  String(time%60).padStart(2,"0");
+  timerEl.textContent=String(Math.floor(time/60)).padStart(2,"0")+":"+String(time%60).padStart(2,"0");
   if(--time<0) submitTop.onclick();
  },1000);
 }

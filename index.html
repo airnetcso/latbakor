@@ -1,14 +1,11 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEST BAHASA KOREA</title>
-
 <style>
 body{margin:0;font-family:'Segoe UI',Arial;background:#f5f5f5}
-
 /* LOGIN */
 #login-page{
  min-height:100vh;
@@ -26,7 +23,6 @@ body{margin:0;font-family:'Segoe UI',Arial;background:#f5f5f5}
 .login-container h1,.login-container p{color:#fff}
 input{width:88%;padding:14px;margin:10px 0}
 button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-weight:bold}
-
 /* QUIZ */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{
@@ -36,16 +32,12 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
 .timer,.submit-top{flex:1;padding:12px 0;text-align:center;color:#fff;font-weight:bold}
 .timer{background:#4caf50}
 .submit-top{background:#f44336}
-
 .container{max-width:540px;margin:auto;height:calc(100vh - 140px);overflow:auto}
 .question-wrapper{display:none;margin-bottom:30px}
 .question-wrapper.active{display:block}
-
 .box-passage{background:#e3f2fd;padding:20px;border:2px solid #bbdefb}
 .box-passage audio,.box-passage img{width:100%;margin-top:10px}
-
 .box-question{background:#fff3e0;padding:20px;border:2px solid #ffcc80}
-
 .options{margin-top:15px}
 .option-item{display:flex;align-items:flex-start;margin:12px 0}
 .option-item input{display:none}
@@ -54,7 +46,6 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
  display:flex;align-items:center;justify-content:center;margin-right:10px
 }
 .option-item input:checked + .option-circle{background:#bbdefb}
-
 .nav-bottom{
  position:fixed;bottom:0;width:100%;display:flex;gap:6px;
  background:#fff;padding:6px
@@ -62,7 +53,6 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
 .nav-bottom button{flex:1;padding:12px;color:#fff;border:none;font-weight:bold}
 #prev{background:#2196f3}
 #next{background:#ff9800}
-
 /* RESULT */
 #result-page{display:none;max-width:600px;margin:auto;padding:20px}
 .result-box{background:#fff;border:2px solid #ddd;padding:20px}
@@ -77,9 +67,7 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
 }
 </style>
 </head>
-
 <body>
-
 <div id="login-page">
  <div class="login-container">
  <h1>LATIHAN SOAL</h1>
@@ -91,7 +79,6 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
  <button id="btnLogin">LOGIN / 로그인</button>
  </div>
 </div>
-
 <div id="quiz-page">
  <div class="header-fixed">
  <div class="submit-top" id="submitTop">SUBMIT</div>
@@ -103,14 +90,11 @@ button{width:100%;padding:16px;background:#3f51b5;color:#fff;border:none;font-we
  <button id="next">NEXT</button>
  </div>
 </div>
-
 <div id="result-page">
  <div class="result-box" id="resultBox"></div>
 </div>
-
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
-
 const loginPage=document.getElementById("login-page");
 const quizPage=document.getElementById("quiz-page");
 const resultPage=document.getElementById("result-page");
@@ -119,7 +103,6 @@ const submitTop=document.getElementById("submitTop");
 const quizForm=document.getElementById("quiz-form");
 const timerEl=document.getElementById("timer");
 const resultBox=document.getElementById("resultBox");
-
 const validCredentials={
  "uus":"123","user01":"12345","hanarizka":"Nungkihana24!","user3":"12345","siswa01":"12345",
  "windi":"Windi2000","rismaya97":"bahasakorea","admin":"admin123","Fikrisurya":"464646",
@@ -134,15 +117,12 @@ const kodeMapping={
  "H66633":"soal5.json"
 };
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
-
 let questions=[],answers=[],current=0,time=3000,interval;
 let currentUser="", currentKode="";
-
 btnLogin.onclick=()=>{
  const u=document.getElementById("username").value.trim();
  const p=document.getElementById("password").value.trim();
  const k=document.getElementById("kode").value.trim().toUpperCase();
-
  if(validCredentials[u]===p && kodeMapping[k]){
   currentUser = u;
   currentKode = k;
@@ -154,7 +134,6 @@ btnLogin.onclick=()=>{
   alert("Username / Password / Kode salah");
  }
 };
-
 async function loadSoal(file){
  questions=await (await fetch(BASE+file)).json();
  answers=Array(questions.length).fill(null);
@@ -181,7 +160,6 @@ async function loadSoal(file){
  });
  show(0);
 }
-
 function show(n){
  document.querySelectorAll("audio").forEach(a=>{a.pause();a.currentTime=0});
  document.querySelectorAll(".question-wrapper").forEach((q,i)=>q.classList.toggle("active",i===n));
@@ -189,15 +167,12 @@ function show(n){
 }
 document.getElementById("prev").onclick=()=>current>0&&show(current-1);
 document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
-
 submitTop.onclick=()=>{
  const kosong=answers.findIndex(a=>a===null);
  if(kosong!==-1){alert("Soal "+(kosong+1)+" belum dijawab");show(kosong);return;}
-
  clearInterval(interval);
  quizPage.style.display="none";
  resultPage.style.display="block";
-
  let score=0,html="";
  questions.forEach((q,i)=>{
   const benar=q.answer;
@@ -209,39 +184,39 @@ submitTop.onclick=()=>{
    ${q.explanation||"-"}
    </div>`;
  });
-
- // KIRIM KE ADMIN PUSAT
+ // === PENGIRIMAN NILAI KE ADMIN PUSAT (DIPERBAIKI & DIPERKUAT) ===
  const resultData = {
   username: currentUser,
-  kode: currentKode,
+  kode: currentKode || "-",
   nilai: score,
   tanggal: new Date().toLocaleString('id-ID'),
   app: "latbakor"
  };
-
  let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
- const duplicate = allResults.some(r => r.username === resultData.username && r.kode === resultData.kode && r.nilai === resultData.nilai && r.app === "latbakor");
- if(!duplicate){
+ // Check duplikat lebih ketat (termasuk waktu submit kurang dari 1 menit)
+ const isDuplicate = allResults.some(r => 
+  r.username === resultData.username &&
+  r.kode === resultData.kode &&
+  r.nilai === resultData.nilai &&
+  r.app === resultData.app &&
+  Math.abs(new Date(r.tanggal) - new Date(resultData.tanggal)) < 60000
+ );
+ if (!isDuplicate) {
   allResults.push(resultData);
   localStorage.setItem("quizResults", JSON.stringify(allResults));
  }
-
  resultBox.innerHTML=`
   <h2>Nilai: ${score}</h2>
   ${html||"<p class='correct'>Semua jawaban benar 🎉</p>"}
   <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
 };
-
 function startTimer(){
  interval=setInterval(()=>{
   timerEl.textContent=String(Math.floor(time/60)).padStart(2,"0")+":"+String(time%60).padStart(2,"0");
   if(--time<0) submitTop.onclick();
  },1000);
 }
-
 });
 </script>
 </body>
 </html>
-
-

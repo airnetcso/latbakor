@@ -38,8 +38,8 @@ body::before {
   z-index: 1;
 }
 
-/* LOGIN PAGE - Mirip persis Koka */
-.login-container {
+/* LOGIN PAGE - Mirip persis Koka, class baru .login-box biar nggak bentrok */
+.login-box {
   position: relative;
   z-index: 2;
   width: 80%;
@@ -55,18 +55,18 @@ body::before {
   margin-top: -100px;
   text-align: center;
 }
-.login-container h1 {
+.login-box h1 {
   font-size: 32px;
   margin: 0 0 10px;
   color: #fff;
   font-weight: 700;
   text-shadow: 0 2px 8px rgba(0,0,0,0.6);
 }
-.login-container p {
+.login-box p {
   margin: 0 0 30px;
   font-size: 18px;
 }
-input {
+.login-box input {
   width: 100%;
   padding: 16px;
   margin: 14px 0;
@@ -78,16 +78,16 @@ input {
   color: white;
   transition: all 0.3s ease;
 }
-input::placeholder {
+.login-box input::placeholder {
   color: rgba(255,255,255,0.7);
 }
-input:focus {
+.login-box input:focus {
   border-color: #fff;
   background: rgba(255,255,255,0.22);
   outline: none;
   box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
 }
-button {
+.login-box button {
   width: 100%;
   padding: 16px;
   margin: 16px 0 8px;
@@ -100,7 +100,7 @@ button {
   background: linear-gradient(90deg, #10b981, #059669); /* Hijau seperti koka */
   transition: all 0.3s ease;
 }
-button:hover {
+.login-box button:hover {
   transform: translateY(-3px);
   box-shadow: 0 12px 25px rgba(16,185,129,0.4);
 }
@@ -151,14 +151,15 @@ button:hover {
 
 <body>
 
-<!-- LOGIN PAGE - Mirip persis Koka -->
-<div class="login-container" id="login-page">
+<!-- LOGIN PAGE - Mirip persis Koka, class baru .login-box -->
+<div class="login-box" id="login-page">
   <h1>LATIHAN SOAL</h1>
   <h1>한국어연습</h1>
   <p>25 Soal | 50 Menit</p>
   <input id="username" placeholder="Username / 이름" autocomplete="off">
   <input id="password" type="password" placeholder="Password / 비밀번호" autocomplete="off">
   <input id="kode" placeholder="Kode Soal / 시험코드" autocomplete="off">
+  <div class="error" id="errorMsg"></div>
   <button id="btnLogin">LOGIN / 로그인</button>
 </div>
 
@@ -182,6 +183,7 @@ button:hover {
 
 <script>
 document.addEventListener("DOMContentLoaded",()=>{
+
 const loginPage=document.getElementById("login-page");
 const quizPage=document.getElementById("quiz-page");
 const resultPage=document.getElementById("result-page");
@@ -198,11 +200,8 @@ const validCredentials={
  "Hamdan106":"Fukuo106","koreafan":"hanguk789","topik2026":"seoul2026"
 };
 const kodeMapping={
- "B12345":"soal1.json",
- "A09008":"soal2.json",
- "SAREWAE":"test.json",
- "W11765":"soal3.json",
- "H66633":"soal5.json"
+ "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"test.json",
+ "W11765":"soal3.json","H66633":"soal5.json"
 };
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 

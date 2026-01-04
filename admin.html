@@ -3,68 +3,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin - Hasil Quiz Korea</title>
+<title>Admin Pusat - Quiz Bahasa Korea</title>
 <style>
 body{font-family:Arial,sans-serif;background:#f0f0f0;margin:0;padding:20px}
-h1{text-align:center;color:#3f51b5}
-table{width:100%;border-collapse:collapse;margin-top:20px;background:#fff}
-th,td{border:1px solid #ddd;padding:12px;text-align:center}
-th{background:#3f51b5;color:white}
+h1{text-align:center;color:#3f51b5;margin-bottom:10px}
+.subtitle{text-align:center;color:#666;margin-bottom:30px;font-size:18px}
+#passwordPrompt{text-align:center;margin:30px auto;max-width:400px;display:none}
+#passwordInput{padding:12px;width:80%;max-width:300px;border-radius:8px;border:1px solid #ccc}
+#passwordBtn{padding:12px 20px;background:#3f51b5;color:white;border:none;border-radius:8px;cursor:pointer}
+.filter{margin:20px auto;text-align:center;max-width:600px}
+select, button{padding:10px 15px;margin:5px;font-size:16px;border-radius:4px;cursor:pointer}
+#exportBtn{background:#4caf50;color:white;border:none}
+table{width:100%;border-collapse:collapse;margin-top:20px;background:#fff;box-shadow:0 4px 15px rgba(0,0,0,0.1);border-radius:8px;overflow:hidden}
+th,td{border:1px solid #ddd;padding:14px;text-align:center}
+th{background:#3f51b5;color:white;font-weight:bold}
 tr:nth-child(even){background:#f9f9f9}
-.clear-btn{margin:20px auto;display:block;padding:12px 24px;background:#f44336;color:white;border:none;cursor:pointer}
+.app-latbakor{background:#e3f2fd !important}
+.app-ubt{background:#e8f5e8 !important}
+.app-koka{background:#fff3e0 !important}
+.clear-btn, .back-btn{margin:40px auto;display:block;padding:16px 40px;background:#f44336;color:white;border:none;cursor:pointer;font-size:18px;border-radius:8px}
+@media (max-width:768px){table{font-size:14px} th,td{padding:10px}}
 </style>
 </head>
 <body>
 
-<h1>ADMIN - HASIL LATIHAN BAHASA KOREA</h1>
+<h1>ADMIN PUSAT</h1>
+<p class="subtitle">Hasil Semua Quiz Bahasa Korea (latbakor • ubt • koka)</p>
 
-<table id="resultsTable">
-<thead>
-<tr>
-<th>No</th>
-<th>Username</th>
-<th>Kode Soal</th>
-<th>Nilai</th>
-<th>Tanggal & Waktu</th>
-</tr>
-</thead>
-<tbody></tbody>
-</table>
+<div id="passwordPrompt">
+  <p>Masukan password admin untuk melanjutkan:</p>
+  <input type="password" id="passwordInput" placeholder="Password">
+  <button id="passwordBtn">MASUK</button>
+</div>
 
-<button class="clear-btn" onclick="clearAll()">Hapus Semua Data</button>
+<div id="mainContent" style="display:none;">
+  <div class="filter">
+    <select id="filterApp">
+      <option value="all">Semua Aplikasi</option>
+      <option value="latbakor">Latihan Soal (latbakor)</option>
+      <option value="ubt">Ujian CBT (ubt)</option>
+      <option value="koka">Test Kosa Kata (koka)</option>
+    </select>
+    <button onclick="applyFilter()">Filter</button>
+    <button onclick="loadResults()">Refresh Data</button>
+    <button id="exportBtn" onclick="exportToCSV()">Export ke CSV</button>
+  </div>
+
+  <table id="resultsTable">
+  <thead>
+  <tr>
+  <th>No</th>
+  <th>Username</th>
+  <th>Aplikasi</th>
+  <th>Kode Soal</th>
+  <th>Nilai</th>
+  <th>Tanggal & Waktu</th>
+  </tr>
+  </thead>
+  <tbody></tbody>
+  </table>
+
+  <button class="clear-btn" onclick="clearAll()">HAPUS SEMUA DATA</button>
+</div>
 
 <script>
-function loadResults(){
- const data = JSON.parse(localStorage.getItem("quizResults") || "[]");
- const tbody = document.querySelector("#resultsTable tbody");
- tbody.innerHTML = "";
+const ADMIN_PASSWORD = "admin123"; // GANTI KALAU MAU LEBIH AMAN
 
- if(data.length === 0){
-  tbody.innerHTML = "<tr><td colspan='5'>Belum ada hasil quiz</td></tr>";
-  return;
- }
+const appNames = {
+  "latbakor": "Latihan Soal",
+  "ubt": "Ujian CBT",
+  "koka": "Test Kosa Kata"
+};
 
- data.reverse().forEach((item, index) => {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-   <td>${data.length - index}</td>
-   <td>${item.username}</td>
-   <td>${item.kode}</td>
-   <td><b>${item.nilai}</b></td>
-   <td>${item.tanggal}</td>
-  `;
-  tbody.appendChild(row);
- });
+document.getElementById("passwordBtn").onclick = () => {
+  const input = document.getElementById("passwordInput").value;
+  if (input === ADMIN_PASSWORD) {
+    document.getElementById("passwordPrompt").style.display = "none";
+    document.getElementById("mainContent").style.display = "block";
+    loadResults();
+  } else {
+    alert("Password salah!");
+  }
+};
+
+// Tampilkan prompt password dulu
+document.getElementById("passwordPrompt").style.display = "block";
+
+function loadResults(filter = "all"){
+  const data = JSON.parse(localStorage.getItem("quizResults") || "[]");
+  const tbody = document.querySelector("#resultsTable tbody");
+  tbody.innerHTML = "";
+
+  let filtered = data;
+  if(filter !== "all"){
+    filtered = data.filter(item => item.app === filter);
+  }
+
+  if(filtered.length === 0){
+    tbody.innerHTML = `<tr><td colspan="6">Belum ada hasil quiz${filter !== "all" ? " untuk " + (appNames[filter] || filter) : ""} 😊</td></tr>`;
+    return;
+  }
+
+  // Sort dari terbaru
+  filtered.sort((a,b) => new Date(b.tanggal) - new Date(a.tanggal));
+
+  filtered.forEach((item, index) => {
+    const row = document.createElement("tr");
+    row.className = `app-${item.app || 'unknown'}`;
+    row.innerHTML = `
+     <td>${index + 1}</td>
+     <td><b>${item.username || "-"}</b></td>
+     <td>${appNames[item.app] || item.app || "Unknown"}</td>
+     <td>${item.kode || "-"}</td>
+     <td><b>${item.nilai || "-"}</b></td>
+     <td>${item.tanggal || "-"}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+function applyFilter(){
+  const selected = document.getElementById("filterApp").value;
+  loadResults(selected);
 }
 
 function clearAll(){
- if(confirm("Yakin hapus semua data hasil quiz?")){
-  localStorage.removeItem("quizResults");
-  loadResults();
- }
+  if(confirm("YAKIN HAPUS SEMUA DATA DARI KETIGA APLIKASI?\nIni permanen!")){
+    localStorage.removeItem("quizResults");
+    loadResults();
+  }
 }
 
-loadResults();
+function exportToCSV(){
+  const data = JSON.parse(localStorage.getItem("quizResults") || "[]");
+  if(data.length === 0) return alert("Belum ada data untuk diexport!");
+
+  let csv = "No,Username,Aplikasi,Kode Soal,Nilai,Tanggal Waktu\n";
+  data.reverse().forEach((item, idx) => {
+    csv += `${idx+1},${item.username || ""},${appNames[item.app] || item.app || ""},${item.kode || ""},${item.nilai || ""},${item.tanggal || ""}\n`;
+  });
+
+  const blob = new Blob([csv], {type: "text/csv;charset=utf-8;"});
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.setAttribute("href", url);
+  link.setAttribute("download", "hasil_quiz_korea_" + new Date().toISOString().slice(0,10) + ".csv");
+  link.style.visibility = "hidden";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 </script>
 </body>
 </html>

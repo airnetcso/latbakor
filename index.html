@@ -4,38 +4,31 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEST BAHASA KOREA</title>
-
 <style>
 body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 
-/* LOGIN - CLEAN GLASSMORPHISM TANPA BORDER */
+/* LOGIN - STATIC, NO ANIMATION */
 #login-page{
  min-height:100vh;
  display:flex;
+ flex-direction:column;
  justify-content:center;
  align-items:center;
  background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
  url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;
- opacity:0;
- animation: fadeInPage 1.5s ease-out forwards;
-}
-@keyframes fadeInPage {
-  to { opacity:1; }
+ /* Animasi fadeInPage dihilangkan */
 }
 
 .login-container{
- width:90%;max-width:280px;padding:40px 30px;text-align:center;
+ width:90%;
+ max-width:280px;
+ padding:40px 30px;
+ text-align:center;
  background:rgba(255,255,255,.09);
  backdrop-filter:blur(12px);
  border-radius:20px;
- /* Border dihilangkan */
  box-shadow:0 8px 32px rgba(0,0,0,.4);
- opacity:0;
- transform:translateY(50px);
- animation: slideUp 1s ease-out 0.5s forwards;
-}
-@keyframes slideUp {
-  to { opacity:1; transform:translateY(0); }
+ /* Animasi slideUp dihilangkan */
 }
 
 .login-container h1{
@@ -57,7 +50,6 @@ input:focus{
  box-shadow:0 0 15px rgba(255,107,157,.5);
 }
 
-/* Tombol LOGIN ukuran & style sama persis dengan input */
 button{
  width:100%;padding:14px;margin:12px 0;border:none;border-radius:12px;
  background:#ff6b9d;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;
@@ -76,13 +68,15 @@ button:hover{
   100%{box-shadow:0 4px 15px rgba(255,107,157,.4);}
 }
 
-/* COPYRIGHT */
+/* COPYRIGHT - DIPINDAH KE LUAR BOX */
 .copyright{
- margin-top:25px;color:rgba(255,255,255,.7);font-size:14px;
+ margin-top:30px;
+ color:rgba(255,255,255,.7);
+ font-size:14px;
  text-shadow:0 1px 3px rgba(0,0,0,.8);
 }
 
-/* QUIZ & RESULT TETAP SAMA (tidak diubah) */
+/* QUIZ & RESULT - TETAP SAMA, TIDAK DIUBAH */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{position:fixed;top:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;z-index:1000}
 .timer,.submit-top{flex:1;padding:12px 0;text-align:center;color:#fff;font-weight:bold}
@@ -110,40 +104,40 @@ button:hover{
 .back-btn{margin-top:20px;padding:14px;background:#3f51b5;color:#fff;text-align:center;cursor:pointer}
 </style>
 </head>
-
 <body>
 
 <div id="login-page">
- <div class="login-container">
- <h1>LATIHAN SOAL</h1>
- <h1>한국어연습</h1>
- <p>25 Soal | 50 Menit</p>
- <input id="username" placeholder="Username / 이름">
- <input id="password" type="password" placeholder="Password / 비밀번호">
- <input id="kode" placeholder="Kode Soal / 시험코드">
- <button id="btnLogin">LOGIN / 로그인</button>
- <div class="copyright">© 2026 Denzuka - Kim Jongun</div>
- </div>
+  <div class="login-container">
+    <h1>LATIHAN SOAL</h1>
+    <h1>한국어연습</h1>
+    <p>25 Soal | 50 Menit</p>
+    <input id="username" placeholder="Username / 이름">
+    <input id="password" type="password" placeholder="Password / 비밀번호">
+    <input id="kode" placeholder="Kode Soal / 시험코드">
+    <button id="btnLogin">LOGIN / 로그인</button>
+    <!-- Copyright dipindah ke luar -->
+  </div>
+  <div class="copyright">© 2026 Denzuka - Kim Jongun</div>
 </div>
 
 <div id="quiz-page">
- <div class="header-fixed">
- <div class="submit-top" id="submitTop">SUBMIT</div>
- <div class="timer" id="timer">50:00</div>
- </div>
- <div class="container"><form id="quiz-form"></form></div>
- <div class="nav-bottom">
- <button id="prev">PREV</button>
- <button id="next">NEXT</button>
- </div>
+  <div class="header-fixed">
+    <div class="submit-top" id="submitTop">SUBMIT</div>
+    <div class="timer" id="timer">50:00</div>
+  </div>
+  <div class="container"><form id="quiz-form"></form></div>
+  <div class="nav-bottom">
+    <button id="prev">PREV</button>
+    <button id="next">NEXT</button>
+  </div>
 </div>
 
 <div id="result-page">
- <div class="result-box" id="resultBox"></div>
+  <div class="result-box" id="resultBox"></div>
 </div>
 
 <script>
-// Script tetap 100% original, tidak ada perubahan
+// Script 100% original, tidak ada perubahan sama sekali
 document.addEventListener("DOMContentLoaded",()=>{
 const loginPage=document.getElementById("login-page");
 const quizPage=document.getElementById("quiz-page");
@@ -284,4 +278,3 @@ function startTimer(){
 </script>
 </body>
 </html>
-

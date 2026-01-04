@@ -1,0 +1,292 @@
+[
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://m.korean.houses-appliances.com/photo/pd35898095-2_56l.jpg",
+    "options": {
+      "a": "텔레비전",
+      "b": "세탁기",
+      "c": "냉장고",
+      "d": "가스레인지"
+    },
+    "answer": "c",
+    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://i.ytimg.com/vi/2BsVcLYFD6Q/maxresdefault.jpg",
+    "options": {
+      "a": "바나나",
+      "b": "오렌지",
+      "c": "사과",
+      "d": "망고"
+    },
+    "answer": "c",
+    "explanation": "Gambar menunjukkan apel (사과)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=232309637339301",
+    "options": {
+      "a": "고양이",
+      "b": "개",
+      "c": "새",
+      "d": "물고기"
+    },
+    "answer": "b",
+    "explanation": "Gambar menunjukkan anjing (개)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=234292080657565",
+    "options": {
+      "a": "친구",
+      "b": "가족",
+      "c": "학교",
+      "d": "집"
+    },
+    "answer": "b",
+    "explanation": "Gambar menunjukkan keluarga (가족)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://cdn.oasis.co.kr:48580/comment/2025/12/29/comment_2900919_a9e73a1c-4f24-43aa-8ac1-e919afffb3f2.jpg",
+    "options": {
+      "a": "사과",
+      "b": "배",
+      "c": "포도",
+      "d": "딸기"
+    },
+    "answer": "a",
+    "explanation": "Gambar menunjukkan apel (사과)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://image.newdaily.co.kr/site/data/img/2013/10/11/2013101110031_0.jpg",
+    "options": {
+      "a": "오븐",
+      "b": "냉장고",
+      "c": "전자레인지",
+      "d": "토스터"
+    },
+    "answer": "b",
+    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://www.tiktok.com/api/img/?itemId=7512767051547626770&location=3&aid=1988&index=1",
+    "options": {
+      "a": "개",
+      "b": "고양이",
+      "c": "토끼",
+      "d": "새"
+    },
+    "answer": "a",
+    "explanation": "Gambar menunjukkan anjing (개)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://cf.asiaartistawards.com/news/21/2025/11/2025110919273789202_1.jpg",
+    "options": {
+      "a": "옷장",
+      "b": "냉장고",
+      "c": "책상",
+      "d": "의자"
+    },
+    "answer": "b",
+    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://www.shutterstock.com/image-photo/portrait-happy-korean-family-living-260nw-2389386989.jpg",
+    "options": {
+      "a": "집",
+      "b": "가족",
+      "c": "음식",
+      "d": "동물"
+    },
+    "answer": "b",
+    "explanation": "Gambar menunjukkan keluarga (가족)."
+  },
+  {
+    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "image": "https://i.ytimg.com/vi/ntE8tryjqyo/sddefault.jpg",
+    "options": {
+      "a": "가족 관계도",
+      "b": "친구",
+      "c": "학교",
+      "d": "직업"
+    },
+    "answer": "a",
+    "explanation": "Gambar menunjukkan pohon keluarga (가족 관계도)."
+  },
+  {
+    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "audio": "https://airnetcso.github.io/eps/audio/1.mp3",
+    "options": {
+      "a": "냉장고",
+      "b": "텔레비전",
+      "c": "컴퓨터",
+      "d": "전화기"
+    },
+    "answer": "a",
+    "explanation": "Audio mengatakan '냉장고' yang berarti kulkas."
+  },
+  {
+    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "audio": "https://airnetcso.github.io/eps/audio/2.mp3",
+    "options": {
+      "a": "사과",
+      "b": "바나나",
+      "c": "오렌지",
+      "d": "망고"
+    },
+    "answer": "a",
+    "explanation": "Audio mengatakan '사과' yang berarti apel."
+  },
+  {
+    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "audio": "https://airnetcso.github.io/eps/audio/3.mp3",
+    "options": {
+      "a": "고양이",
+      "b": "개",
+      "c": "새",
+      "d": "물고기"
+    },
+    "answer": "b",
+    "explanation": "Audio mengatakan '개' yang berarti anjing."
+  },
+  {
+    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "audio": "https://airnetcso.github.io/eps/audio/4.mp3",
+    "options": {
+      "a": "책",
+      "b": "책상",
+      "c": "의자",
+      "d": "창문"
+    },
+    "answer": "b",
+    "explanation": "Audio mengatakan '책상' yang berarti meja."
+  },
+  {
+    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "audio": "https://airnetcso.github.io/eps/audio/5.mp3",
+    "options": {
+      "a": "가족",
+      "b": "집",
+      "c": "자동차",
+      "d": "자전거"
+    },
+    "answer": "a",
+    "explanation": "Audio mengatakan '가족' yang berarti keluarga."
+  },
+  {
+    "question": "텔레비전은 무슨 뜻이에요?",
+    "options": {
+      "a": "라디오",
+      "b": "텔레비전",
+      "c": "컴퓨터",
+      "d": "전화기"
+    },
+    "answer": "b",
+    "explanation": "텔레비전 berarti televisi."
+  },
+  {
+    "question": "컴퓨터는 무슨 뜻이에요?",
+    "options": {
+      "a": "노트북",
+      "b": "컴퓨터",
+      "c": "태블릿",
+      "d": "프린터"
+    },
+    "answer": "b",
+    "explanation": "컴퓨터 berarti komputer."
+  },
+  {
+    "question": "책상은 무슨 뜻이에요?",
+    "options": {
+      "a": "의자",
+      "b": "책상",
+      "c": "옷장",
+      "d": "침대"
+    },
+    "answer": "b",
+    "explanation": "책상 berarti meja."
+  },
+  {
+    "question": "고양이는 무슨 뜻이에요?",
+    "options": {
+      "a": "개",
+      "b": "고양이",
+      "c": "새",
+      "d": "토끼"
+    },
+    "answer": "b",
+    "explanation": "고양이 berarti kucing."
+  },
+  {
+    "question": "밥은 무슨 뜻이에요?",
+    "options": {
+      "a": "물",
+      "b": "밥",
+      "c": "빵",
+      "d": "국"
+    },
+    "answer": "b",
+    "explanation": "밥 berarti nasi."
+  },
+  {
+    "question": "물은 무슨 뜻이에요?",
+    "options": {
+      "a": "우유",
+      "b": "물",
+      "c": "주스",
+      "d": "차"
+    },
+    "answer": "b",
+    "explanation": "물 berarti air."
+  },
+  {
+    "question": "어머니는 무슨 뜻이에요?",
+    "options": {
+      "a": "아버지",
+      "b": "어머니",
+      "c": "오빠/언니",
+      "d": "동생"
+    },
+    "answer": "b",
+    "explanation": "어머니 berarti ibu."
+  },
+  {
+    "question": "자동차는 무슨 뜻이에요?",
+    "options": {
+      "a": "자전거",
+      "b": "자동차",
+      "c": "오토바이",
+      "d": "버스"
+    },
+    "answer": "b",
+    "explanation": "자동차 berarti mobil."
+  },
+  {
+    "question": "학교는 무슨 뜻이에요?",
+    "options": {
+      "a": "집",
+      "b": "학교",
+      "c": "회사",
+      "d": "병원"
+    },
+    "answer": "b",
+    "explanation": "학교 berarti sekolah."
+  },
+  {
+    "question": "친구는 무슨 뜻이에요?",
+    "options": {
+      "a": "가족",
+      "b": "친구",
+      "c": "선생님",
+      "d": "의사"
+    },
+    "answer": "b",
+    "explanation": "친구 berarti teman."
+  }
+]

@@ -6,33 +6,123 @@
 <title>TEST BAHASA KOREA</title>
 
 <style>
-@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
 body {
- font-family: 'Segoe UI', system-ui, Arial, sans-serif; min-height: 100vh;
- background: url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') no-repeat center center fixed;
- background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center;
- padding: 20px; color: #fff; position: relative;
- }
- body::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.3); z-index: 1; }
- .container {
- position: relative; z-index: 2; width: 80%; max-width: 440px; max-height: 90vh; overflow-y: auto;
- -webkit-overflow-scrolling: touch; background: rgba(255,255,255,0.15); backdrop-filter: blur(14px);
- -webkit-backdrop-filter: blur(14px); border-radius: 24px; padding: 30px 30px;
- box-shadow: 0 15px 40px rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.18);
- animation: fadeIn 0.8s ease-out; margin-top: -100px;
- text-align: center;
- }
- h1 { font-size: 32px; text-align: center; margin: 0 0 10px; color: #fff; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
- .subtitle { margin: 0 0 30px; font-size: 18px; }
- input[type="text"], input[type="password"] { width: 100%; padding: 16px; margin: 14px 0; font-size: 18px; border: 2px solid rgba(255,255,255,0.4);
- border-radius: 12px; box-sizing: border-box; background: rgba(255,255,255,0.12); color: white; transition: all 0.3s ease; }
- input::placeholder { color: rgba(255,255,255,0.7); }
- input:focus { border-color: #fff; background: rgba(255,255,255,0.22); outline: none; box-shadow: 0 0 0 4px rgba(255,255,255,0.15); }
- button { width: 100%; padding: 16px; margin: 16px 0 8px; font-size: 20px; font-weight: bold; border: none;
- border-radius: 12px; color: white; cursor: pointer; background: linear-gradient(90deg, #10b981, #059669); transition: all 0.3s ease; }
- button:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(16,185,129,0.4); }
- .error { color: #ff6b6b; text-align: center; margin: 12px 0; font-weight: 600; background: rgba(0,0,0,0.4); padding: 10px; border-radius: 10px; }
+  font-family: 'Segoe UI', system-ui, Arial, sans-serif;
+  min-height: 100vh;
+  background: url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #fff;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+/* LOGIN PAGE - Mirip Koka */
+.login-container {
+  position: relative;
+  z-index: 2;
+  width: 80%;
+  max-width: 440px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 24px;
+  padding: 40px 30px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.18);
+  animation: fadeIn 0.8s ease-out;
+  margin-top: -100px;
+  text-align: center;
+}
+
+.login-container h1 {
+  font-size: 32px;
+  margin: 0 0 10px;
+  color: #fff;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.login-container p {
+  margin: 0 0 30px;
+  font-size: 18px;
+}
+
+input {
+  width: 100%;
+  padding: 16px;
+  margin: 14px 0;
+  font-size: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: 12px;
+  box-sizing: border-box;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+input::placeholder {
+  color: rgba(255,255,255,0.7);
+}
+
+input:focus {
+  border-color: #fff;
+  background: rgba(255,255,255,0.22);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(255,255,255,0.15);
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin: 16px 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(90deg, #3b82f6, #2563eb);
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(59,130,246,0.4);
+}
+
+.error {
+  color: #ff6b6b;
+  text-align: center;
+  margin: 12px 0;
+  font-weight: 600;
+  background: rgba(0,0,0,0.4);
+  padding: 10px;
+  border-radius: 10px;
+}
 
 /* QUIZ PAGE - Tetap seperti asli */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
@@ -87,19 +177,22 @@ body {
 
 <body>
 
-<!-- LOGIN PAGE - Mirip persis koka + ID login-page -->
-<div class="container" id="login-page">
- <h1>LATIHAN SOAL</h1>
- <h1>한국어연습</h1>
- <p class="subtitle">25 Soal | 50 Menit</p>
- <input id="username" placeholder="Username / 이름" autocomplete="off">
- <input id="password" type="password" placeholder="Password / 비밀번호" autocomplete="off">
- <input id="kode" placeholder="Kode Soal / 시험코드" autocomplete="off">
- <div class="error" id="errorMsg"></div>
- <button id="btnLogin">LOGIN / 로그인</button>
+<!-- LOGIN PAGE (UI baru mirip koka + ID login-page dikembalikan) -->
+<div class="login-container" id="login-page">
+  <h1>LATIHAN SOAL</h1>
+  <h1>한국어연습</h1>
+  <p>25 Soal | 50 Menit</p>
+
+  <input id="username" placeholder="Username / 이름" autocomplete="off">
+  <input id="password" type="password" placeholder="Password / 비밀번호" autocomplete="off">
+  <input id="kode" placeholder="Kode Soal / 시험코드" autocomplete="off">
+
+  <div class="error" id="errorMsg"></div>
+
+  <button id="btnLogin">LOGIN / 로그인</button>
 </div>
 
-<!-- QUIZ PAGE -->
+<!-- QUIZ PAGE (tetap seperti asli) -->
 <div id="quiz-page">
  <div class="header-fixed">
  <div class="submit-top" id="submitTop">SUBMIT</div>
@@ -136,8 +229,8 @@ const validCredentials={
  "Hamdan106":"Fukuo106","koreafan":"hanguk789","topik2026":"seoul2026"
 };
 const kodeMapping={
- "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"test.json",
- "W11765":"soal3.json","H66633":"soal5.json"
+ "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"soal5.json",
+ "W11765":"soal3.json","H66633":"soal4.json"
 };
 const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
@@ -149,25 +242,15 @@ btnLogin.onclick=()=>{
  const p=document.getElementById("password").value.trim();
  const k=document.getElementById("kode").value.trim().toUpperCase();
 
- if(validCredentials[u]===p){
+ if(validCredentials[u]===p && kodeMapping[k]){
   currentUser = u;
   currentKode = k;
-
-  if (u === "admin") {
-    location.href = "https://airnetcso.github.io/admin/";
-    return;
-  }
-
-  if (kodeMapping[k]) {
-    loginPage.style.display="none";
-    quizPage.style.display="block";
-    loadSoal(kodeMapping[k]);
-    startTimer();
-  } else {
-    alert("Kode soal salah!");
-  }
+  loginPage.style.display="none";
+  quizPage.style.display="block";
+  loadSoal(kodeMapping[k]);
+  startTimer();
  }else{
-  alert("Username / Password salah");
+  alert("Username / Password / Kode salah");
  }
 };
 
@@ -226,18 +309,27 @@ submitTop.onclick=()=>{
    </div>`;
  });
 
- // INTEGRASI ADMIN PUSAT
+ // === PENGIRIMAN NILAI KE ADMIN PUSAT (DIPERKUAT & DIPERBAIKI) ===
  const resultData = {
   username: currentUser,
-  kode: currentKode,
+  kode: currentKode || "-",
   nilai: score,
   tanggal: new Date().toLocaleString('id-ID'),
   app: "latbakor"
  };
 
  let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
- const duplicate = allResults.some(r => r.username === resultData.username && r.kode === resultData.kode && r.nilai === resultData.nilai && r.app === "latbakor");
- if(!duplicate){
+
+ // Check duplikat lebih ketat
+ const isDuplicate = allResults.some(r => 
+  r.username === resultData.username &&
+  r.kode === resultData.kode &&
+  r.nilai === resultData.nilai &&
+  r.app === resultData.app &&
+  Math.abs(new Date(r.tanggal) - new Date(resultData.tanggal)) < 60000 // kurang dari 1 menit
+ );
+
+ if (!isDuplicate) {
   allResults.push(resultData);
   localStorage.setItem("quizResults", JSON.stringify(allResults));
  }

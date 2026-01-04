@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Admin Panel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin - Hasil Quiz Korea</title>
 <style>
-body{font-family:Arial;padding:20px}
-.box{background:#f5f5f5;padding:15px}
+body{font-family:Arial,sans-serif;background:#f0f0f0;margin:0;padding:20px}
+h1{text-align:center;color:#3f51b5}
+table{width:100%;border-collapse:collapse;margin-top:20px;background:#fff}
+th,td{border:1px solid #ddd;padding:12px;text-align:center}
+th{background:#3f51b5;color:white}
+tr:nth-child(even){background:#f9f9f9}
+.clear-btn{margin:20px auto;display:block;padding:12px 24px;background:#f44336;color:white;border:none;cursor:pointer}
 </style>
 </head>
 <body>
 
-<h2>Hasil Terakhir</h2>
-<div class="box" id="data"></div>
+<h1>ADMIN - HASIL LATIHAN BAHASA KOREA</h1>
+
+<table id="resultsTable">
+<thead>
+<tr>
+<th>No</th>
+<th>Username</th>
+<th>Kode Soal</th>
+<th>Nilai</th>
+<th>Tanggal & Waktu</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+
+<button class="clear-btn" onclick="clearAll()">Hapus Semua Data</button>
 
 <script>
-const data = JSON.parse(localStorage.getItem("lastResult"));
-if(!data){
-  document.getElementById("data").innerText="Belum ada data";
-}else{
-  document.getElementById("data").innerHTML=`
-    <b>Nilai:</b> ${data.score}<br>
-    <b>Tanggal:</b> ${data.date}
-  `;
-}
-</script>
+function loadResults(){
+ const data = JSON.parse(localStorage.getItem("quizResults") || "[]");
+ const tbody = document.querySelector("#resultsTable tbody");
+ tbody.innerHTML = "";
 
+ if(data.length === 0){
+  tbody.innerHTML = "<tr><td colspan='5'>Belum ada hasil quiz</td></tr>";
+  return;
+ }
+
+ data.reverse().forEach((item, index) => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+   <td>${data.length - index}</td>
+   <td>${item.username}</td>
+   <td>${item.kode}</td>
+   <td><b>${item.nilai}</b></td>
+   <td>${item.tanggal}</td>
+  `;
+  tbody.appendChild(row);
+ });
+}
+
+function clearAll(){
+ if(confirm("Yakin hapus semua data hasil quiz?")){
+  localStorage.removeItem("quizResults");
+  loadResults();
+ }
+}
+
+loadResults();
+</script>
 </body>
 </html>

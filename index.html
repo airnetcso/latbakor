@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TEST BAHASA KOREA</title>
 <style>
-/* CSS sama persis seperti sebelumnya, tidak diubah */
 body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 #login-page{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;}
 .login-container{width:90%;max-width:280px;padding:40px 30px;text-align:center;background:rgba(255,255,255,.09);backdrop-filter:blur(12px);border-radius:20px;box-shadow:0 8px 32px rgba(0,0,0,.4);}
@@ -47,8 +46,6 @@ button:hover{background:#ff8ac1;transform:translateY(-3px) scale(1.03);box-shado
 </head>
 <body>
 
-<!-- HTML body sama seperti sebelumnya -->
-
 <div id="login-page">
   <div class="login-container">
     <h1>LATIHAN SOAL</h1>
@@ -82,7 +79,7 @@ button:hover{background:#ff8ac1;transform:translateY(-3px) scale(1.03);box-shado
 // ==================== URL GOOGLE SHEET ====================
 const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyfCZ5YNQHDLyKWatqj-diL8tXRRwXBKfJaaYMqcqoShABYy4Gx6QpexPOB_MkZwpIwLw/exec";
 
-// ==================== FUNGSI KIRIM (SUDAH DIPERBAIKI) ====================
+// ==================== FUNGSI KIRIM KE SHEET (FIX CORS) ====================
 function kirimKeGoogleSheet(resultData) {
   fetch(GOOGLE_SHEET_URL, {
     method: "POST",
@@ -94,10 +91,11 @@ function kirimKeGoogleSheet(resultData) {
   }).then(() => {
     console.log("✓ Berhasil kirim ke Google Sheet");
   }).catch(err => {
-    console.log("✗ Gagal kirim ke Google Sheet:", err);
+    console.log("✗ Gagal kirim:", err);
   });
 }
 
+// ==================== ANTI DUPLICATE LOKAL ====================
 function simpanHasilLokal(resultData) {
   let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
   const isDuplicate = allResults.some(r =>
@@ -115,12 +113,123 @@ function simpanHasilLokal(resultData) {
   return false;
 }
 
-// ==================== SCRIPT UTAMA (sama seperti sebelumnya) ====================
+// ==================== SCRIPT UTAMA ====================
 document.addEventListener("DOMContentLoaded", () => {
-  // ... (semua kode login, loadSoal, timer, dll tetap sama)
+  const loginPage = document.getElementById("login-page");
+  const quizPage = document.getElementById("quiz-page");
+  const resultPage = document.getElementById("result-page");
+  const btnLogin = document.getElementById("btnLogin");
+  const submitTop = document.getElementById("submitTop");
+  const quizForm = document.getElementById("quiz-form");
+  const timerEl = document.getElementById("timer");
+  const resultBox = document.getElementById("resultBox");
 
+  const validCredentials = {
+    "uus":"123","user01":"12345","hanarizka":"Nungkihana24!","windi":"Windi2000",
+    "rismaya97":"bahasakorea","sita77":"minyooki","Aini185":"Doraemon",
+    "Hangeulfei":"studykorea02","Hamdan106":"Fukuo106","Heri":"heri99",
+    "Fikrisurya":"464646","Mutiara2003":"Mutiara14","wantikas":"200022",
+    "Dininidia":"dininidia11","kaniarostayuni9":"Kania1313",
+    "Dikisetiawan07":"Diki2709","Aisyah18":"Aisyah18.","Rizka2026":"butterfly24",
+    "Zhafif07":"20060722","koreafan":"hanguk789","topik2026":"seoul2026",
+    "admin":"admin123"
+  };
+
+  const kodeMapping = {
+    "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"test.json",
+    "W11765":"soal3.json","H66633":"soal5.json"
+  };
+
+  const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+
+  let questions = [], answers = [], current = 0, time = 3000, interval;
+  let currentUser = "", currentKode = "";
+
+  // ==================== LOGIN ====================
+  btnLogin.onclick = () => {
+    const u = document.getElementById("username").value.trim();
+    const p = document.getElementById("password").value.trim();
+    const k = document.getElementById("kode").value.trim().toUpperCase();
+
+    if (validCredentials[u] === p && kodeMapping[k]) {
+      currentUser = u;
+      currentKode = k;
+      loginPage.style.display = "none";
+      quizPage.style.display = "block";
+      loadSoal(kodeMapping[k]);
+      startTimer();
+    } else {
+      alert("Username / Password / Kode salah");
+    }
+  };
+
+  // ==================== LOAD SOAL ====================
+  async function loadSoal(file) {
+    try {
+      questions = await (await fetch(BASE + file)).json();
+      answers = Array(questions.length).fill(null);
+      quizForm.innerHTML = "";
+      questions.forEach((q, i) => {
+        quizForm.innerHTML += `
+          <div class="question-wrapper">
+            <div class="box-passage">
+              ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
+              ${q.image ? `<img src="${q.image}">` : ""}
+            </div>
+            <div class="box-question">
+              <p><b>${i+1}.</b> ${q.question}</p>
+              ${Object.entries(q.options).map(([k,v],idx) => `
+                <label class="option-item">
+                  <input type="radio" name="q${i}" value="${k}">
+                  <span class="option-circle">${idx+1}</span> ${v}
+                </label>
+              `).join("")}
+            </div>
+          </div>`;
+      });
+      document.querySelectorAll("input[type=radio]").forEach(r => {
+        r.onchange = () => answers[+r.name.slice(1)] = r.value;
+      });
+      show(0);
+    } catch (err) {
+      alert("Gagal load soal. Cek kode atau koneksi internet.");
+      console.error(err);
+    }
+  }
+
+  // ==================== NAVIGASI SOAL ====================
+  function show(n) {
+    document.querySelectorAll("audio").forEach(a => {a.pause(); a.currentTime=0;});
+    document.querySelectorAll(".question-wrapper").forEach((q,i) => q.classList.toggle("active", i===n));
+    current = n;
+  }
+  document.getElementById("prev").onclick = () => current > 0 && show(current-1);
+  document.getElementById("next").onclick = () => current < questions.length-1 && show(current+1);
+
+  // ==================== SUBMIT ====================
   submitTop.onclick = () => {
-    // ... (kode hitung score tetap sama)
+    const kosong = answers.findIndex(a => a === null);
+    if (kosong !== -1) {
+      alert("Soal " + (kosong+1) + " belum dijawab");
+      show(kosong);
+      return;
+    }
+
+    clearInterval(interval);
+    quizPage.style.display = "none";
+    resultPage.style.display = "block";
+
+    let score = 0, html = "";
+    questions.forEach((q, i) => {
+      const benar = q.answer;
+      if (answers[i] === benar) score += 4;
+      else html += `
+        <div class="wrong-item">
+          <b>Soal ${i+1} salah</b><br>
+          Jawaban benar: <span class="correct">${benar}</span><br>
+          ${q.explanation || "-"}
+        </div>`;
+    });
 
     const persentase = ((score / (questions.length * 4)) * 100).toFixed(2);
 
@@ -132,10 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
       jumlahSoal: questions.length
     };
 
-    const lokalData = {
-      ...resultData,
-      tanggal: new Date().toLocaleString('id-ID')
-    };
+    const lokalData = { ...resultData, tanggal: new Date().toLocaleString('id-ID') };
     const berhasilSimpan = simpanHasilLokal(lokalData);
 
     if (berhasilSimpan) {
@@ -151,7 +257,13 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   };
 
-  // ... (startTimer dll)
+  // ==================== TIMER ====================
+  function startTimer() {
+    interval = setInterval(() => {
+      timerEl.textContent = String(Math.floor(time/60)).padStart(2,"0") + ":" + String(time%60).padStart(2,"0");
+      if (--time < 0) submitTop.onclick();
+    }, 1000);
+  }
 });
 </script>
 </body>

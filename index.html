@@ -76,7 +76,6 @@ button:hover{background:#ff8ac1;transform:translateY(-3px) scale(1.03);box-shado
 </div>
 
 <script>
-// ==================== URL SAMA DENGAN /KOKA ====================
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbyfCZ5YNQHDLyKWatqj-diL8tXRRwXBKfJaaYMqcqoShABYy4Gx6QpexPOB_MkZwpIwLw/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -89,16 +88,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const timerEl = document.getElementById("timer");
   const resultBox = document.getElementById("resultBox");
 
-  const validCredentials = {
-    "uus":"123","user01":"12345","hanarizka":"Nungkihana24!","windi":"Windi2000",
-    "rismaya97":"bahasakorea","sita77":"minyooki","Aini185":"Doraemon",
-    "Hangeulfei":"studykorea02","Hamdan106":"Fukuo106","Heri":"heri99",
-    "Fikrisurya":"464646","Mutiara2003":"Mutiara14","wantikas":"200022",
-    "Dininidia":"dininidia11","kaniarostayuni9":"Kania1313",
-    "Dikisetiawan07":"Diki2709","Aisyah18":"Aisyah18.","Rizka2026":"butterfly24",
-    "Zhafif07":"20060722","koreafan":"hanguk789","topik2026":"seoul2026",
-    "admin":"admin123"
-  };
+  // FORMAT BARU: ARRAY OF OBJECTS (MUDAH DITAMBAH/DIEDIT)
+  const users = [
+    {username: "uus", password: "111"},
+    {username: "user01", password: "12345"},
+    {username: "hanarizka", password: "Nungkihana24!"},
+    {username: "windi", password: "Windi2000"},
+    {username: "rismaya97", password: "bahasakorea"},
+    {username: "sita77", password: "minyooki"},
+    {username: "Aini185", password: "Doraemon"},
+    {username: "Hangeulfei", password: "studykorea02"},
+    {username: "Hamdan106", password: "Fukuo106"},
+    {username: "Heri", password: "heri99"},
+    {username: "Fikrisurya", password: "464646"},
+    {username: "Mutiara2003", password: "Mutiara14"},
+    {username: "wantikas", password: "200022"},
+    {username: "Dininidia", password: "dininidia11"},
+    {username: "kaniarostayuni9", password: "Kania1313"},
+    {username: "Dikisetiawan07", password: "Diki2709"},
+    {username: "Aisyah18", password: "Aisyah18."},
+    {username: "Rizka2026", password: "butterfly24"},
+    {username: "Zhafif07", password: "20060722"},
+    {username: "koreafan", password: "hanguk789"},
+    {username: "topik2026", password: "seoul2026"},
+    {username: "admin", password: "admin123"}
+  ];
 
   const kodeMapping = {
     "B12345":"soal1.json","A09008":"soal2.json","SAREWAE":"test.json",
@@ -115,12 +129,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const p = document.getElementById("password").value.trim();
     const k = document.getElementById("kode").value.trim().toUpperCase();
 
-    if (validCredentials[u] === p && kodeMapping[k]) {
+    const user = users.find(user => user.username === u && user.password === p);
+    const validKode = kodeMapping[k];
+
+    if (user && validKode) {
       currentUser = u;
       currentKode = k;
       loginPage.style.display = "none";
       quizPage.style.display = "block";
-      loadSoal(kodeMapping[k]);
+      loadSoal(validKode);
       startTimer();
     } else {
       alert("Username / Password / Kode salah");
@@ -192,14 +209,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const persentase = Math.round((score / (questions.length * 4)) * 100);
 
-    // ==================== KIRIM DATA MIRIP PERSIS /KOKA ====================
+    // KIRIM DATA SAMA PERSIS SEPERTI YANG SUDAH BERHASIL
     fetch(SPREADSHEET_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         username: currentUser || "Anonymous",
         kodeSoal: currentKode || "Unknown",
-        jenisAplikasi: "latbakor",     // beda dengan koka ("QUIZ")
+        jenisAplikasi: "latbakor",
         skor: score,
         persentase: persentase,
         catatan: html ? "Ada kesalahan" : "Semua benar 🎉"
@@ -207,7 +224,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).then(() => {
       console.log("Berhasil kirim dari latbakor");
     }).catch(err => {
-      console.warn("Gagal POST, coba GET fallback", err);
+      console.warn("Gagal POST, fallback GET", err);
       const params = new URLSearchParams({
         username: currentUser,
         kodeSoal: currentKode,

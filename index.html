@@ -76,44 +76,9 @@ button:hover{background:#ff8ac1;transform:translateY(-3px) scale(1.03);box-shado
 </div>
 
 <script>
-// ==================== URL GOOGLE SHEET ====================
-const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbyfCZ5YNQHDLyKWatqj-diL8tXRRwXBKfJaaYMqcqoShABYy4Gx6QpexPOB_MkZwpIwLw/exec";
+// ==================== URL SAMA DENGAN /KOKA ====================
+const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbyfCZ5YNQHDLyKWatqj-diL8tXRRwXBKfJaaYMqcqoShABYy4Gx6QpexPOB_MkZwpIwLw/exec";
 
-// ==================== FUNGSI KIRIM KE SHEET (FIX CORS) ====================
-function kirimKeGoogleSheet(resultData) {
-  fetch(GOOGLE_SHEET_URL, {
-    method: "POST",
-    redirect: "follow",
-    body: JSON.stringify(resultData),
-    headers: {
-      "Content-Type": "text/plain;charset=utf-8"
-    }
-  }).then(() => {
-    console.log("✓ Berhasil kirim ke Google Sheet");
-  }).catch(err => {
-    console.log("✗ Gagal kirim:", err);
-  });
-}
-
-// ==================== ANTI DUPLICATE LOKAL ====================
-function simpanHasilLokal(resultData) {
-  let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
-  const isDuplicate = allResults.some(r =>
-    r.username === resultData.username &&
-    r.kode === resultData.kode &&
-    r.skor === resultData.skor &&
-    r.app === resultData.app &&
-    Math.abs(new Date(r.tanggal) - new Date(resultData.tanggal)) < 60000
-  );
-  if (!isDuplicate) {
-    allResults.push(resultData);
-    localStorage.setItem("quizResults", JSON.stringify(allResults));
-    return true;
-  }
-  return false;
-}
-
-// ==================== SCRIPT UTAMA ====================
 document.addEventListener("DOMContentLoaded", () => {
   const loginPage = document.getElementById("login-page");
   const quizPage = document.getElementById("quiz-page");
@@ -145,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let questions = [], answers = [], current = 0, time = 3000, interval;
   let currentUser = "", currentKode = "";
 
-  // ==================== LOGIN ====================
   btnLogin.onclick = () => {
     const u = document.getElementById("username").value.trim();
     const p = document.getElementById("password").value.trim();
@@ -163,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // ==================== LOAD SOAL ====================
   async function loadSoal(file) {
     try {
       questions = await (await fetch(BASE + file)).json();
@@ -192,12 +155,10 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       show(0);
     } catch (err) {
-      alert("Gagal load soal. Cek kode atau koneksi internet.");
-      console.error(err);
+      alert("Gagal load soal. Cek kode atau internet.");
     }
   }
 
-  // ==================== NAVIGASI SOAL ====================
   function show(n) {
     document.querySelectorAll("audio").forEach(a => {a.pause(); a.currentTime=0;});
     document.querySelectorAll(".question-wrapper").forEach((q,i) => q.classList.toggle("active", i===n));
@@ -206,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("prev").onclick = () => current > 0 && show(current-1);
   document.getElementById("next").onclick = () => current < questions.length-1 && show(current+1);
 
-  // ==================== SUBMIT ====================
   submitTop.onclick = () => {
     const kosong = answers.findIndex(a => a === null);
     if (kosong !== -1) {
@@ -221,32 +181,43 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let score = 0, html = "";
     questions.forEach((q, i) => {
-      const benar = q.answer;
-      if (answers[i] === benar) score += 4;
+      if (answers[i] === q.answer) score += 4;
       else html += `
         <div class="wrong-item">
           <b>Soal ${i+1} salah</b><br>
-          Jawaban benar: <span class="correct">${benar}</span><br>
+          Jawaban benar: <span class="correct">${q.answer}</span><br>
           ${q.explanation || "-"}
         </div>`;
     });
 
-    const persentase = ((score / (questions.length * 4)) * 100).toFixed(2);
+    const persentase = Math.round((score / (questions.length * 4)) * 100);
 
-    const resultData = {
-      username: currentUser,
-      kode: currentKode || "-",
-      app: "latbakor",
-      skor: score,
-      jumlahSoal: questions.length
-    };
-
-    const lokalData = { ...resultData, tanggal: new Date().toLocaleString('id-ID') };
-    const berhasilSimpan = simpanHasilLokal(lokalData);
-
-    if (berhasilSimpan) {
-      kirimKeGoogleSheet(resultData);
-    }
+    // ==================== KIRIM DATA MIRIP PERSIS /KOKA ====================
+    fetch(SPREADSHEET_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: currentUser || "Anonymous",
+        kodeSoal: currentKode || "Unknown",
+        jenisAplikasi: "latbakor",     // beda dengan koka ("QUIZ")
+        skor: score,
+        persentase: persentase,
+        catatan: html ? "Ada kesalahan" : "Semua benar 🎉"
+      })
+    }).then(() => {
+      console.log("Berhasil kirim dari latbakor");
+    }).catch(err => {
+      console.warn("Gagal POST, coba GET fallback", err);
+      const params = new URLSearchParams({
+        username: currentUser,
+        kodeSoal: currentKode,
+        jenisAplikasi: "latbakor",
+        skor: score,
+        persentase: persentase,
+        catatan: html ? "Ada kesalahan" : "Semua benar 🎉"
+      });
+      window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
+    });
 
     resultBox.innerHTML = `
       <h2>Nilai: ${score}</h2>
@@ -257,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   };
 
-  // ==================== TIMER ====================
   function startTimer() {
     interval = setInterval(() => {
       timerEl.textContent = String(Math.floor(time/60)).padStart(2,"0") + ":" + String(time%60).padStart(2,"0");

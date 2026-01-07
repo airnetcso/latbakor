@@ -15,61 +15,61 @@
     "question": "지금 몇시입니까?",
     "image": "https://grok.com/imagine/post/cceb60cf-0a45-463d-b563-e0a85457fe1b",
     "options": {
-      "a": "바나나",
-      "b": "오렌지",
-      "c": "사과",
-      "d": "망고"
-    },
-    "answer": "c",
-    "explanation": "Gambar menunjukkan apel (사과)."
-  },
-  {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=232309637339301",
-    "options": {
-      "a": "고양이",
-      "b": "개",
-      "c": "새",
-      "d": "물고기"
+      "a": "열두시 이십분 입니다.",
+      "b": "일곱시 십오분 입니다.",
+      "c": "여덟시 삼십분 입니다.",
+      "d": "열한시 오십분 입니다."
     },
     "answer": "b",
-    "explanation": "Gambar menunjukkan anjing (개)."
+    "explanation": "jam 7:15 (일곱시 십오분 입니다)."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://lookaside.fbsbx.com/lookaside/crawler/media/?media_id=234292080657565",
+    "question": "이것은 무엇입니까?",
+    "image": "https://grok.com/imagine/post/79fc759e-425b-4d15-ade3-af98430b0922",
     "options": {
-      "a": "친구",
-      "b": "가족",
-      "c": "학교",
-      "d": "집"
+      "a": "냉장고",
+      "b": "가스스토브",
+      "c": "식탁",
+      "d": "책장"
     },
     "answer": "b",
-    "explanation": "Gambar menunjukkan keluarga (가족)."
+    "explanation": "Gambar menunjukkan kompor gas(가스스토브)."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://cdn.oasis.co.kr:48580/comment/2025/12/29/comment_2900919_a9e73a1c-4f24-43aa-8ac1-e919afffb3f2.jpg",
+    "question": "이사람은 무엇을하고 있습니까?",
+    "image": "https://grok.com/imagine/post/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf",
     "options": {
-      "a": "사과",
-      "b": "배",
-      "c": "포도",
-      "d": "딸기"
+      "a": "그림을 그리고있습니다.",
+      "b": "산책을 하고있습니다.",
+      "c": "책을 읽고있습니다.",
+      "d": "사진을 찍고있습니다."
+    },
+    "answer": "d",
+    "explanation": "Gambar sedang memotret (사진을 찍고있습니다)."
+  },
+  {
+    "question": "이표지판은 무엇을 뜻입니까?",
+    "image": "https://grok.com/imagine/post/153ff26d-97ed-440a-99d2-2feaa0f1b896",
+    "options": {
+      "a": "고압전기 경고",
+      "b": "줄입금지 경고",
+      "c": "탑승금자 경고",
+      "d": "고온 경고"
     },
     "answer": "a",
-    "explanation": "Gambar menunjukkan apel (사과)."
+    "explanation": "Gambar listrik tegangan tinggi (고압전기 경고)."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://image.newdaily.co.kr/site/data/img/2013/10/11/2013101110031_0.jpg",
+    "question": "여기에서 무엇을 할수있습니까?",
+    "image": "https://grok.com/imagine/post/ef562c04-e1aa-4f9f-be19-22b4c2992cf0",
     "options": {
-      "a": "오븐",
-      "b": "냉장고",
-      "c": "전자레인지",
-      "d": "토스터"
+      "a": "차에 기름을 넣을수 있습니다.",
+      "b": "차를 수리할수 있습니다.",
+      "c": "차를 주차할수 있습니다.",
+      "d": "차에 짐을 실을수 있습니다."
     },
     "answer": "b",
-    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+    "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",

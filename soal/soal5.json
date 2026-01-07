@@ -2,290 +2,165 @@
   {
     "question": "이사람은 누구 입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg",
-    "options": {
-      "a": "농부",
-      "b": "요리사",
-      "c": "경찰",
-      "d": "회사원"
-    },
+    "options": { "a": "농부", "b": "요리사", "c": "경찰", "d": "회사원" },
     "answer": "c",
     "explanation": "Gambar menunjukkan polisi (경찰)."
   },
   {
     "question": "지금 몇시입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/cceb60cf-0a45-463d-b563-e0a85457fe1b.jpg",
-    "options": {
-      "a": "열두시 이십분 입니다.",
-      "b": "일곱시 십오분 입니다.",
-      "c": "여덟시 삼십분 입니다.",
-      "d": "열한시 오십분 입니다."
-    },
+    "options": { "a": "열두시 이십분 입니다.", "b": "일곱시 십오분 입니다.", "c": "여덟시 삼십분 입니다.", "d": "열한시 오십분 입니다." },
     "answer": "b",
     "explanation": "jam 7:15 (일곱시 십오분 입니다)."
   },
   {
     "question": "이것은 무엇입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/79fc759e-425b-4d15-ade3-af98430b0922.jpg",
-    "options": {
-      "a": "냉장고",
-      "b": "가스스토브",
-      "c": "식탁",
-      "d": "책장"
-    },
+    "options": { "a": "냉장고", "b": "가스스토브", "c": "식탁", "d": "책장" },
     "answer": "b",
     "explanation": "Gambar menunjukkan kompor gas(가스스토브)."
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf.jpg",
-    "options": {
-      "a": "그림을 그리고있습니다.",
-      "b": "산책을 하고있습니다.",
-      "c": "책을 읽고있습니다.",
-      "d": "사진을 찍고있습니다."
-    },
+    "options": { "a": "그림을 그리고있습니다.", "b": "산책을 하고있습니다.", "c": "책을 읽고있습니다.", "d": "사진을 찍고있습니다." },
     "answer": "d",
     "explanation": "Gambar sedang memotret (사진을 찍고있습니다)."
   },
   {
     "question": "이표지판은 무엇을 뜻입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/b17f4ce8-b863-4053-adc0-33c3eebb73c2.jpg",
-    "options": {
-      "a": "고압전기 경고",
-      "b": "줄입금지 경고",
-      "c": "탑승금자 경고",
-      "d": "고온 경고"
-    },
+    "options": { "a": "고압전기 경고", "b": "줄입금지 경고", "c": "탑승금자 경고", "d": "고온 경고" },
     "answer": "a",
     "explanation": "Gambar listrik tegangan tinggi (고압전기 경고)."
   },
   {
     "question": "여기에서 무엇을 할수있습니까?",
     "image": "https://assets.grok.com/users/8f8ff186-a657-4ded-9f6f-07da5c13ebd4/generated/a6339120-9f27-4f48-9c21-2f525a5e5def/image.jpg",
-    "options": {
-      "a": "차에 기름을 넣을수 있습니다.",
-      "b": "차를 수리할수 있습니다.",
-      "c": "차를 주차할수 있습니다.",
-      "d": "차에 짐을 실을수 있습니다."
-    },
-    "answer": "b",
+    "options": { "a": "차에 기름을 넣을수 있습니다.", "b": "차를 수리할수 있습니다.", "c": "차를 주차할수 있습니다.", "d": "차에 짐을 실을수 있습니다." },
+    "answer": "a",
     "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
   },
   {
     "question": "고양이가 몇마리 있습니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/c2fbc2ff-e35e-449b-ab4b-61b443b1393c.jpg",
-    "options": {
-      "a": "두개 있습니다.",
-      "b": "두마리 있습니다.",
-      "c": "세개 있습니다.",
-      "d": "세마리 있습니다."
-    },
-    "answer": "4",
+    "options": { "a": "두개 있습니다.", "b": "두마리 있습니다.", "c": "세개 있습니다.", "d": "세마리 있습니다." },
+    "answer": "d",
     "explanation": "Kucing ada 3 ekor (세마리 있습니다)."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
     "image": "https://cf.asiaartistawards.com/news/21/2025/11/2025110919273789202_1.jpg",
-    "options": {
-      "a": "옷장",
-      "b": "냉장고",
-      "c": "책상",
-      "d": "의자"
-    },
+    "options": { "a": "옷장", "b": "냉장고", "c": "책상", "d": "의자" },
     "answer": "b",
     "explanation": "Gambar menunjukkan kulkas (냉장고)."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
     "image": "https://www.shutterstock.com/image-photo/portrait-happy-korean-family-living-260nw-2389386989.jpg",
-    "options": {
-      "a": "집",
-      "b": "가족",
-      "c": "음식",
-      "d": "동물"
-    },
+    "options": { "a": "집", "b": "가족", "c": "음식", "d": "동물" },
     "answer": "b",
     "explanation": "Gambar menunjukkan keluarga (가족)."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
     "image": "https://i.ytimg.com/vi/ntE8tryjqyo/sddefault.jpg",
-    "options": {
-      "a": "가족 관계도",
-      "b": "친구",
-      "c": "학교",
-      "d": "직업"
-    },
+    "options": { "a": "가족 관계도", "b": "친구", "c": "학교", "d": "직업" },
     "answer": "a",
     "explanation": "Gambar menunjukkan pohon keluarga (가족 관계도)."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
-    "options": {
-      "a": "",
-      "b": "",
-      "c": "",
-      "d": ""
-    },
+    "options": { "a": "냉장고", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '냉장고' yang berarti kulkas."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3"",
-    "options": {
-      "a": "",
-      "b": "",
-      "c": "",
-      "d": ""
-    },
+    "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3",
+    "options": { "a": "사과", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '사과' yang berarti apel."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3"",
-    "options": {
-      "a": "",
-      "b": "",
-      "c": "",
-      "d": ""
-    },
+    "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3",
+    "options": { "a": "", "b": "개", "c": "", "d": "" },
     "answer": "b",
     "explanation": "Audio mengatakan '개' yang berarti anjing."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3"",
-    "options": {
-      "a": "",
-      "b": "",
-      "c": "",
-      "d": ""
-    },
+    "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3",
+    "options": { "a": "", "b": "책상", "c": "", "d": "" },
     "answer": "b",
     "explanation": "Audio mengatakan '책상' yang berarti meja."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3"",
-    "options": {
-      "a": "",
-      "b": "",
-      "c": "",
-      "d": ""
-    },
+    "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3",
+    "options": { "a": "가족", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '가족' yang berarti keluarga."
   },
   {
     "question": "라면이나 국수는 __________ (으)로 먹습니다.",
-    "options": {
-      "a": "칼",
-      "b": "연필",
-      "c": "가위",
-      "d": "젓가락"
-    },
-    "answer": "b",
+    "options": { "a": "칼", "b": "연필", "c": "가위", "d": "젓가락" },
+    "answer": "d",
     "explanation": "라면이나 국수는 젓가락으로 먹습니다."
   },
   {
     "question": "물건을 산 후에는 반드시 __________을/를 받으세요. 물건을 교환하거나 환불 받을 때 필요해요.",
-    "options": {
-      "a": "돈",
-      "b": "포장",
-      "c": "카드",
-      "d": "영수증"
-    },
-    "answer": "b",
-    "explanation": "물건을 산 후에는 반드시 연수증을 받으세요. 물건을 교환하거나 환불 받을 때 필요해요."
+    "options": { "a": "돈", "b": "포장", "c": "카드", "d": "영수증" },
+    "answer": "d",
+    "explanation": "물건을 산 후에는 반드시 영수증을 받으세요. 물건을 교환하거나 환불 받을 때 필요해요."
   },
   {
     "question": "열아홉 __________이 안 된 청소년에게 담배를 팔면 안 됩니다.",
-    "options": {
-      "a": "잔",
-      "b": "실",
-      "c": "명",
-      "d": "층"
-    },
-    "answer": "b",
-    "explanation": "열아홉 살이 안 된 청소년에게 담배를 파면 안 됩니다."
+    "options": { "a": "잔", "b": "실", "c": "명", "d": "층" },
+    "answer": "c",
+    "explanation": "열아홉 살이 안 된 청소년에게 담배를 팔면 안 됩니다."
   },
   {
-    "question": "여기는 교통 __________ 가 많이 나는 곳입니다. 조심해서 운전하십시오." 
-    "options": {
-      "a": "신호",
-      "b": "지도",
-      "c": "사고",
-      "d": "주차"
-    },
+    "question": "여기는 교통 __________ 가 많이 나는 곳입니다. 조심해서 운전하십시오.",
+    "options": { "a": "신호", "b": "지도", "c": "사고", "d": "주차" },
     "answer": "c",
     "explanation": "여기는 교통 사고가 많이 나는 곳입니다. 조심해서 운전하십시오."
   },
   {
-    "question": "컵이 더럽습니다. 그 컵을 __________ 주세요.", 
-    "options": {
-      "a": "사",
-      "b": "써",
-      "c": "놓아",
-      "d": "씻어"
-    },
+    "question": "컵이 더럽습니다. 그 컵을 __________ 주세요.",
+    "options": { "a": "사", "b": "써", "c": "놓아", "d": "씻어" },
     "answer": "d",
     "explanation": "컵이 더럽습니다. 그 컵을 씻어 주세요."
   },
   {
     "question": "옷이 예쁩니다. 하지만 조금 __________",
-    "options": {
-      "a": "멉니다.",
-      "b": "작습니다.",
-      "c": "바쁩니다.",
-      "d": "어렵습니다."
-    },
+    "options": { "a": "멉니다.", "b": "작습니다.", "c": "바쁩니다.", "d": "어렵습니다." },
     "answer": "b",
     "explanation": "옷이 예쁩니다. 하지만 조금 작습니다."
   },
   {
     "question": "이 길은 가게도 많고 사람들도 많아서 __________",
-    "options": {
-      "a": "가까워요.",
-      "b": "무거워요.",
-      "c": "복잡해요.",
-      "d": "깨끗해요."
-    },
+    "options": { "a": "가까워요.", "b": "무거워요.", "c": "복잡해요.", "d": "깨끗해요." },
     "answer": "c",
     "explanation": "이 길은 가게도 많고 사람들도 많아서 복잡해요."
   },
   {
     "question": "지갑에 돈이 천 원 __________ 없어요.",
-    "options": {
-      "a": "까지",
-      "b": "마다",
-      "c": "밖에",
-      "d": "부터"
-    },
+    "options": { "a": "까지", "b": "마다", "c": "밖에", "d": "부터" },
     "answer": "c",
     "explanation": "지갑에 돈이 천원 밖에 없어요."
   },
   {
     "question": "동생 __________ 졸업 선물을 줬어요.",
-    "options": {
-      "a": "보다",
-      "b": "에게",
-      "c": "에서",
-      "d": "하고"
-    },
+    "options": { "a": "보다", "b": "에게", "c": "에서", "d": "하고" },
     "answer": "b",
     "explanation": "동생에게 졸업 선물을 줬어요."
   },
   {
     "question": "모자가 있어요??",
-    "options": {
-      "a": "네, 모자가 없어요",
-      "b": "네, 모자가 많아요",
-      "c": "아니요, 모자가 좋아요",
-      "d": "아니요, 모자가 작아요"
-    },
+    "options": { "a": "네, 모자가 없어요", "b": "네, 모자가 많아요", "c": "아니요, 모자가 좋아요", "d": "아니요, 모자가 작아요" },
     "answer": "b",
     "explanation": "네, 모자가 많아요"
   }

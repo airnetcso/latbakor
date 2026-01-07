@@ -80,16 +80,16 @@ button:hover{
 /* QUIZ & RESULT */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{
- position:fixed;top:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;z-index:1000;
+ position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:6px 12px;z-index:1000;box-sizing:border-box;
 }
 .timer,.submit-top{
- flex:1;
- padding:10px 0;                /* dipendekkan dari 16px jadi 10px */
+ padding:10px 20px;                /* padding horizontal lebih lebar biar enak dilihat */
  text-align:center;
  color:#fff;
  font-weight:bold;
- font-size:16px;                /* font sedikit dikecilkan biar proporsional */
- border-radius:0;               /* hilangkan border-radius */
+ font-size:16px;
+ border-radius:0;                  /* sudut tajam */
+ min-width:100px;                  /* lebar minimum biar nggak terlalu kecil */
 }
 .timer{background:#4caf50}
 .submit-top{background:#f44336}
@@ -107,16 +107,16 @@ button:hover{
 .option-item input:checked + .option-circle{background:#bbdefb}
 
 .nav-bottom{
- position:fixed;bottom:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;
+ position:fixed;bottom:0;width:100%;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:6px 12px;box-sizing:border-box;
 }
 .nav-bottom button{
- flex:1;
- padding:10px 0;                /* sama dengan atas, dipendekkan */
+ padding:10px 24px;                /* horizontal padding lebih lebar */
  color:#fff;
  border:none;
  font-weight:bold;
  font-size:16px;
- border-radius:0;               /* hilangkan border-radius */
+ border-radius:0;                  /* sudut tajam */
+ min-width:100px;
 }
 #prev{background:#2196f3}
 #next{background:#ff9800}

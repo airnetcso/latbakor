@@ -49,7 +49,7 @@
   },
   {
     "question": "이표지판은 무엇을 뜻입니까?",
-    "image": "https://assets.grok.com/users/8f8ff186-a657-4ded-9f6f-07da5c13ebd4/generated/03e8238a-86bd-4de1-b44a-ba7666355323/image.jpg",
+    "image": "https://imagine-public.x.ai/imagine-public/images/b17f4ce8-b863-4053-adc0-33c3eebb73c2.jpg",
     "options": {
       "a": "고압전기 경고",
       "b": "줄입금지 경고",
@@ -72,16 +72,16 @@
     "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://www.tiktok.com/api/img/?itemId=7512767051547626770&location=3&aid=1988&index=1",
+    "question": "고양이가 몇마리 있습니까?",
+    "image": "https://imagine-public.x.ai/imagine-public/images/c2fbc2ff-e35e-449b-ab4b-61b443b1393c.jpg",
     "options": {
-      "a": "개",
-      "b": "고양이",
-      "c": "토끼",
-      "d": "새"
+      "a": "두개 있습니다.",
+      "b": "두마리 있습니다.",
+      "c": "세개 있습니다.",
+      "d": "세마리 있습니다."
     },
-    "answer": "a",
-    "explanation": "Gambar menunjukkan anjing (개)."
+    "answer": "4",
+    "explanation": "Kucing ada 3 ekor (세마리 있습니다)."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
@@ -257,36 +257,36 @@
     "explanation": "어머니 berarti ibu."
   },
   {
-    "question": "자동차는 무슨 뜻이에요?",
+    "question": "지갑에 돈이 천 원 __________ 없어요.",
     "options": {
-      "a": "자전거",
-      "b": "자동차",
-      "c": "오토바이",
-      "d": "버스"
+      "a": "까지",
+      "b": "마다",
+      "c": "밖에",
+      "d": "부터"
     },
-    "answer": "b",
-    "explanation": "자동차 berarti mobil."
+    "answer": "c",
+    "explanation": "지갑에 돈이 천원 밖에 없어요."
   },
   {
-    "question": "학교는 무슨 뜻이에요?",
+    "question": "동생 __________ 졸업 선물을 줬어요.",
     "options": {
-      "a": "집",
-      "b": "학교",
-      "c": "회사",
-      "d": "병원"
+      "a": "보다",
+      "b": "에게",
+      "c": "에서",
+      "d": "하고"
     },
     "answer": "b",
-    "explanation": "학교 berarti sekolah."
+    "explanation": "동생에게 졸업 선물을 줬어요."
   },
   {
-    "question": "친구는 무슨 뜻이에요?",
+    "question": "모자가 있어요??",
     "options": {
-      "a": "가족",
-      "b": "친구",
-      "c": "선생님",
-      "d": "의사"
+      "a": "네, 모자가 없어요",
+      "b": "네, 모자가 많아요",
+      "c": "아니요, 모자가 좋아요",
+      "d": "아니요, 모자가 작아요"
     },
     "answer": "b",
-    "explanation": "친구 berarti teman."
+    "explanation": "네, 모자가 많아요"
   }
 ]

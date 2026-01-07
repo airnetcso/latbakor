@@ -128,15 +128,14 @@ button:hover{
  width:100%;
  margin-top:10px;
  display:block;
- border-radius:8px; /* tetap kasih sedikit radius biar gambar/audio kelihatan rapi */
+ border-radius:8px;
 }
 
-/* SOAL & PILIHAN: BACKGROUND TETAP, TAPI HILANGKAN BORDER & RADIUS */
+/* SOAL & PILIHAN: BACKGROUND TETAP, TANPA BORDER */
 .box-question{
  background:#fff3e0;
  padding:20px;
  margin-top:15px;
- /* Hilangkan border dan border-radius */
 }
 .option-item{
  display:flex;
@@ -287,6 +286,15 @@ const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 let questions=[],answers=[],current=0,time=3000,interval;
 let currentUser="", currentKode="";
 
+// Fungsi untuk mengacak array (Fisher-Yates shuffle)
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 btnLogin.onclick=()=>{
  const u=document.getElementById("username").value.trim();
  const p=document.getElementById("password").value.trim();
@@ -304,7 +312,12 @@ btnLogin.onclick=()=>{
 };
 
 async function loadSoal(file){
- questions=await (await fetch(BASE+file)).json();
+ let loadedQuestions = await (await fetch(BASE+file)).json();
+ 
+ // ACAK URUTAN SOAL
+ shuffle(loadedQuestions);
+ 
+ questions = loadedQuestions;
  answers=Array(questions.length).fill(null);
  quizForm.innerHTML="";
  questions.forEach((q,i)=>{

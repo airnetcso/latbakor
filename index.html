@@ -118,7 +118,7 @@ button:hover{
 }
 .question-wrapper.active{display:block}
 
-/* GAMBAR & AUDIO: POLOS TANPA BACKGROUND, BORDER, ATAU RADIUS */
+/* GAMBAR & AUDIO: POLOS */
 .box-passage{
  padding:0;
  margin-bottom:20px;
@@ -128,10 +128,33 @@ button:hover{
  width:100%;
  margin-top:10px;
  display:block;
- border-radius:8px;
 }
 
-/* SOAL & PILIHAN: BACKGROUND TETAP, TANPA BORDER */
+/* CUSTOM AUDIO PLAYER: KREM AGAK TUA + KOTAK (NO BORDER RADIUS) */
+.box-passage audio{
+ background:#e8d5b8; /* krem agak tua, nyambung sama background soal #fff3e0 */
+ height:48px; /* tinggi player lebih jelas */
+ border-radius:0 !important; /* paksa hilangkan border-radius */
+ box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* Ubah warna kontrol bawaan browser (play button, timeline, dll) */
+.box-passage audio::-webkit-media-controls-panel {
+ background-color:#e8d5b8 !important; /* krem tua */
+ border-radius:0 !important;
+}
+.box-passage audio::-webkit-media-controls-play-button,
+.box-passage audio::-webkit-media-controls-volume-slider,
+.box-passage audio::-webkit-media-controls-current-time-display,
+.box-passage audio::-webkit-media-controls-time-remaining-display {
+ color:#333;
+}
+.box-passage audio::-webkit-media-controls-timeline {
+ background-color:#d4bea2; /* sedikit lebih tua buat timeline */
+ border-radius:0 !important;
+}
+
+/* SOAL & PILIHAN */
 .box-question{
  background:#fff3e0;
  padding:20px;
@@ -207,6 +230,7 @@ button:hover{
 </style>
 </head>
 <body>
+<!-- HTML body sama seperti sebelumnya -->
 <div id="login-page">
  <div class="login-container">
  <h1>LATIHAN SOAL</h1>
@@ -236,6 +260,7 @@ button:hover{
  <div class="result-box" id="resultBox"></div>
 </div>
 
+<!-- Script sama seperti versi sebelumnya (dengan acak soal) -->
 <script>
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzwdfNflhqIyVWo8knAyB2nWtzlkbPiRHfMCJV_O_mxkZravDprrAhMNV3Qu75WFYgk0g/exec";
 
@@ -286,7 +311,6 @@ const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 let questions=[],answers=[],current=0,time=3000,interval;
 let currentUser="", currentKode="";
 
-// Fungsi untuk mengacak array (Fisher-Yates shuffle)
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -313,10 +337,7 @@ btnLogin.onclick=()=>{
 
 async function loadSoal(file){
  let loadedQuestions = await (await fetch(BASE+file)).json();
- 
- // ACAK URUTAN SOAL
  shuffle(loadedQuestions);
- 
  questions = loadedQuestions;
  answers=Array(questions.length).fill(null);
  quizForm.innerHTML="";

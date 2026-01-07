@@ -123,10 +123,10 @@
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/eps/audio/1.mp3",
     "options": {
-      "a": "냉장고",
-      "b": "텔레비전",
-      "c": "컴퓨터",
-      "d": "전화기"
+      "a": "",
+      "b": "",
+      "c": "",
+      "d": ""
     },
     "answer": "a",
     "explanation": "Audio mengatakan '냉장고' yang berarti kulkas."
@@ -135,10 +135,10 @@
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/eps/audio/2.mp3",
     "options": {
-      "a": "사과",
-      "b": "바나나",
-      "c": "오렌지",
-      "d": "망고"
+      "a": "",
+      "b": "",
+      "c": "",
+      "d": ""
     },
     "answer": "a",
     "explanation": "Audio mengatakan '사과' yang berarti apel."
@@ -147,10 +147,10 @@
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/eps/audio/3.mp3",
     "options": {
-      "a": "고양이",
-      "b": "개",
-      "c": "새",
-      "d": "물고기"
+      "a": "",
+      "b": "",
+      "c": "",
+      "d": ""
     },
     "answer": "b",
     "explanation": "Audio mengatakan '개' yang berarti anjing."
@@ -159,10 +159,10 @@
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/eps/audio/4.mp3",
     "options": {
-      "a": "책",
-      "b": "책상",
-      "c": "의자",
-      "d": "창문"
+      "a": "",
+      "b": "",
+      "c": "",
+      "d": ""
     },
     "answer": "b",
     "explanation": "Audio mengatakan '책상' yang berarti meja."
@@ -171,10 +171,10 @@
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/eps/audio/5.mp3",
     "options": {
-      "a": "가족",
-      "b": "집",
-      "c": "자동차",
-      "d": "자전거"
+      "a": "",
+      "b": "",
+      "c": "",
+      "d": ""
     },
     "answer": "a",
     "explanation": "Audio mengatakan '가족' yang berarti keluarga."

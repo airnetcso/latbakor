@@ -1,19 +1,19 @@
 [
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://m.korean.houses-appliances.com/photo/pd35898095-2_56l.jpg",
+    "question": "이사람은 누구 입니까?",
+    "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg?cache=1&dl=1",
     "options": {
-      "a": "텔레비전",
-      "b": "세탁기",
-      "c": "냉장고",
-      "d": "가스레인지"
+      "a": "농부",
+      "b": "요리사",
+      "c": "경찰",
+      "d": "회사원"
     },
     "answer": "c",
-    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+    "explanation": "Gambar menunjukkan polisi (경찰)."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://i.ytimg.com/vi/2BsVcLYFD6Q/maxresdefault.jpg",
+    "question": "지금 몇시입니까?",
+    "image": "https://grok.com/imagine/post/cceb60cf-0a45-463d-b563-e0a85457fe1b",
     "options": {
       "a": "바나나",
       "b": "오렌지",

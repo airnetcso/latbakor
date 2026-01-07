@@ -224,37 +224,37 @@
     "explanation": "고양이 berarti kucing."
   },
   {
-    "question": "밥은 무슨 뜻이에요?",
+    "question": "컵이 더럽습니다. 그 컵을 __________ 주세요.", 
     "options": {
-      "a": "물",
-      "b": "밥",
-      "c": "빵",
-      "d": "국"
+      "a": "사",
+      "b": "써",
+      "c": "놓아",
+      "d": "씻어"
     },
-    "answer": "b",
-    "explanation": "밥 berarti nasi."
+    "answer": "d",
+    "explanation": "컵이 더럽습니다. 그 컵을 씻어 주세요."
   },
   {
-    "question": "물은 무슨 뜻이에요?",
+    "question": "옷이 예쁩니다. 하지만 조금 __________",
     "options": {
-      "a": "우유",
-      "b": "물",
-      "c": "주스",
-      "d": "차"
+      "a": "멉니다.",
+      "b": "작습니다.",
+      "c": "바쁩니다.",
+      "d": "어렵습니다."
     },
     "answer": "b",
-    "explanation": "물 berarti air."
+    "explanation": "옷이 예쁩니다. 하지만 조금 작습니다."
   },
   {
-    "question": "어머니는 무슨 뜻이에요?",
+    "question": "이 길은 가게도 많고 사람들도 많아서 __________",
     "options": {
-      "a": "아버지",
-      "b": "어머니",
-      "c": "오빠/언니",
-      "d": "동생"
+      "a": "가까워요.",
+      "b": "무거워요.",
+      "c": "복잡해요.",
+      "d": "깨끗해요."
     },
-    "answer": "b",
-    "explanation": "어머니 berarti ibu."
+    "answer": "c",
+    "explanation": "이 길은 가게도 많고 사람들도 많아서 복잡해요."
   },
   {
     "question": "지갑에 돈이 천 원 __________ 없어요.",

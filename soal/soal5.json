@@ -1,7 +1,7 @@
 [
   {
     "question": "이사람은 누구 입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg?cache=1&dl=1",
+    "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg",
     "options": {
       "a": "농부",
       "b": "요리사",
@@ -13,7 +13,7 @@
   },
   {
     "question": "지금 몇시입니까?",
-    "image": "https://grok.com/imagine/post/cceb60cf-0a45-463d-b563-e0a85457fe1b",
+    "image": "https://imagine-public.x.ai/imagine-public/images/cceb60cf-0a45-463d-b563-e0a85457fe1b.jpg",
     "options": {
       "a": "열두시 이십분 입니다.",
       "b": "일곱시 십오분 입니다.",
@@ -25,7 +25,7 @@
   },
   {
     "question": "이것은 무엇입니까?",
-    "image": "https://grok.com/imagine/post/79fc759e-425b-4d15-ade3-af98430b0922",
+    "image": "https://imagine-public.x.ai/imagine-public/images/79fc759e-425b-4d15-ade3-af98430b0922.jpg",
     "options": {
       "a": "냉장고",
       "b": "가스스토브",
@@ -37,7 +37,7 @@
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
-    "image": "https://grok.com/imagine/post/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf",
+    "image": "https://imagine-public.x.ai/imagine-public/images/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf.jpg",
     "options": {
       "a": "그림을 그리고있습니다.",
       "b": "산책을 하고있습니다.",
@@ -49,7 +49,7 @@
   },
   {
     "question": "이표지판은 무엇을 뜻입니까?",
-    "image": "https://grok.com/imagine/post/153ff26d-97ed-440a-99d2-2feaa0f1b896",
+    "image": "https://assets.grok.com/users/8f8ff186-a657-4ded-9f6f-07da5c13ebd4/generated/03e8238a-86bd-4de1-b44a-ba7666355323/image.jpg",
     "options": {
       "a": "고압전기 경고",
       "b": "줄입금지 경고",
@@ -61,7 +61,7 @@
   },
   {
     "question": "여기에서 무엇을 할수있습니까?",
-    "image": "https://grok.com/imagine/post/ef562c04-e1aa-4f9f-be19-22b4c2992cf0",
+    "image": "https://imagine-public.x.ai/imagine-public/images/ef562c04-e1aa-4f9f-be19-22b4c2992cf0.jpg",
     "options": {
       "a": "차에 기름을 넣을수 있습니다.",
       "b": "차를 수리할수 있습니다.",

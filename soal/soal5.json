@@ -180,48 +180,48 @@
     "explanation": "Audio mengatakan '가족' yang berarti keluarga."
   },
   {
-    "question": "텔레비전은 무슨 뜻이에요?",
+    "question": "라면이나 국수는 __________ (으)로 먹습니다.",
     "options": {
-      "a": "라디오",
-      "b": "텔레비전",
-      "c": "컴퓨터",
-      "d": "전화기"
+      "a": "칼",
+      "b": "연필",
+      "c": "가위",
+      "d": "젓가락"
     },
     "answer": "b",
-    "explanation": "텔레비전 berarti televisi."
+    "explanation": "라면이나 국수는 젓가락으로 먹습니다."
   },
   {
-    "question": "컴퓨터는 무슨 뜻이에요?",
+    "question": "물건을 산 후에는 반드시 __________을/를 받으세요. 물건을 교환하거나 환불 받을 때 필요해요.",
     "options": {
-      "a": "노트북",
-      "b": "컴퓨터",
-      "c": "태블릿",
-      "d": "프린터"
+      "a": "돈",
+      "b": "포장",
+      "c": "카드",
+      "d": "영수증"
     },
     "answer": "b",
-    "explanation": "컴퓨터 berarti komputer."
+    "explanation": "물건을 산 후에는 반드시 연수증을 받으세요. 물건을 교환하거나 환불 받을 때 필요해요."
   },
   {
-    "question": "책상은 무슨 뜻이에요?",
+    "question": "열아홉 __________이 안 된 청소년에게 담배를 팔면 안 됩니다.",
     "options": {
-      "a": "의자",
-      "b": "책상",
-      "c": "옷장",
-      "d": "침대"
+      "a": "잔",
+      "b": "실",
+      "c": "명",
+      "d": "층"
     },
     "answer": "b",
-    "explanation": "책상 berarti meja."
+    "explanation": "열아홉 살이 안 된 청소년에게 담배를 파면 안 됩니다."
   },
   {
-    "question": "고양이는 무슨 뜻이에요?",
+    "question": "여기는 교통 __________ 가 많이 나는 곳입니다. 조심해서 운전하십시오." 
     "options": {
-      "a": "개",
-      "b": "고양이",
-      "c": "새",
-      "d": "토끼"
+      "a": "신호",
+      "b": "지도",
+      "c": "사고",
+      "d": "주차"
     },
-    "answer": "b",
-    "explanation": "고양이 berarti kucing."
+    "answer": "c",
+    "explanation": "여기는 교통 사고가 많이 나는 곳입니다. 조심해서 운전하십시오."
   },
   {
     "question": "컵이 더럽습니다. 그 컵을 __________ 주세요.", 

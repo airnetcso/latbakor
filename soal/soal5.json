@@ -70,39 +70,39 @@
     "explanation": "Gambar menunjukkan pohon keluarga (가족 관계도)."
   },
   {
-    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "question": "이 바지가 얼마요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
-    "explanation": "Audio mengatakan '냉장고' yang berarti kulkas."
+    "explanation": "만칠전원 이에요."
   },
   {
-    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "question": "한국음식을 좋아해요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
-    "explanation": "Audio mengatakan '사과' yang berarti apel."
+    "explanation": "네, 한국음식을 좋아해요."
   },
   {
-    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "question": "오늘은 무슨 요일이에요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "b",
-    "explanation": "Audio mengatakan '개' yang berarti anjing."
+    "explanation": "오늘은 금요일이에요."
   },
   {
-    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "question": "한국의 봄에는 날씨가 어떼요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "b",
-    "explanation": "Audio mengatakan '책상' yang berarti meja."
+    "explanation": "봄에는 날씨가 따뜻해요."
   },
   {
-    "question": "소리를 듣고 알맞은 답을 고르세요",
+    "question": "누가 교실에서 한국어를 가르치고 있어요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
-    "explanation": "Audio mengatakan '가족' yang berarti keluarga."
+    "explanation": "김 선생님은 교실에서 한국어를 가르치고 있어요."
   },
   {
     "question": "라면이나 국수는 __________ (으)로 먹습니다.",

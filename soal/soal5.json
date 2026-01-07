@@ -1,167 +1,410 @@
-[
-  {
-    "question": "이사람은 누구 입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg",
-    "options": { "a": "농부", "b": "요리사", "c": "경찰", "d": "회사원" },
-    "answer": "c",
-    "explanation": "Gambar menunjukkan polisi (경찰)."
-  },
-  {
-    "question": "지금 몇시입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/cceb60cf-0a45-463d-b563-e0a85457fe1b.jpg",
-    "options": { "a": "열두시 이십분 입니다.", "b": "일곱시 십오분 입니다.", "c": "여덟시 삼십분 입니다.", "d": "열한시 오십분 입니다." },
-    "answer": "b",
-    "explanation": "jam 7:15 (일곱시 십오분 입니다)."
-  },
-  {
-    "question": "이것은 무엇입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/79fc759e-425b-4d15-ade3-af98430b0922.jpg",
-    "options": { "a": "냉장고", "b": "가스스토브", "c": "식탁", "d": "책장" },
-    "answer": "b",
-    "explanation": "Gambar menunjukkan kompor gas(가스스토브)."
-  },
-  {
-    "question": "이사람은 무엇을하고 있습니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf.jpg",
-    "options": { "a": "그림을 그리고있습니다.", "b": "산책을 하고있습니다.", "c": "책을 읽고있습니다.", "d": "사진을 찍고있습니다." },
-    "answer": "d",
-    "explanation": "Gambar sedang memotret (사진을 찍고있습니다)."
-  },
-  {
-    "question": "이표지판은 무엇을 뜻입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/b17f4ce8-b863-4053-adc0-33c3eebb73c2.jpg",
-    "options": { "a": "고압전기 경고", "b": "줄입금지 경고", "c": "탑승금자 경고", "d": "고온 경고" },
-    "answer": "a",
-    "explanation": "Gambar listrik tegangan tinggi (고압전기 경고)."
-  },
-  {
-    "question": "여기에서 무엇을 할수있습니까?",
-    "image": "https://airnetcso.github.io/latbakor/image/01-1.jpg",
-    "options": { "a": "차에 기름을 넣을수 있습니다.", "b": "차를 수리할수 있습니다.", "c": "차를 주차할수 있습니다.", "d": "차에 짐을 실을수 있습니다." },
-    "answer": "a",
-    "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
-  },
-  {
-    "question": "고양이가 몇마리 있습니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/c2fbc2ff-e35e-449b-ab4b-61b443b1393c.jpg",
-    "options": { "a": "두개 있습니다.", "b": "두마리 있습니다.", "c": "세개 있습니다.", "d": "세마리 있습니다." },
-    "answer": "d",
-    "explanation": "Kucing ada 3 ekor (세마리 있습니다)."
-  },
-  {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://cf.asiaartistawards.com/news/21/2025/11/2025110919273789202_1.jpg",
-    "options": { "a": "옷장", "b": "냉장고", "c": "책상", "d": "의자" },
-    "answer": "b",
-    "explanation": "Gambar menunjukkan kulkas (냉장고)."
-  },
-  {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://www.shutterstock.com/image-photo/portrait-happy-korean-family-living-260nw-2389386989.jpg",
-    "options": { "a": "집", "b": "가족", "c": "음식", "d": "동물" },
-    "answer": "b",
-    "explanation": "Gambar menunjukkan keluarga (가족)."
-  },
-  {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://i.ytimg.com/vi/ntE8tryjqyo/sddefault.jpg",
-    "options": { "a": "가족 관계도", "b": "친구", "c": "학교", "d": "직업" },
-    "answer": "a",
-    "explanation": "Gambar menunjukkan pohon keluarga (가족 관계도)."
-  },
-  {
-    "question": "이 바지가 얼마요?",
-    "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
-    "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "a",
-    "explanation": "만칠전원 이에요."
-  },
-  {
-    "question": "한국음식을 좋아해요?",
-    "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3",
-    "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "b",
-    "explanation": "네, 한국음식을 좋아해요."
-  },
-  {
-    "question": "오늘은 무슨 요일이에요?",
-    "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3",
-    "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "d",
-    "explanation": "오늘은 금요일이에요."
-  },
-  {
-    "question": "한국의 봄에는 날씨가 어떼요?",
-    "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3",
-    "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "c",
-    "explanation": "봄에는 날씨가 따뜻해요."
-  },
-  {
-    "question": "누가 교실에서 한국어를 가르치고 있어요?",
-    "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3",
-    "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "a",
-    "explanation": "김 선생님은 교실에서 한국어를 가르치고 있어요."
-  },
-  {
-    "question": "라면이나 국수는 __________ (으)로 먹습니다.",
-    "options": { "a": "칼", "b": "연필", "c": "가위", "d": "젓가락" },
-    "answer": "d",
-    "explanation": "라면이나 국수는 젓가락으로 먹습니다."
-  },
-  {
-    "question": "물건을 산 후에는 반드시 __________을/를 받으세요. 물건을 교환하거나 환불 받을 때 필요해요.",
-    "options": { "a": "돈", "b": "포장", "c": "카드", "d": "영수증" },
-    "answer": "d",
-    "explanation": "물건을 산 후에는 반드시 영수증을 받으세요. 물건을 교환하거나 환불 받을 때 필요해요."
-  },
-  {
-    "question": "열아홉 __________이 안 된 청소년에게 담배를 팔면 안 됩니다.",
-    "options": { "a": "잔", "b": "실", "c": "명", "d": "층" },
-    "answer": "c",
-    "explanation": "열아홉 살이 안 된 청소년에게 담배를 팔면 안 됩니다."
-  },
-  {
-    "question": "여기는 교통 __________ 가 많이 나는 곳입니다. 조심해서 운전하십시오.",
-    "options": { "a": "신호", "b": "지도", "c": "사고", "d": "주차" },
-    "answer": "c",
-    "explanation": "여기는 교통 사고가 많이 나는 곳입니다. 조심해서 운전하십시오."
-  },
-  {
-    "question": "컵이 더럽습니다. 그 컵을 __________ 주세요.",
-    "options": { "a": "사", "b": "써", "c": "놓아", "d": "씻어" },
-    "answer": "d",
-    "explanation": "컵이 더럽습니다. 그 컵을 씻어 주세요."
-  },
-  {
-    "question": "옷이 예쁩니다. 하지만 조금 __________",
-    "options": { "a": "멉니다.", "b": "작습니다.", "c": "바쁩니다.", "d": "어렵습니다." },
-    "answer": "b",
-    "explanation": "옷이 예쁩니다. 하지만 조금 작습니다."
-  },
-  {
-    "question": "이 길은 가게도 많고 사람들도 많아서 __________",
-    "options": { "a": "가까워요.", "b": "무거워요.", "c": "복잡해요.", "d": "깨끗해요." },
-    "answer": "c",
-    "explanation": "이 길은 가게도 많고 사람들도 많아서 복잡해요."
-  },
-  {
-    "question": "지갑에 돈이 천 원 __________ 없어요.",
-    "options": { "a": "까지", "b": "마다", "c": "밖에", "d": "부터" },
-    "answer": "c",
-    "explanation": "지갑에 돈이 천원 밖에 없어요."
-  },
-  {
-    "question": "동생 __________ 졸업 선물을 줬어요.",
-    "options": { "a": "보다", "b": "에게", "c": "에서", "d": "하고" },
-    "answer": "b",
-    "explanation": "동생에게 졸업 선물을 줬어요."
-  },
-  {
-    "question": "모자가 있어요??",
-    "options": { "a": "네, 모자가 없어요", "b": "네, 모자가 많아요", "c": "아니요, 모자가 좋아요", "d": "아니요, 모자가 작아요" },
-    "answer": "b",
-    "explanation": "네, 모자가 많아요"
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TEST BAHASA KOREA</title>
+<style>
+body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
+/* LOGIN PAGE DENGAN ANIMASI */
+#login-page{
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
+ url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;
+}
+/* ANIMASI MASUK HALUS */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.login-container{
+ width:90%;
+ max-width:320px;
+ padding:40px 30px;
+ text-align:center;
+ background:rgba(255,255,255,.12);
+ backdrop-filter:blur(14px);
+ border-radius:24px;
+ box-shadow:0 12px 40px rgba(0,0,0,.5);
+ animation: fadeSlideUp 0.9s ease-out forwards;
+}
+.login-container h1{
+ color:#fff;font-size:28px;margin:0 0 8px 0;text-shadow:0 2px 6px rgba(0,0,0,.7);
+}
+.login-container h1:nth-of-type(2){font-size:24px;margin-bottom:20px;}
+.login-container p{color:#eee;font-size:15px;margin-bottom:30px;}
+input{
+ width:100%;padding:16px;margin:12px 0;border:none;border-radius:14px;
+ background:rgba(255,255,255,.18);color:#fff;font-size:16px;
+ backdrop-filter:blur(4px);
+ box-sizing:border-box;
+ transition:all 0.3s;
+}
+input::placeholder{color:rgba(255,255,255,.65);}
+input:focus{
+ outline:none;background:rgba(255,255,255,.35);
+ box-shadow:0 0 20px rgba(255,107,157,.6);
+ transform:scale(1.02);
+}
+button{
+ width:100%;padding:16px;margin:16px 0 8px;border:none;border-radius:14px;
+ background:#ff6b9d;color:#fff;font-weight:bold;font-size:17px;cursor:pointer;
+ box-shadow:0 6px 20px rgba(255,107,157,.5);
+ transition:all 0.4s;
+}
+button:hover{
+ background:#ff8ac1;
+ transform:translateY(-5px) scale(1.05);
+ box-shadow:0 12px 35px rgba(255,107,157,.7);
+ animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+ 0%{box-shadow:0 6px 20px rgba(255,107,157,.5);}
+ 50%{box-shadow:0 12px 40px rgba(255,107,157,.9);}
+ 100%{box-shadow:0 6px 20px rgba(255,107,157,.5);}
+}
+.copyright{
+ margin-top:35px;
+ color:rgba(255,255,255,.8);
+ font-size:13px;
+ text-shadow:0 1px 4px rgba(0,0,0,.8);
+}
+
+/* QUIZ & RESULT - MOBILE FIRST */
+#quiz-page{display:none;min-height:100vh;padding:70px 0 80px;background:linear-gradient(#fdf6ec,#f7efe2)}
+
+.header-fixed{
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:#fff;
+ padding:10px 15px;
+ box-shadow:0 2px 10px rgba(0,0,0,0.1);
+ z-index:1000;
+ box-sizing:border-box;
+}
+.timer, .submit-top{
+ padding:12px 24px;
+ text-align:center;
+ color:#fff;
+ font-weight:bold;
+ font-size:16px;
+ border-radius:0;
+ min-width:110px;
+}
+.timer{background:#4caf50}
+.submit-top{background:#f44336}
+
+.container{
+ max-width:540px;
+ margin:auto;
+ height:calc(100vh - 150px);
+ overflow-y:auto;
+ padding:0 15px;
+ box-sizing:border-box;
+}
+
+.question-wrapper{
+ display:none;
+ margin-bottom:40px;
+}
+.question-wrapper.active{display:block}
+
+/* GAMBAR & AUDIO: POLOS TANPA BACKGROUND, BORDER, ATAU RADIUS */
+.box-passage{
+ padding:0;
+ margin-bottom:20px;
+}
+.box-passage audio,
+.box-passage img{
+ width:100%;
+ margin-top:10px;
+ display:block;
+ border-radius:8px;
+}
+
+/* SOAL & PILIHAN: BACKGROUND TETAP, TANPA BORDER */
+.box-question{
+ background:#fff3e0;
+ padding:20px;
+ margin-top:15px;
+}
+.option-item{
+ display:flex;
+ align-items:center;
+ margin:18px 0;
+ font-size:16px;
+}
+.option-item input{display:none}
+.option-circle{
+ width:32px;
+ height:32px;
+ border:2px solid #333;
+ border-radius:50%;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ margin-right:12px;
+ flex-shrink:0;
+ font-weight:bold;
+ font-size:15px;
+}
+.option-item input:checked + .option-circle{
+ background:#bbdefb;
+ border-color:#2196f3;
+ color:#2196f3;
+}
+
+.nav-bottom{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:#fff;
+ padding:10px 15px;
+ box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+ box-sizing:border-box;
+}
+.nav-bottom button{
+ padding:12px 24px;
+ text-align:center;
+ color:#fff;
+ border:none;
+ font-weight:bold;
+ font-size:16px;
+ border-radius:0;
+ min-width:110px;
+}
+#prev{background:#2196f3}
+#next{background:#ff9800}
+
+#result-page{display:none;max-width:600px;margin:auto;padding:20px 15px;}
+.result-box{background:#fff;padding:25px;box-shadow:0 4px 15px rgba(0,0,0,0.1);}
+.wrong-item{margin-top:20px;padding:15px;background:#ffebee;border-left:5px solid #f44336;border-radius:8px;}
+.correct{color:green;font-weight:bold}
+.back-btn{
+ margin-top:30px;
+ padding:16px;
+ background:#3f51b5;
+ color:#fff;
+ text-align:center;
+ font-weight:bold;
+ font-size:17px;
+ border-radius:12px;
+ cursor:pointer;
+}
+</style>
+</head>
+<body>
+<div id="login-page">
+ <div class="login-container">
+ <h1>LATIHAN SOAL</h1>
+ <h1>한국어연습</h1>
+ <p>25 Soal | 50 Menit</p>
+ <input id="username" placeholder="Username / 이름">
+ <input id="password" type="password" placeholder="Password / 비밀번호">
+ <input id="kode" placeholder="Kode Soal / 시험코드">
+ <button id="btnLogin">LOGIN / 로그인</button>
+ </div>
+ <div class="copyright">© 2026 Denzuka - Kim Jongun. All Rights Reserved.</div>
+</div>
+
+<div id="quiz-page">
+ <div class="header-fixed">
+  <div class="submit-top" id="submitTop">SUBMIT</div>
+  <div class="timer" id="timer">50:00</div>
+ </div>
+ <div class="container"><form id="quiz-form"></form></div>
+ <div class="nav-bottom">
+  <button id="prev">PREV</button>
+  <button id="next">NEXT</button>
+ </div>
+</div>
+
+<div id="result-page">
+ <div class="result-box" id="resultBox"></div>
+</div>
+
+<script>
+const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzwdfNflhqIyVWo8knAyB2nWtzlkbPiRHfMCJV_O_mxkZravDprrAhMNV3Qu75WFYgk0g/exec";
+
+document.addEventListener("DOMContentLoaded",()=>{
+const loginPage=document.getElementById("login-page");
+const quizPage=document.getElementById("quiz-page");
+const resultPage=document.getElementById("result-page");
+const btnLogin=document.getElementById("btnLogin");
+const submitTop=document.getElementById("submitTop");
+const quizForm=document.getElementById("quiz-form");
+const timerEl=document.getElementById("timer");
+const resultBox=document.getElementById("resultBox");
+
+const validCredentials={
+ "uus":"123",
+ "user01":"12345",
+ "hanarizka":"Nungkihana24!",
+ "windi":"Windi2000",
+ "rismaya97":"bahasakorea",
+ "sita77":"minyooki",
+ "Aini185":"Doraemon",
+ "Hangeulfei":"studykorea02",
+ "Hamdan106":"Fukuo106",
+ "Heri":"heri99",
+ "Fikrisurya":"464646",
+ "Mutiara2003":"Mutiara14",
+ "wantikas":"200022",
+ "Dininidia":"dininidia11",
+ "kaniarostayuni9":"Kania1313",
+ "Dikisetiawan07":"Diki2709",
+ "Aisyah18":"Aisyah18.",
+ "Rizka2026":"butterfly24",
+ "Zhafif07":"20060722",
+ "admin":"admin123",
+ "koreafan":"hanguk789",
+ "topik2026":"seoul2026"
+};
+
+const kodeMapping={
+ "B12345":"soal1.json",
+ "A09008":"soal2.json",
+ "SAREWAE":"test.json",
+ "W11765":"soal3.json",
+ "H66666":"soal5.json"
+};
+
+const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+let questions=[],answers=[],current=0,time=3000,interval;
+let currentUser="", currentKode="";
+
+// Fungsi untuk mengacak array (Fisher-Yates shuffle)
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
-]
+  return array;
+}
+
+btnLogin.onclick=()=>{
+ const u=document.getElementById("username").value.trim();
+ const p=document.getElementById("password").value.trim();
+ const k=document.getElementById("kode").value.trim().toUpperCase();
+ if(validCredentials[u]===p && kodeMapping[k]){
+  currentUser = u;
+  currentKode = k;
+  loginPage.style.display="none";
+  quizPage.style.display="block";
+  loadSoal(kodeMapping[k]);
+  startTimer();
+ }else{
+  alert("Username / Password / Kode salah");
+ }
+};
+
+async function loadSoal(file){
+ let loadedQuestions = await (await fetch(BASE+file)).json();
+ 
+ // ACAK URUTAN SOAL
+ shuffle(loadedQuestions);
+ 
+ questions = loadedQuestions;
+ answers=Array(questions.length).fill(null);
+ quizForm.innerHTML="";
+ questions.forEach((q,i)=>{
+  quizForm.innerHTML+=`
+  <div class="question-wrapper">
+   <div class="box-passage">
+    ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
+    ${q.image?`<img src="${q.image}">`:""}
+   </div>
+   <div class="box-question">
+    <p><b>${i+1}.</b> ${q.question}</p>
+    ${Object.entries(q.options).map(([k,v],idx)=>`
+    <label class="option-item">
+     <input type="radio" name="q${i}" value="${k}">
+     <span class="option-circle">${idx+1}</span> ${v}
+    </label>`).join("")}
+   </div>
+  </div>`;
+ });
+ document.querySelectorAll("input[type=radio]").forEach(r=>{
+  r.onchange=()=>answers[+r.name.slice(1)]=r.value;
+ });
+ show(0);
+}
+
+function show(n){
+ document.querySelectorAll("audio").forEach(a=>{a.pause();a.currentTime=0});
+ document.querySelectorAll(".question-wrapper").forEach((q,i)=>q.classList.toggle("active",i===n));
+ current=n;
+}
+
+document.getElementById("prev").onclick=()=>current>0&&show(current-1);
+document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
+
+submitTop.onclick=()=>{
+ const kosong=answers.findIndex(a=>a===null);
+ if(kosong!==-1){alert("Soal "+(kosong+1)+" belum dijawab");show(kosong);return;}
+ clearInterval(interval);
+ quizPage.style.display="none";
+ resultPage.style.display="block";
+ let score=0,html="";
+ questions.forEach((q,i)=>{
+  const benar=q.answer;
+  if(answers[i]===benar) score+=4;
+  else html+=`
+  <div class="wrong-item">
+   <b>Soal ${i+1} salah</b><br><br>
+   Jawaban benar: <span class="correct">${benar}</span><br><br>
+   ${q.explanation||"-"}
+  </div>`;
+ });
+ const totalQuestions = questions.length;
+ const percent = Math.round((score / (totalQuestions * 4)) * 100);
+ const dataToSend = {
+  waktu: new Date().toLocaleString('id-ID', {timeZone: 'Asia/Jakarta'}),
+  namaSiswa: currentUser || "Anonymous",
+  code: currentKode || "Unknown",
+  kosaKata: "-",
+  ubt: "-",
+  latihanSoal: `${score}/${totalQuestions*4} (${percent}%)`,
+  keterangan: html ? html.replace(/<[^>]+>/g,' ').trim() : "Semua benar! Perfect!"
+ };
+ fetch(SPREADSHEET_URL, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(dataToSend)
+ })
+ .then(res => res.json())
+ .then(data => console.log("Data terkirim ke sheet:", data))
+ .catch(err => {
+  console.error("Gagal kirim ke sheet:", err);
+  const params = new URLSearchParams(dataToSend);
+  window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
+ });
+ resultBox.innerHTML=`
+  <h2>Nilai: ${score}</h2>
+  ${html||"<p class='correct'>Semua jawaban benar 🎉</p>"}
+  <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
+};
+
+function startTimer(){
+ interval=setInterval(()=>{
+  timerEl.textContent=String(Math.floor(time/60)).padStart(2,"0")+":"+String(time%60).padStart(2,"0");
+  if(--time<0) submitTop.onclick();
+ },1000);
+}
+});
+</script>
+</body>
+</html>

@@ -36,7 +36,7 @@
   },
   {
     "question": "여기에서 무엇을 할수있습니까?",
-    "image": "https://assets.grok.com/users/8f8ff186-a657-4ded-9f6f-07da5c13ebd4/generated/a6339120-9f27-4f48-9c21-2f525a5e5def/image.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/01-1.jpg",
     "options": { "a": "차에 기름을 넣을수 있습니다.", "b": "차를 수리할수 있습니다.", "c": "차를 주차할수 있습니다.", "d": "차에 짐을 실을수 있습니다." },
     "answer": "a",
     "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
@@ -72,35 +72,35 @@
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
-    "options": { "a": "냉장고", "b": "", "c": "", "d": "" },
+    "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '냉장고' yang berarti kulkas."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3",
-    "options": { "a": "사과", "b": "", "c": "", "d": "" },
+    "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '사과' yang berarti apel."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3",
-    "options": { "a": "", "b": "개", "c": "", "d": "" },
+    "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "b",
     "explanation": "Audio mengatakan '개' yang berarti anjing."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3",
-    "options": { "a": "", "b": "책상", "c": "", "d": "" },
+    "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "b",
     "explanation": "Audio mengatakan '책상' yang berarti meja."
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
     "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3",
-    "options": { "a": "가족", "b": "", "c": "", "d": "" },
+    "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
     "explanation": "Audio mengatakan '가족' yang berarti keluarga."
   },

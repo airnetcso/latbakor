@@ -121,7 +121,7 @@
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/eps/audio/1.mp3",
+    "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
     "options": {
       "a": "",
       "b": "",
@@ -133,7 +133,7 @@
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/eps/audio/2.mp3",
+    "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3"",
     "options": {
       "a": "",
       "b": "",
@@ -145,7 +145,7 @@
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/eps/audio/3.mp3",
+    "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3"",
     "options": {
       "a": "",
       "b": "",
@@ -157,7 +157,7 @@
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/eps/audio/4.mp3",
+    "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3"",
     "options": {
       "a": "",
       "b": "",
@@ -169,7 +169,7 @@
   },
   {
     "question": "소리를 듣고 알맞은 답을 고르세요",
-    "audio": "https://airnetcso.github.io/eps/audio/5.mp3",
+    "audio": "https://airnetcso.github.io/latbakor/audio/05-1.mp3"",
     "options": {
       "a": "",
       "b": "",

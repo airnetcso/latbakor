@@ -80,16 +80,16 @@ button:hover{
 /* QUIZ & RESULT */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{
- position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:6px 12px;z-index:1000;box-sizing:border-box;
+ position:fixed;top:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;z-index:1000;
 }
 .timer,.submit-top{
- padding:10px 20px;
+ flex:1;
+ padding:10px 0;                /* dipendekkan dari 16px jadi 10px */
  text-align:center;
  color:#fff;
  font-weight:bold;
- font-size:16px;
- border-radius:0;
- min-width:100px;
+ font-size:16px;                /* font sedikit dikecilkan biar proporsional */
+ border-radius:0;               /* hilangkan border-radius */
 }
 .timer{background:#4caf50}
 .submit-top{background:#f44336}
@@ -107,16 +107,16 @@ button:hover{
 .option-item input:checked + .option-circle{background:#bbdefb}
 
 .nav-bottom{
- position:fixed;bottom:0;width:100%;display:flex;justify-content:space-between;align-items:center;background:#fff;padding:6px 12px;box-sizing:border-box;
+ position:fixed;bottom:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;
 }
 .nav-bottom button{
- padding:10px 20px;                /* EXACTLY SAMA dengan atas */
+ flex:1;
+ padding:10px 0;                /* sama dengan atas, dipendekkan */
  color:#fff;
  border:none;
  font-weight:bold;
- font-size:16px;                   /* SAMA */
- border-radius:0;                  /* SAMA */
- min-width:100px;                  /* SAMA */
+ font-size:16px;
+ border-radius:0;               /* hilangkan border-radius */
 }
 #prev{background:#2196f3}
 #next{background:#ff9800}

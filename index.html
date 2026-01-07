@@ -7,7 +7,7 @@
 <style>
 body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 
-/* LOGIN - STATIC, NO ANIMATION */
+/* LOGIN PAGE DENGAN ANIMASI */
 #login-page{
  min-height:100vh;
  display:flex;
@@ -18,63 +18,73 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
  url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;
 }
 
+/* ANIMASI MASUK HALUS */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .login-container{
  width:90%;
- max-width:280px;
- padding:40px 30px;
+ max-width:300px;                 /* sedikit lebih lebar dari 280px */
+ padding:45px 35px;               /* lebih lega */
  text-align:center;
- background:rgba(255,255,255,.09);
- backdrop-filter:blur(12px);
- border-radius:20px;
- box-shadow:0 8px 32px rgba(0,0,0,.4);
+ background:rgba(255,255,255,.12);
+ backdrop-filter:blur(14px);      /* blur lebih halus */
+ border-radius:24px;
+ box-shadow:0 12px 40px rgba(0,0,0,.5);
+ animation: fadeSlideUp 0.9s ease-out forwards; /* animasi masuk keren */
 }
 
 .login-container h1{
- color:#fff;font-size:28px;margin:0 0 8px 0;text-shadow:0 2px 4px rgba(0,0,0,.7);
+ color:#fff;font-size:30px;margin:0 0 8px 0;text-shadow:0 2px 6px rgba(0,0,0,.7);
 }
-.login-container h1:nth-of-type(2){font-size:24px;margin-bottom:20px;}
-.login-container p{color:#eee;font-size:16px;margin-bottom:30px;}
+.login-container h1:nth-of-type(2){font-size:26px;margin-bottom:22px;}
+.login-container p{color:#eee;font-size:16px;margin-bottom:32px;}
 
 input{
- width:100%;padding:14px;margin:12px 0;border:none;border-radius:12px;
- background:rgba(255,255,255,.15);color:#fff;font-size:16px;
+ width:100%;padding:15px;margin:14px 0;border:none;border-radius:14px;
+ background:rgba(255,255,255,.18);color:#fff;font-size:16px;
  backdrop-filter:blur(4px);
  box-sizing:border-box;
- transition:0.3s;
+ transition:all 0.3s;
 }
-input::placeholder{color:rgba(255,255,255,.7);}
+input::placeholder{
+ color:rgba(255,255,255,.65);    /* lebih transparan & soft */
+}
 input:focus{
- outline:none;background:rgba(255,255,255,.3);
- box-shadow:0 0 15px rgba(255,107,157,.5);
+ outline:none;background:rgba(255,255,255,.35);
+ box-shadow:0 0 20px rgba(255,107,157,.6);
+ transform:scale(1.02);
 }
 
 button{
- width:100%;padding:14px;margin:12px 0;border:none;border-radius:12px;
- background:#ff6b9d;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;
- box-shadow:0 4px 15px rgba(255,107,157,.4);
- transition:0.4s;
- box-sizing:border-box;
+ width:100%;padding:16px;margin:16px 0 8px;border:none;border-radius:14px;
+ background:#ff6b9d;color:#fff;font-weight:bold;font-size:17px;cursor:pointer;
+ box-shadow:0 6px 20px rgba(255,107,157,.5);
+ transition:all 0.4s;
 }
 button:hover{
- background:#ff8ac1;transform:translateY(-3px) scale(1.03);
- box-shadow:0 8px 25px rgba(255,107,157,.6);
+ background:#ff8ac1;
+ transform:translateY(-5px) scale(1.05);
+ box-shadow:0 12px 35px rgba(255,107,157,.7);
  animation: pulse 1.5s infinite;
 }
 @keyframes pulse {
- 0%{box-shadow:0 4px 15px rgba(255,107,157,.4);}
- 50%{box-shadow:0 8px 30px rgba(255,107,157,.8);}
- 100%{box-shadow:0 4px 15px rgba(255,107,157,.4);}
+ 0%{box-shadow:0 6px 20px rgba(255,107,157,.5);}
+ 50%{box-shadow:0 12px 40px rgba(255,107,157,.9);}
+ 100%{box-shadow:0 6px 20px rgba(255,107,157,.5);}
 }
 
-/* COPYRIGHT - DIPINDAH KE LUAR BOX */
+/* COPYRIGHT */
 .copyright{
- margin-top:30px;
- color:rgba(255,255,255,.7);
+ margin-top:35px;
+ color:rgba(255,255,255,.8);
  font-size:14px;
- text-shadow:0 1px 3px rgba(0,0,0,.8);
+ text-shadow:0 1px 4px rgba(0,0,0,.8);
 }
 
-/* QUIZ & RESULT - TETAP SAMA, TIDAK DIUBAH */
+/* QUIZ & RESULT - TETAP SAMA PERSIS, TIDAK DIUBAH */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{position:fixed;top:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;z-index:1000}
 .timer,.submit-top{flex:1;padding:12px 0;text-align:center;color:#fff;font-weight:bold}
@@ -134,10 +144,6 @@ button:hover{
 </div>
 
 <script>
-// ================================================
-// Hanya bagian ini yang diubah / ditambahkan
-// ================================================
-
 // GANTI DENGAN URL WEB APP GOOGLE APPS SCRIPT YANG SAMA DENGAN /koka
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzwdfNflhqIyVWo8knAyB2nWtzlkbPiRHfMCJV_O_mxkZravDprrAhMNV3Qu75WFYgk0g/exec";
 
@@ -261,19 +267,16 @@ submitTop.onclick=()=>{
   </div>`;
  });
 
- // ================================================
- // BAGIAN BARU: KIRIM KE GOOGLE SHEET (sama seperti /koka)
- // ================================================
  const totalQuestions = questions.length;
- const percent = Math.round((score / (totalQuestions * 4)) * 100); // karena tiap soal 4 poin
+ const percent = Math.round((score / (totalQuestions * 4)) * 100);
 
  const dataToSend = {
   waktu: new Date().toLocaleString('id-ID', {timeZone: 'Asia/Jakarta'}),
   namaSiswa: currentUser || "Anonymous",
   code: currentKode || "Unknown",
-  kosaKata: "-",                    // kolom KOSA KATA kosong
-  ubt: "-",                         // kolom UBT kosong
-  latihanSoal: `${score}/${totalQuestions*4} (${percent}%)`, // nilai masuk ke LATIHAN SOAL
+  kosaKata: "-",
+  ubt: "-",
+  latihanSoal: `${score}/${totalQuestions*4} (${percent}%)`,
   keterangan: html ? html.replace(/<[^>]+>/g,' ').trim() : "Semua benar! Perfect!"
  };
 
@@ -283,19 +286,13 @@ submitTop.onclick=()=>{
   body: JSON.stringify(dataToSend)
  })
  .then(res => res.json())
- .then(data => {
-  console.log("Data terkirim ke sheet:", data);
-  // Bisa tambah alert kalau mau
-  // alert("Nilai berhasil dikirim ke Google Sheet!");
- })
+ .then(data => console.log("Data terkirim ke sheet:", data))
  .catch(err => {
   console.error("Gagal kirim ke sheet:", err);
-  // Fallback GET (opsional)
   const params = new URLSearchParams(dataToSend);
   window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
  });
 
- // Tampilan hasil tetap sama seperti aslinya
  resultBox.innerHTML=`
   <h2>Nilai: ${score}</h2>
   ${html||"<p class='correct'>Semua jawaban benar 🎉</p>"}

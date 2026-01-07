@@ -80,21 +80,21 @@
     "question": "한국음식을 좋아해요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/02-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "a",
+    "answer": "b",
     "explanation": "네, 한국음식을 좋아해요."
   },
   {
     "question": "오늘은 무슨 요일이에요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/03-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "b",
+    "answer": "d",
     "explanation": "오늘은 금요일이에요."
   },
   {
     "question": "한국의 봄에는 날씨가 어떼요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/04-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
-    "answer": "b",
+    "answer": "c",
     "explanation": "봄에는 날씨가 따뜻해요."
   },
   {

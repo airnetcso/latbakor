@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+F<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   btnLogin.onclick = () => {
     const u = document.getElementById("username").value.trim();
     const p = document.getElementById("password").value.trim();
-    const k = document.getElementById("kode").value.trim().toUpperCase();
+    const k = document.getElementById("kode").value.trim().toLowerCase();
 
     // Cek credential dari array
     const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
@@ -424,4 +424,5 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
+
 

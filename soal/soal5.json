@@ -56,21 +56,21 @@
     "explanation": "작업장에서 용접고있습니다."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "question": "다음 그림을 보고 알맞은 답을 고르십시오.",
     "image": "https://imagine-public.x.ai/imagine-public/images/eb806983-e618-4071-a9fc-3256cb03b09c.jpg",
     "options": { "a": "구름 속의 물방울이 커져서 땅으로 떨어지는 것은 비입니다.", "b": "기온이 낮을 때 물이 얼어서 겨울에 내리는 것은 눈입니다.", "c": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다.", "d": "공기 중의 물방울이나 얼음으로 만들어진 것은 구름입니다." },
     "answer": "c",
     "explanation": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
+    "question": "다음 그림을 보고 알맞은 답을 고르십시오.",
     "image": "https://airnetcso.github.io/latbakor/image/02-1.jpg",
     "options": { "a": "흙이나 자갈을 운반하는 것은 덤프트럭입니다.", "b": "흙을 밀어서 땅을 고르는 것은 불도저입니다.", "c": "땅을 파는 것은 굴착기입니다.", "d": "고장 난 차를 끌어 옮기는 것은 견인차입니다." },
     "answer": "a",
     "explanation": "흙이나 자갈을 운반하는 것은 덤프트럭입니다."
   },
   {
-    "question": "이 바지가 얼마요?",
+    "question": "이 바지가 얼마예요?",
     "audio": "https://airnetcso.github.io/latbakor/audio/01-1.mp3",
     "options": { "a": "", "b": "", "c": "", "d": "" },
     "answer": "a",
@@ -118,8 +118,8 @@
   },
   {
     "question": "열아홉 __________이 안 된 청소년에게 담배를 팔면 안 됩니다.",
-    "options": { "a": "잔", "b": "실", "c": "명", "d": "층" },
-    "answer": "c",
+    "options": { "a": "잔", "b": "살", "c": "명", "d": "층" },
+    "answer": "b",
     "explanation": "열아홉 살이 안 된 청소년에게 담배를 팔면 안 됩니다."
   },
   {

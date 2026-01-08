@@ -73,10 +73,8 @@ button:hover{
  font-size:13px;
  text-shadow:0 1px 4px rgba(0,0,0,.8);
 }
-
 /* QUIZ & RESULT - MOBILE FIRST */
 #quiz-page{display:none;min-height:100vh;padding:70px 0 80px;background:linear-gradient(#fdf6ec,#f7efe2)}
-
 .header-fixed{
  position:fixed;
  top:0;
@@ -102,7 +100,6 @@ button:hover{
 }
 .timer{background:#4caf50}
 .submit-top{background:#f44336}
-
 .container{
  max-width:540px;
  margin:auto;
@@ -111,13 +108,11 @@ button:hover{
  padding:0 15px;
  box-sizing:border-box;
 }
-
 .question-wrapper{
  display:none;
  margin-bottom:40px;
 }
 .question-wrapper.active{display:block}
-
 /* GAMBAR & AUDIO: POLOS */
 .box-passage{
  padding:0;
@@ -129,18 +124,15 @@ button:hover{
  margin-top:10px;
  display:block;
 }
-
 /* CUSTOM AUDIO PLAYER: KREM AGAK TUA + KOTAK (NO BORDER RADIUS) */
 .box-passage audio{
- background:#e8d5b8; /* krem agak tua, nyambung sama background soal #fff3e0 */
- height:48px; /* tinggi player lebih jelas */
- border-radius:0 !important; /* paksa hilangkan border-radius */
+ background:#e8d5b8;
+ height:48px;
+ border-radius:0 !important;
  box-shadow:0 2px 8px rgba(0,0,0,0.15);
 }
-
-/* Ubah warna kontrol bawaan browser (play button, timeline, dll) */
 .box-passage audio::-webkit-media-controls-panel {
- background-color:#e8d5b8 !important; /* krem tua */
+ background-color:#e8d5b8 !important;
  border-radius:0 !important;
 }
 .box-passage audio::-webkit-media-controls-play-button,
@@ -150,10 +142,9 @@ button:hover{
  color:#333;
 }
 .box-passage audio::-webkit-media-controls-timeline {
- background-color:#d4bea2; /* sedikit lebih tua buat timeline */
+ background-color:#d4bea2;
  border-radius:0 !important;
 }
-
 /* SOAL & PILIHAN */
 .box-question{
  background:#fff3e0;
@@ -185,7 +176,6 @@ button:hover{
  border-color:#2196f3;
  color:#2196f3;
 }
-
 .nav-bottom{
  position:fixed;
  bottom:0;
@@ -211,7 +201,6 @@ button:hover{
 }
 #prev{background:#2196f3}
 #next{background:#ff9800}
-
 #result-page{display:none;max-width:600px;margin:auto;padding:20px 15px;}
 .result-box{background:#fff;padding:25px;box-shadow:0 4px 15px rgba(0,0,0,0.1);}
 .wrong-item{margin-top:20px;padding:15px;background:#ffebee;border-left:5px solid #f44336;border-radius:8px;}
@@ -230,7 +219,7 @@ button:hover{
 </style>
 </head>
 <body>
-<!-- HTML body sama seperti sebelumnya -->
+
 <div id="login-page">
  <div class="login-container">
  <h1>LATIHAN SOAL</h1>
@@ -260,58 +249,48 @@ button:hover{
  <div class="result-box" id="resultBox"></div>
 </div>
 
-<!-- Script sama seperti versi sebelumnya (dengan acak soal) -->
 <script>
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzwdfNflhqIyVWo8knAyB2nWtzlkbPiRHfMCJV_O_mxkZravDprrAhMNV3Qu75WFYgk0g/exec";
 
-document.addEventListener("DOMContentLoaded",()=>{
-const loginPage=document.getElementById("login-page");
-const quizPage=document.getElementById("quiz-page");
-const resultPage=document.getElementById("result-page");
-const btnLogin=document.getElementById("btnLogin");
-const submitTop=document.getElementById("submitTop");
-const quizForm=document.getElementById("quiz-form");
-const timerEl=document.getElementById("timer");
-const resultBox=document.getElementById("resultBox");
+const validCredentials = [
+  {username: "Heri", password: "heri99"},
+  {username: "hanarizka", password: "Nungkihana24!"},
+  {username: "Fikrisurya", password: "464646"},
+  {username: "Mutiara2003", password: "Mutiara14"},
+  {username: "siwon", password: "kampus2"},
+  {username: "wantikas", password: "200022"},
+  {username: "uus", password: "123"},
+  {username: "user01", password: "12345"},
+  {username: "windi", password: "Windi2000"},
+  {username: "yppsdi", password: "global2026"},
+  {username: "rismaya97", password: "bahasakorea"},
+  {username: "sita77", password: "minyooki"},
+  {username: "Aini185", password: "Doraemon"},
+  {username: "Hangeulfei", password: "studykorea02"},
+  {username: "Hamdan106", password: "Fukuo106"},
+  {username: "Dininidia", password: "dininidia11"},
+  {username: "kaniarostayuni9", password: "Kania1313"},
+  {username: "Dikisetiawan07", password: "Diki2709"},
+  {username: "Aisyah18", password: "Aisyah18."},
+  {username: "Rizka2026", password: "butterfly24"},
+  {username: "Zhafif07", password: "20060722"},
+  {username: "admin", password: "admin123"},
+  {username: "koreafan", password: "hanguk789"},
+  {username: "topik2026", password: "seoul2026"}
+];
 
-const validCredentials={
- "uus":"123",
- "user01":"12345",
- "hanarizka":"Nungkihana24!",
- "windi":"Windi2000",
- "siwon":"kampus2"},
- "yppsdi":"global2026"},
- "rismaya97":"bahasakorea",
- "sita77":"minyooki",
- "Aini185":"Doraemon",
- "Hangeulfei":"studykorea02",
- "Hamdan106":"Fukuo106",
- "Heri":"heri99",
- "Fikrisurya":"464646",
- "Mutiara2003":"Mutiara14",
- "wantikas":"200022",
- "Dininidia":"dininidia11",
- "kaniarostayuni9":"Kania1313",
- "Dikisetiawan07":"Diki2709",
- "Aisyah18":"Aisyah18.",
- "Rizka2026":"butterfly24",
- "Zhafif07":"20060722",
- "admin":"admin123",
- "koreafan":"hanguk789",
- "topik2026":"seoul2026"
+const kodeMapping = {
+  "B12345": "soal1.json",
+  "A09008": "soal2.json",
+  "SAREWAE": "test.json",
+  "W11765": "soal3.json",
+  "H66666": "soal5.json"
 };
 
-const kodeMapping={
- "B12345":"soal1.json",
- "A09008":"soal2.json",
- "SAREWAE":"test.json",
- "W11765":"soal3.json",
- "H66666":"soal5.json"
-};
+const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-const BASE="https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
-let questions=[],answers=[],current=0,time=3000,interval;
-let currentUser="", currentKode="";
+let questions = [], answers = [], current = 0, time = 3000, interval;
+let currentUser = "", currentKode = "";
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -321,114 +300,127 @@ function shuffle(array) {
   return array;
 }
 
-btnLogin.onclick=()=>{
- const u=document.getElementById("username").value.trim();
- const p=document.getElementById("password").value.trim();
- const k=document.getElementById("kode").value.trim().toUpperCase();
- if(validCredentials[u]===p && kodeMapping[k]){
-  currentUser = u;
-  currentKode = k;
-  loginPage.style.display="none";
-  quizPage.style.display="block";
-  loadSoal(kodeMapping[k]);
-  startTimer();
- }else{
-  alert("Username / Password / Kode salah");
- }
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const loginPage = document.getElementById("login-page");
+  const quizPage = document.getElementById("quiz-page");
+  const resultPage = document.getElementById("result-page");
+  const btnLogin = document.getElementById("btnLogin");
+  const submitTop = document.getElementById("submitTop");
+  const quizForm = document.getElementById("quiz-form");
+  const timerEl = document.getElementById("timer");
+  const resultBox = document.getElementById("resultBox");
 
-async function loadSoal(file){
- let loadedQuestions = await (await fetch(BASE+file)).json();
- shuffle(loadedQuestions);
- questions = loadedQuestions;
- answers=Array(questions.length).fill(null);
- quizForm.innerHTML="";
- questions.forEach((q,i)=>{
-  quizForm.innerHTML+=`
-  <div class="question-wrapper">
-   <div class="box-passage">
-    ${q.audio?`<audio controls src="${q.audio}"></audio>`:""}
-    ${q.image?`<img src="${q.image}">`:""}
-   </div>
-   <div class="box-question">
-    <p><b>${i+1}.</b> ${q.question}</p>
-    ${Object.entries(q.options).map(([k,v],idx)=>`
-    <label class="option-item">
-     <input type="radio" name="q${i}" value="${k}">
-     <span class="option-circle">${idx+1}</span> ${v}
-    </label>`).join("")}
-   </div>
-  </div>`;
- });
- document.querySelectorAll("input[type=radio]").forEach(r=>{
-  r.onchange=()=>answers[+r.name.slice(1)]=r.value;
- });
- show(0);
-}
+  btnLogin.onclick = () => {
+    const u = document.getElementById("username").value.trim();
+    const p = document.getElementById("password").value.trim();
+    const k = document.getElementById("kode").value.trim().toUpperCase();
 
-function show(n){
- document.querySelectorAll("audio").forEach(a=>{a.pause();a.currentTime=0});
- document.querySelectorAll(".question-wrapper").forEach((q,i)=>q.classList.toggle("active",i===n));
- current=n;
-}
+    // Cek credential dari array
+    const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
 
-document.getElementById("prev").onclick=()=>current>0&&show(current-1);
-document.getElementById("next").onclick=()=>current<questions.length-1&&show(current+1);
+    if (userValid && kodeMapping[k]) {
+      currentUser = u;
+      currentKode = k;
+      loginPage.style.display = "none";
+      quizPage.style.display = "block";
+      loadSoal(kodeMapping[k]);
+      startTimer();
+    } else {
+      alert("Username / Password / Kode salah");
+    }
+  };
 
-submitTop.onclick=()=>{
- const kosong=answers.findIndex(a=>a===null);
- if(kosong!==-1){alert("Soal "+(kosong+1)+" belum dijawab");show(kosong);return;}
- clearInterval(interval);
- quizPage.style.display="none";
- resultPage.style.display="block";
- let score=0,html="";
- questions.forEach((q,i)=>{
-  const benar=q.answer;
-  if(answers[i]===benar) score+=4;
-  else html+=`
-  <div class="wrong-item">
-   <b>Soal ${i+1} salah</b><br><br>
-   Jawaban benar: <span class="correct">${benar}</span><br><br>
-   ${q.explanation||"-"}
-  </div>`;
- });
- const totalQuestions = questions.length;
- const percent = Math.round((score / (totalQuestions * 4)) * 100);
- const dataToSend = {
-  waktu: new Date().toLocaleString('id-ID', {timeZone: 'Asia/Jakarta'}),
-  namaSiswa: currentUser || "Anonymous",
-  code: currentKode || "Unknown",
-  kosaKata: "-",
-  ubt: "-",
-  latihanSoal: `${score}/${totalQuestions*4} (${percent}%)`,
-  keterangan: html ? html.replace(/<[^>]+>/g,' ').trim() : "Semua benar! Perfect!"
- };
- fetch(SPREADSHEET_URL, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(dataToSend)
- })
- .then(res => res.json())
- .then(data => console.log("Data terkirim ke sheet:", data))
- .catch(err => {
-  console.error("Gagal kirim ke sheet:", err);
-  const params = new URLSearchParams(dataToSend);
-  window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
- });
- resultBox.innerHTML=`
-  <h2>Nilai: ${score}</h2>
-  ${html||"<p class='correct'>Semua jawaban benar 🎉</p>"}
-  <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
-};
+  async function loadSoal(file) {
+    let loadedQuestions = await (await fetch(BASE + file)).json();
+    shuffle(loadedQuestions);
+    questions = loadedQuestions;
+    answers = Array(questions.length).fill(null);
+    quizForm.innerHTML = "";
+    questions.forEach((q, i) => {
+      quizForm.innerHTML += `
+      <div class="question-wrapper">
+       <div class="box-passage">
+        ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
+        ${q.image ? `<img src="${q.image}">` : ""}
+       </div>
+       <div class="box-question">
+        <p><b>${i + 1}.</b> ${q.question}</p>
+        ${Object.entries(q.options).map(([k, v], idx) => `
+        <label class="option-item">
+         <input type="radio" name="q${i}" value="${k}">
+         <span class="option-circle">${idx + 1}</span> ${v}
+        </label>`).join("")}
+       </div>
+      </div>`;
+    });
+    document.querySelectorAll("input[type=radio]").forEach(r => {
+      r.onchange = () => answers[+r.name.slice(1)] = r.value;
+    });
+    show(0);
+  }
 
-function startTimer(){
- interval=setInterval(()=>{
-  timerEl.textContent=String(Math.floor(time/60)).padStart(2,"0")+":"+String(time%60).padStart(2,"0");
-  if(--time<0) submitTop.onclick();
- },1000);
-}
+  function show(n) {
+    document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
+    document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
+    current = n;
+  }
+
+  document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
+  document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
+
+  submitTop.onclick = () => {
+    const kosong = answers.findIndex(a => a === null);
+    if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
+    clearInterval(interval);
+    quizPage.style.display = "none";
+    resultPage.style.display = "block";
+    let score = 0, html = "";
+    questions.forEach((q, i) => {
+      const benar = q.answer;
+      if (answers[i] === benar) score += 4;
+      else html += `
+      <div class="wrong-item">
+       <b>Soal ${i + 1} salah</b><br><br>
+       Jawaban benar: <span class="correct">${benar}</span><br><br>
+       ${q.explanation || "-"}
+      </div>`;
+    });
+    const totalQuestions = questions.length;
+    const percent = Math.round((score / (totalQuestions * 4)) * 100);
+    const dataToSend = {
+      waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
+      namaSiswa: currentUser || "Anonymous",
+      code: currentKode || "Unknown",
+      kosaKata: "-",
+      ubt: "-",
+      latihanSoal: `${score}/${totalQuestions * 4} (${percent}%)`,
+      keterangan: html ? html.replace(/<[^>]+>/g, ' ').trim() : "Semua benar! Perfect!"
+    };
+    fetch(SPREADSHEET_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSend)
+    })
+    .then(res => res.json())
+    .then(data => console.log("Data terkirim ke sheet:", data))
+    .catch(err => {
+      console.error("Gagal kirim ke sheet:", err);
+      const params = new URLSearchParams(dataToSend);
+      window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
+    });
+    resultBox.innerHTML = `
+     <h2>Nilai: ${score}</h2>
+     ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
+     <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
+  };
+
+  function startTimer() {
+    interval = setInterval(() => {
+      timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
+      if (--time < 0) submitTop.onclick();
+    }, 1000);
+  }
 });
 </script>
 </body>
 </html>
-

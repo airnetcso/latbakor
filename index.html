@@ -1,4 +1,4 @@
-F<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +6,7 @@ F<!DOCTYPE html>
 <title>TEST BAHASA KOREA</title>
 <style>
 body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
+
 /* LOGIN PAGE DENGAN ANIMASI */
 #login-page{
  min-height:100vh;
@@ -16,11 +17,13 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
  background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),
  url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;
 }
+
 /* ANIMASI MASUK HALUS */
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+ from { opacity: 0; transform: translateY(40px); }
+ to { opacity: 1; transform: translateY(0); }
 }
+
 .login-container{
  width:90%;
  max-width:320px;
@@ -32,11 +35,13 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
  box-shadow:0 12px 40px rgba(0,0,0,.5);
  animation: fadeSlideUp 0.9s ease-out forwards;
 }
+
 .login-container h1{
  color:#fff;font-size:28px;margin:0 0 8px 0;text-shadow:0 2px 6px rgba(0,0,0,.7);
 }
 .login-container h1:nth-of-type(2){font-size:24px;margin-bottom:20px;}
 .login-container p{color:#eee;font-size:15px;margin-bottom:30px;}
+
 input{
  width:100%;padding:16px;margin:12px 0;border:none;border-radius:14px;
  background:rgba(255,255,255,.18);color:#fff;font-size:16px;
@@ -50,6 +55,7 @@ input:focus{
  box-shadow:0 0 20px rgba(255,107,157,.6);
  transform:scale(1.02);
 }
+
 button{
  width:100%;padding:16px;margin:16px 0 8px;border:none;border-radius:14px;
  background:#ff6b9d;color:#fff;font-weight:bold;font-size:17px;cursor:pointer;
@@ -67,12 +73,14 @@ button:hover{
  50%{box-shadow:0 12px 40px rgba(255,107,157,.9);}
  100%{box-shadow:0 6px 20px rgba(255,107,157,.5);}
 }
+
 .copyright{
  margin-top:35px;
  color:rgba(255,255,255,.8);
  font-size:13px;
  text-shadow:0 1px 4px rgba(0,0,0,.8);
 }
+
 /* QUIZ & RESULT - MOBILE FIRST */
 #quiz-page{display:none;min-height:100vh;padding:70px 0 80px;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{
@@ -279,26 +287,20 @@ const validCredentials = [
   {username: "topik2026", password: "seoul2026"}
 ];
 
+// Key kode semua huruf kecil
 const kodeMapping = {
-  "B12345": "soal1.json",
-  "A09008": "soal2.json",
-  "SAREWAE": "test.json",
-  "W11765": "soal3.json",
-  "H77777": "soal5.json"
+  "b12345": "soal1.json",
+  "a09008": "soal2.json",
+  "sarewae": "test.json",
+  "w11765": "soal3.json",
+  "h77777": "soal5.json",
+  "urinara": "soal_urinara.json"  // Contoh tambah kode baru (ganti file json-nya nanti)
 };
 
 const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
 let questions = [], answers = [], current = 0, time = 3000, interval;
 let currentUser = "", currentKode = "";
-
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginPage = document.getElementById("login-page");
@@ -313,9 +315,8 @@ document.addEventListener("DOMContentLoaded", () => {
   btnLogin.onclick = () => {
     const u = document.getElementById("username").value.trim();
     const p = document.getElementById("password").value.trim();
-    const k = document.getElementById("kode").value.trim().toLowerCase();
+    const k = document.getElementById("kode").value.trim().toLowerCase();  // tetap kecil
 
-    // Cek credential dari array
     const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
 
     if (userValid && kodeMapping[k]) {
@@ -332,7 +333,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadSoal(file) {
     let loadedQuestions = await (await fetch(BASE + file)).json();
-    shuffle(loadedQuestions);
+    // shuffle kalau mau acak
+    for (let i = loadedQuestions.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [loadedQuestions[i], loadedQuestions[j]] = [loadedQuestions[j], loadedQuestions[i]];
+    }
     questions = loadedQuestions;
     answers = Array(questions.length).fill(null);
     quizForm.innerHTML = "";
@@ -424,6 +429,3 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 </body>
 </html>
-
-
-

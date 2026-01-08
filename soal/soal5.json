@@ -64,7 +64,7 @@
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://www.inboundlogistics.com/wp-content/uploads/dump-trucks.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/02-1.jpg",
     "options": { "a": "흙이나 자갈을 운반하는 것은 덤프트럭입니다.", "b": "흙을 밀어서 땅을 고르는 것은 불도저입니다.", "c": "땅을 파는 것은 굴착기입니다.", "d": "고장 난 차를 끌어 옮기는 것은 견인차입니다." },
     "answer": "a",
     "explanation": "흙이나 자갈을 운반하는 것은 덤프트럭입니다."

@@ -49,18 +49,18 @@
     "explanation": "세마리 있습니다."
   },
   {
-    "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://cf.asiaartistawards.com/news/21/2025/11/2025110919273789202_1.jpg",
-    "options": { "a": "옷장", "b": "냉장고", "c": "책상", "d": "의자" },
+    "question": "이사람은 무엇을하고 있습니까?",
+    "image": "https://imagine-public.x.ai/imagine-public/images/77a13f52-8742-4130-b3f5-28ac79589a09.jpg",
+    "options": { "a": "나무를 심고 있습니다.", "b": "작업장에서 용접고있습니다.", "c": "강에서 낚시하고있습니다.", "d": "공장에서 청소하고있습니다." },
     "answer": "b",
-    "explanation": "Gambar menunjukkan kulkas (냉장고)."
+    "explanation": "작업장에서 용접고있습니다."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://www.shutterstock.com/image-photo/portrait-happy-korean-family-living-260nw-2389386989.jpg",
-    "options": { "a": "집", "b": "가족", "c": "음식", "d": "동물" },
-    "answer": "b",
-    "explanation": "Gambar menunjukkan keluarga (가족)."
+    "image": "https://imagine-public.x.ai/imagine-public/images/eb806983-e618-4071-a9fc-3256cb03b09c.jpg",
+    "options": { "a": "구름 속의 물방울이 커져서 땅으로 떨어지는 것은 비입니다.", "b": "기온이 낮을 때 물이 얼어서 겨울에 내리는 것은 눈입니다.", "c": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다.", "d": "공기 중의 물방울이나 얼음으로 만들어진 것은 구름입니다." },
+    "answer": "c",
+    "explanation": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",

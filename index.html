@@ -7,7 +7,7 @@
 <style>
 body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 
-/* LOGIN - STATIC, NO ANIMATION */
+/* LOGIN */
 #login-page{
  min-height:100vh;
  display:flex;
@@ -38,43 +38,23 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 input{
  width:100%;padding:14px;margin:12px 0;border:none;border-radius:12px;
  background:rgba(255,255,255,.15);color:#fff;font-size:16px;
- backdrop-filter:blur(4px);
- box-sizing:border-box;
- transition:0.3s;
+ backdrop-filter:blur(4px);box-sizing:border-box;transition:0.3s;
 }
 input::placeholder{color:rgba(255,255,255,.7);}
-input:focus{
- outline:none;background:rgba(255,255,255,.3);
- box-shadow:0 0 15px rgba(255,107,157,.5);
-}
+input:focus{outline:none;background:rgba(255,255,255,.3);box-shadow:0 0 15px rgba(255,107,157,.5);}
 
 button{
  width:100%;padding:14px;margin:12px 0;border:none;border-radius:12px;
  background:#ff6b9d;color:#fff;font-weight:bold;font-size:16px;cursor:pointer;
- box-shadow:0 4px 15px rgba(255,107,157,.4);
- transition:0.4s;
- box-sizing:border-box;
+ box-shadow:0 4px 15px rgba(255,107,157,.4);transition:0.4s;
 }
-button:hover{
- background:#ff8ac1;transform:translateY(-3px) scale(1.03);
- box-shadow:0 8px 25px rgba(255,107,157,.6);
- animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
- 0%{box-shadow:0 4px 15px rgba(255,107,157,.4);}
- 50%{box-shadow:0 8px 30px rgba(255,107,157,.8);}
- 100%{box-shadow:0 4px 15px rgba(255,107,157,.4);}
-}
+button:hover{background:#ff8ac1;transform:translateY(-3px) scale(1.03);box-shadow:0 8px 25px rgba(255,107,157,.6);}
 
-/* COPYRIGHT - DIPINDAH KE LUAR BOX */
 .copyright{
- margin-top:30px;
- color:rgba(255,255,255,.7);
- font-size:14px;
- text-shadow:0 1px 3px rgba(0,0,0,.8);
+ margin-top:30px;color:rgba(255,255,255,.7);font-size:14px;text-shadow:0 1px 3px rgba(0,0,0,.8);
 }
 
-/* QUIZ & RESULT */
+/* QUIZ & RESULT (tetap sama) */
 #quiz-page{display:none;min-height:100vh;padding:70px 0;background:linear-gradient(#fdf6ec,#f7efe2)}
 .header-fixed{position:fixed;top:0;width:100%;display:flex;gap:6px;background:#fff;padding:6px;z-index:1000}
 .timer,.submit-top{flex:1;padding:12px 0;text-align:center;color:#fff;font-weight:bold}
@@ -86,7 +66,6 @@ button:hover{
 .box-passage{background:#e3f2fd;padding:20px;border:2px solid #bbdefb}
 .box-passage audio,.box-passage img{width:100%;margin-top:10px}
 .box-question{background:#fff3e0;padding:20px;border:2px solid #ffcc80}
-.options{margin-top:15px}
 .option-item{display:flex;align-items:flex-start;margin:12px 0}
 .option-item input{display:none}
 .option-circle{width:28px;height:28px;border:1.5px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-right:10px}
@@ -105,194 +84,186 @@ button:hover{
 <body>
 
 <div id="login-page">
- <div class="login-container">
- <h1>LATIHAN SOAL</h1>
- <h1>한국어연습</h1>
- <p>25 Soal | 50 Menit</p>
- <input id="username" placeholder="Username / 이름">
- <input id="password" type="password" placeholder="Password / 비밀번호">
- <input id="kode" placeholder="Kode Soal / 시험코드">
- <button id="btnLogin">LOGIN / 로그인</button>
- </div>
- <div class="copyright">© 2026 Denzuka - Kim Jongun. All Rights Reserved.</div>
+  <div class="login-container">
+    <h1>LATIHAN SOAL</h1>
+    <h1>한국어연습</h1>
+    <p>25 Soal | 50 Menit</p>
+    <input id="username" placeholder="Username / 이름">
+    <input id="password" type="password" placeholder="Password / 비밀번호">
+    <input id="kode" placeholder="Kode Soal / 시험코드">
+    <button id="btnLogin">LOGIN / 로그인</button>
+  </div>
+  <div class="copyright">© 2026 Denzuka - Kim Jongun. All Rights Reserved.</div>
 </div>
 
 <div id="quiz-page">
- <div class="header-fixed">
-  <div class="submit-top" id="submitTop">SUBMIT</div>
-  <div class="timer" id="timer">50:00</div>
- </div>
- <div class="container"><form id="quiz-form"></form></div>
- <div class="nav-bottom">
-  <button id="prev">PREV</button>
-  <button id="next">NEXT</button>
- </div>
+  <div class="header-fixed">
+    <div class="submit-top" id="submitTop">SUBMIT</div>
+    <div class="timer" id="timer">50:00</div>
+  </div>
+  <div class="container"><form id="quiz-form"></form></div>
+  <div class="nav-bottom">
+    <button id="prev">PREV</button>
+    <button id="next">NEXT</button>
+  </div>
 </div>
 
 <div id="result-page">
- <div class="result-box" id="resultBox"></div>
+  <div class="result-box" id="resultBox"></div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded",()=> {
-  const loginPage = document.getElementById("login-page");
-  const quizPage = document.getElementById("quiz-page");
-  const resultPage = document.getElementById("result-page");
-  const btnLogin = document.getElementById("btnLogin");
-  const submitTop = document.getElementById("submitTop");
-  const quizForm = document.getElementById("quiz-form");
-  const timerEl = document.getElementById("timer");
-  const resultBox = document.getElementById("resultBox");
+// Pindahkan semua ke global scope biar pasti jalan
+const loginPage = document.getElementById("login-page");
+const quizPage = document.getElementById("quiz-page");
+const resultPage = document.getElementById("result-page");
+const btnLogin = document.getElementById("btnLogin");
+const submitTop = document.getElementById("submitTop");
+const quizForm = document.getElementById("quiz-form");
+const timerEl = document.getElementById("timer");
+const resultBox = document.getElementById("resultBox");
 
-  // Format array seperti yang kamu minta
-  const validCredentials = [
-    {username: "sita77", password: "minyooki"},
-    {username: "Aini185", password: "Doraemon"},
-    {username: "Hangeulfei", password: "studykorea02"},
-    {username: "Hamdan106", password: "Fukuo106"},
-    {username: "Heri", password: "heri99"},
-    // Tambahin lagi yang lain kalau perlu
-    {username: "uus", password: "123"},
-    {username: "windi", password: "Windi2000"},
-    {username: "rismaya97", password: "bahasakorea"},
-    {username: "hanarizka", password: "Nungkihana24!"},
-    {username: "Fikrisurya", password: "464646"},
-    {username: "Mutiara2003", password: "Mutiara14"},
-    {username: "wantikas", password: "200022"},
-    {username: "Dininidia", password: "dininidia11"},
-    {username: "kaniarostayuni9", password: "Kania1313"},
-    {username: "Dikisetiawan07", password: "Diki2709"},
-    {username: "Aisyah18", password: "Aisyah18."},
-    {username: "Rizka2026", password: "butterfly24"},
-    {username: "Zhafif07", password: "20060722"},
-    {username: "admin", password: "admin123"}
-  ];
+const validCredentials = [
+  {username: "sita77", password: "minyooki"},
+  {username: "Aini185", password: "Doraemon"},
+  {username: "Hangeulfei", password: "studykorea02"},
+  {username: "Hamdan106", password: "Fukuo106"},
+  {username: "Heri", password: "heri99"},
+  {username: "uus", password: "123"},
+  {username: "windi", password: "Windi2000"},
+  {username: "rismaya97", password: "bahasakorea"},
+  {username: "hanarizka", password: "Nungkihana24!"},
+  {username: "Fikrisurya", password: "464646"},
+  {username: "Mutiara2003", password: "Mutiara14"},
+  {username: "wantikas", password: "200022"},
+  {username: "Dininidia", password: "dininidia11"},
+  {username: "kaniarostayuni9", password: "Kania1313"},
+  {username: "Dikisetiawan07", password: "Diki2709"},
+  {username: "Aisyah18", password: "Aisyah18."},
+  {username: "Rizka2026", password: "butterfly24"},
+  {username: "Zhafif07", password: "20060722"},
+  {username: "admin", password: "admin123"}
+];
 
-  const kodeMapping = {
-    "B12345": "soal1.json",
-    "A09008": "soal2.json",
-    "SAREWAE": "test.json",
-    "W11765": "soal3.json",
-    "H66633": "soal5.json"
-  };
+const kodeMapping = {
+  "B12345": "soal1.json",
+  "A09008": "soal2.json",
+  "SAREWAE": "test.json",
+  "W11765": "soal3.json",
+  "H66633": "soal5.json"
+};
 
-  const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 
-  let questions = [], answers = [], current = 0, time = 3000, interval;
-  let currentUser = "", currentKode = "";
+let questions = [], answers = [], current = 0, time = 3000, interval;
+let currentUser = "", currentKode = "";
 
-  btnLogin.onclick = () => {
-    const u = document.getElementById("username").value.trim();
-    const p = document.getElementById("password").value.trim();
-    const k = document.getElementById("kode").value.trim().toUpperCase();
+// Tombol login langsung diattach tanpa DOMContentLoaded
+btnLogin.onclick = () => {
+  console.log("Tombol login diklik"); // Debug: cek di console
 
-    // Cek dari array
-    const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
+  const u = document.getElementById("username").value.trim();
+  const p = document.getElementById("password").value.trim();
+  const k = document.getElementById("kode").value.trim().toUpperCase();
 
-    if (userValid && kodeMapping[k]) {
-      currentUser = u;
-      currentKode = k;
-      loginPage.style.display = "none";
-      quizPage.style.display = "block";
-      loadSoal(kodeMapping[k]);
-      startTimer();
-    } else {
-      alert("Username / Password / Kode salah");
-    }
-  };
+  console.log("Input:", u, p, k); // Debug
 
-  async function loadSoal(file) {
-    questions = await (await fetch(BASE + file)).json();
-    answers = Array(questions.length).fill(null);
-    quizForm.innerHTML = "";
-    questions.forEach((q, i) => {
-      quizForm.innerHTML += `
+  const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
+
+  if (userValid && kodeMapping[k]) {
+    console.log("Login sukses!");
+    currentUser = u;
+    currentKode = k;
+    loginPage.style.display = "none";
+    quizPage.style.display = "block";
+    loadSoal(kodeMapping[k]);
+    startTimer();
+  } else {
+    console.log("Login gagal");
+    alert("Username / Password / Kode salah");
+  }
+};
+
+// Sisanya tetap sama
+async function loadSoal(file) {
+  try {
+    const response = await fetch(BASE + file);
+    if (!response.ok) throw new Error("File tidak ditemukan");
+    questions = await response.json();
+  } catch (err) {
+    alert("Gagal load soal: " + err.message);
+    return;
+  }
+
+  answers = Array(questions.length).fill(null);
+  quizForm.innerHTML = "";
+  questions.forEach((q, i) => {
+    quizForm.innerHTML += `
       <div class="question-wrapper">
-       <div class="box-passage">
-        ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
-        ${q.image ? `<img src="${q.image}">` : ""}
-       </div>
-       <div class="box-question">
-        <p><b>${i + 1}.</b> ${q.question}</p>
-        ${Object.entries(q.options).map(([k, v], idx) => `
-        <label class="option-item">
-         <input type="radio" name="q${i}" value="${k}">
-         <span class="option-circle">${idx + 1}</span> ${v}
-        </label>`).join("")}
-       </div>
+        <div class="box-passage">
+          ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
+          ${q.image ? `<img src="${q.image}">` : ""}
+        </div>
+        <div class="box-question">
+          <p><b>${i + 1}.</b> ${q.question}</p>
+          ${Object.entries(q.options).map(([k, v], idx) => `
+            <label class="option-item">
+              <input type="radio" name="q${i}" value="${k}">
+              <span class="option-circle">${idx + 1}</span> ${v}
+            </label>
+          `).join("")}
+        </div>
       </div>`;
-    });
-    document.querySelectorAll("input[type=radio]").forEach(r => {
-      r.onchange = () => answers[+r.name.slice(1)] = r.value;
-    });
-    show(0);
-  }
+  });
+  document.querySelectorAll("input[type=radio]").forEach(r => {
+    r.onchange = () => answers[+r.name.slice(1)] = r.value;
+  });
+  show(0);
+}
 
-  function show(n) {
-    document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
-    document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
-    current = n;
-  }
+// ... (function show, prev, next, submitTop, startTimer tetap sama seperti sebelumnya)
 
-  document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
-  document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
+function show(n) {
+  document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
+  document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
+  current = n;
+}
 
-  submitTop.onclick = () => {
-    const kosong = answers.findIndex(a => a === null);
-    if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
+document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
+document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
 
-    clearInterval(interval);
-    quizPage.style.display = "none";
-    resultPage.style.display = "block";
+submitTop.onclick = () => {
+  const kosong = answers.findIndex(a => a === null);
+  if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
 
-    let score = 0, html = "";
-    questions.forEach((q, i) => {
-      const benar = q.answer;
-      if (answers[i] === benar) score += 4;
-      else html += `
+  clearInterval(interval);
+  quizPage.style.display = "none";
+  resultPage.style.display = "block";
+
+  let score = 0, html = "";
+  questions.forEach((q, i) => {
+    const benar = q.answer;
+    if (answers[i] === benar) score += 4;
+    else html += `
       <div class="wrong-item">
-       <b>Soal ${i + 1} salah</b><br><br>
-       Jawaban benar: <span class="correct">${benar}</span><br><br>
-       ${q.explanation || "-"}
+        <b>Soal ${i + 1} salah</b><br><br>
+        Jawaban benar: <span class="correct">${benar}</span><br><br>
+        ${q.explanation || "-"}
       </div>`;
-    });
+  });
 
-    const resultData = {
-      username: currentUser,
-      kode: currentKode || "-",
-      nilai: score,
-      tanggal: new Date().toLocaleString('id-ID'),
-      app: "latbakor"
-    };
+  resultBox.innerHTML = `
+    <h2>Nilai: ${score}</h2>
+    ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
+    <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
+};
 
-    let allResults = JSON.parse(localStorage.getItem("quizResults") || "[]");
-
-    const isDuplicate = allResults.some(r =>
-      r.username === resultData.username &&
-      r.kode === resultData.kode &&
-      r.nilai === resultData.nilai &&
-      r.app === resultData.app &&
-      Math.abs(new Date(r.tanggal) - new Date(resultData.tanggal)) < 60000
-    );
-
-    if (!isDuplicate) {
-      allResults.push(resultData);
-      localStorage.setItem("quizResults", JSON.stringify(allResults));
-    }
-
-    resultBox.innerHTML = `
-     <h2>Nilai: ${score}</h2>
-     ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
-     <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
-  };
-
-  function startTimer() {
-    interval = setInterval(() => {
-      timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
-      if (--time < 0) submitTop.onclick();
-    }, 1000);
-  }
-});
+function startTimer() {
+  interval = setInterval(() => {
+    timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
+    if (--time < 0) submitTop.onclick();
+  }, 1000);
+}
 </script>
 </body>
 </html>

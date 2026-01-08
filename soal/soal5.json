@@ -64,10 +64,10 @@
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",
-    "image": "https://i.ytimg.com/vi/ntE8tryjqyo/sddefault.jpg",
-    "options": { "a": "가족 관계도", "b": "친구", "c": "학교", "d": "직업" },
+    "image": "https://www.inboundlogistics.com/wp-content/uploads/dump-trucks.jpg",
+    "options": { "a": "흙이나 자갈을 운반하는 것은 덤프트럭입니다.", "b": "흙을 밀어서 땅을 고르는 것은 불도저입니다.", "c": "땅을 파는 것은 굴착기입니다.", "d": "고장 난 차를 끌어 옮기는 것은 견인차입니다." },
     "answer": "a",
-    "explanation": "Gambar menunjukkan pohon keluarga (가족 관계도)."
+    "explanation": "흙이나 자갈을 운반하는 것은 덤프트럭입니다."
   },
   {
     "question": "이 바지가 얼마요?",

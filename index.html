@@ -26,8 +26,8 @@ body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
 
 .login-container{
  width:90%;
- max-width:320px;
- padding:40px 30px;
+ max-width:300px;          /* DIUBAH: dari 320px jadi 300px */
+ padding:35px 25px;        /* DIUBAH: dari 40px 30px jadi 35px 25px */
  text-align:center;
  background:rgba(255,255,255,.12);
  backdrop-filter:blur(14px);
@@ -243,13 +243,13 @@ button:hover{
 
 <div id="quiz-page">
  <div class="header-fixed">
-  <div class="submit-top" id="submitTop">SUBMIT</div>
-  <div class="timer" id="timer">50:00</div>
+ <div class="submit-top" id="submitTop">SUBMIT</div>
+ <div class="timer" id="timer">50:00</div>
  </div>
  <div class="container"><form id="quiz-form"></form></div>
  <div class="nav-bottom">
-  <button id="prev">PREV</button>
-  <button id="next">NEXT</button>
+ <button id="prev">PREV</button>
+ <button id="next">NEXT</button>
  </div>
 </div>
 
@@ -261,40 +261,40 @@ button:hover{
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbzwdfNflhqIyVWo8knAyB2nWtzlkbPiRHfMCJV_O_mxkZravDprrAhMNV3Qu75WFYgk0g/exec";
 
 const validCredentials = [
-  {username: "Heri", password: "heri99"},
-  {username: "hanarizka", password: "Nungkihana24!"},
-  {username: "Fikrisurya", password: "464646"},
-  {username: "Mutiara2003", password: "Mutiara14"},
-  {username: "siwon", password: "kampus2"},
-  {username: "wantikas", password: "200022"},
-  {username: "uus", password: "123"},
-  {username: "user01", password: "12345"},
-  {username: "windi", password: "Windi2000"},
-  {username: "yppsdi", password: "global2026"},
-  {username: "rismaya97", password: "bahasakorea"},
-  {username: "sita77", password: "minyooki"},
-  {username: "Aini185", password: "Doraemon"},
-  {username: "Hangeulfei", password: "studykorea02"},
-  {username: "Hamdan106", password: "Fukuo106"},
-  {username: "Dininidia", password: "dininidia11"},
-  {username: "kaniarostayuni9", password: "Kania1313"},
-  {username: "Dikisetiawan07", password: "Diki2709"},
-  {username: "Aisyah18", password: "Aisyah18."},
-  {username: "Rizka2026", password: "butterfly24"},
-  {username: "Zhafif07", password: "20060722"},
-  {username: "admin", password: "admin123"},
-  {username: "koreafan", password: "hanguk789"},
-  {username: "topik2026", password: "seoul2026"}
+ {username: "Heri", password: "heri99"},
+ {username: "hanarizka", password: "Nungkihana24!"},
+ {username: "Fikrisurya", password: "464646"},
+ {username: "Mutiara2003", password: "Mutiara14"},
+ {username: "siwon", password: "kampus2"},
+ {username: "wantikas", password: "200022"},
+ {username: "uus", password: "123"},
+ {username: "user01", password: "12345"},
+ {username: "windi", password: "Windi2000"},
+ {username: "yppsdi", password: "global2026"},
+ {username: "rismaya97", password: "bahasakorea"},
+ {username: "sita77", password: "minyooki"},
+ {username: "Aini185", password: "Doraemon"},
+ {username: "Hangeulfei", password: "studykorea02"},
+ {username: "Hamdan106", password: "Fukuo106"},
+ {username: "Dininidia", password: "dininidia11"},
+ {username: "kaniarostayuni9", password: "Kania1313"},
+ {username: "Dikisetiawan07", password: "Diki2709"},
+ {username: "Aisyah18", password: "Aisyah18."},
+ {username: "Rizka2026", password: "butterfly24"},
+ {username: "Zhafif07", password: "20060722"},
+ {username: "admin", password: "admin123"},
+ {username: "koreafan", password: "hanguk789"},
+ {username: "topik2026", password: "seoul2026"}
 ];
 
 // Key kode semua huruf kecil
 const kodeMapping = {
-  "b12345": "soal1.json",
-  "a09008": "soal2.json",
-  "sarewae": "test.json",
-  "w11765": "soal3.json",
-  "urinara": "soal5.json",
-  "cincay": "soal_urinara.json"  // Contoh tambah kode baru (ganti file json-nya nanti)
+ "b12345": "soal1.json",
+ "a09008": "soal2.json",
+ "sarewae": "test.json",
+ "w11765": "soal3.json",
+ "urinara": "soal5.json",
+ "cincay": "soal_urinara.json" // Contoh tambah kode baru (ganti file json-nya nanti)
 };
 
 const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
@@ -303,130 +303,129 @@ let questions = [], answers = [], current = 0, time = 3000, interval;
 let currentUser = "", currentKode = "";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const loginPage = document.getElementById("login-page");
-  const quizPage = document.getElementById("quiz-page");
-  const resultPage = document.getElementById("result-page");
-  const btnLogin = document.getElementById("btnLogin");
-  const submitTop = document.getElementById("submitTop");
-  const quizForm = document.getElementById("quiz-form");
-  const timerEl = document.getElementById("timer");
-  const resultBox = document.getElementById("resultBox");
+ const loginPage = document.getElementById("login-page");
+ const quizPage = document.getElementById("quiz-page");
+ const resultPage = document.getElementById("result-page");
+ const btnLogin = document.getElementById("btnLogin");
+ const submitTop = document.getElementById("submitTop");
+ const quizForm = document.getElementById("quiz-form");
+ const timerEl = document.getElementById("timer");
+ const resultBox = document.getElementById("resultBox");
 
-  btnLogin.onclick = () => {
-    const u = document.getElementById("username").value.trim();
-    const p = document.getElementById("password").value.trim();
-    const k = document.getElementById("kode").value.trim().toLowerCase();  // tetap kecil
+ btnLogin.onclick = () => {
+ const u = document.getElementById("username").value.trim();
+ const p = document.getElementById("password").value.trim();
+ const k = document.getElementById("kode").value.trim().toLowerCase(); // tetap kecil
 
-    const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
+ const userValid = validCredentials.find(cred => cred.username === u && cred.password === p);
 
-    if (userValid && kodeMapping[k]) {
-      currentUser = u;
-      currentKode = k;
-      loginPage.style.display = "none";
-      quizPage.style.display = "block";
-      loadSoal(kodeMapping[k]);
-      startTimer();
-    } else {
-      alert("Username / Password / Kode salah");
-    }
-  };
+ if (userValid && kodeMapping[k]) {
+ currentUser = u;
+ currentKode = k;
+ loginPage.style.display = "none";
+ quizPage.style.display = "block";
+ loadSoal(kodeMapping[k]);
+ startTimer();
+ } else {
+ alert("Username / Password / Kode salah");
+ }
+ };
 
-  async function loadSoal(file) {
-    let loadedQuestions = await (await fetch(BASE + file)).json();
-    // shuffle kalau mau acak
-    for (let i = loadedQuestions.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [loadedQuestions[i], loadedQuestions[j]] = [loadedQuestions[j], loadedQuestions[i]];
-    }
-    questions = loadedQuestions;
-    answers = Array(questions.length).fill(null);
-    quizForm.innerHTML = "";
-    questions.forEach((q, i) => {
-      quizForm.innerHTML += `
-      <div class="question-wrapper">
-       <div class="box-passage">
-        ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
-        ${q.image ? `<img src="${q.image}">` : ""}
-       </div>
-       <div class="box-question">
-        <p><b>${i + 1}.</b> ${q.question}</p>
-        ${Object.entries(q.options).map(([k, v], idx) => `
-        <label class="option-item">
-         <input type="radio" name="q${i}" value="${k}">
-         <span class="option-circle">${idx + 1}</span> ${v}
-        </label>`).join("")}
-       </div>
-      </div>`;
-    });
-    document.querySelectorAll("input[type=radio]").forEach(r => {
-      r.onchange = () => answers[+r.name.slice(1)] = r.value;
-    });
-    show(0);
-  }
+ async function loadSoal(file) {
+ let loadedQuestions = await (await fetch(BASE + file)).json();
+ // shuffle kalau mau acak
+ for (let i = loadedQuestions.length - 1; i > 0; i--) {
+ const j = Math.floor(Math.random() * (i + 1));
+ [loadedQuestions[i], loadedQuestions[j]] = [loadedQuestions[j], loadedQuestions[i]];
+ }
+ questions = loadedQuestions;
+ answers = Array(questions.length).fill(null);
+ quizForm.innerHTML = "";
+ questions.forEach((q, i) => {
+ quizForm.innerHTML += `
+ <div class="question-wrapper">
+ <div class="box-passage">
+ ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
+ ${q.image ? `<img src="${q.image}">` : ""}
+ </div>
+ <div class="box-question">
+ <p><b>${i + 1}.</b> ${q.question}</p>
+ ${Object.entries(q.options).map(([k, v], idx) => `
+ <label class="option-item">
+ <input type="radio" name="q${i}" value="${k}">
+ <span class="option-circle">${idx + 1}</span> ${v}
+ </label>`).join("")}
+ </div>
+ </div>`;
+ });
+ document.querySelectorAll("input[type=radio]").forEach(r => {
+ r.onchange = () => answers[+r.name.slice(1)] = r.value;
+ });
+ show(0);
+ }
 
-  function show(n) {
-    document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
-    document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
-    current = n;
-  }
+ function show(n) {
+ document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
+ document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
+ current = n;
+ }
 
-  document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
-  document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
+ document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
+ document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
 
-  submitTop.onclick = () => {
-    const kosong = answers.findIndex(a => a === null);
-    if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
-    clearInterval(interval);
-    quizPage.style.display = "none";
-    resultPage.style.display = "block";
-    let score = 0, html = "";
-    questions.forEach((q, i) => {
-      const benar = q.answer;
-      if (answers[i] === benar) score += 4;
-      else html += `
-      <div class="wrong-item">
-       <b>Soal ${i + 1} salah</b><br><br>
-       Jawaban benar: <span class="correct">${benar}</span><br><br>
-       ${q.explanation || "-"}
-      </div>`;
-    });
-    const totalQuestions = questions.length;
-    const percent = Math.round((score / (totalQuestions * 4)) * 100);
-    const dataToSend = {
-      waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
-      namaSiswa: currentUser || "Anonymous",
-      code: currentKode || "Unknown",
-      kosaKata: "-",
-      ubt: "-",
-      latihanSoal: `${score}/${totalQuestions * 4} (${percent}%)`,
-      keterangan: html ? html.replace(/<[^>]+>/g, ' ').trim() : "Semua benar! Perfect!"
-    };
-    fetch(SPREADSHEET_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataToSend)
-    })
-    .then(res => res.json())
-    .then(data => console.log("Data terkirim ke sheet:", data))
-    .catch(err => {
-      console.error("Gagal kirim ke sheet:", err);
-      const params = new URLSearchParams(dataToSend);
-      window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
-    });
-    resultBox.innerHTML = `
-     <h2>Nilai: ${score}</h2>
-     ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
-     <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
-  };
+ submitTop.onclick = () => {
+ const kosong = answers.findIndex(a => a === null);
+ if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
+ clearInterval(interval);
+ quizPage.style.display = "none";
+ resultPage.style.display = "block";
+ let score = 0, html = "";
+ questions.forEach((q, i) => {
+ const benar = q.answer;
+ if (answers[i] === benar) score += 4;
+ else html += `
+ <div class="wrong-item">
+ <b>Soal ${i + 1} salah</b><br><br>
+ Jawaban benar: <span class="correct">${benar}</span><br><br>
+ ${q.explanation || "-"}
+ </div>`;
+ });
+ const totalQuestions = questions.length;
+ const percent = Math.round((score / (totalQuestions * 4)) * 100);
+ const dataToSend = {
+ waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
+ namaSiswa: currentUser || "Anonymous",
+ code: currentKode || "Unknown",
+ kosaKata: "-",
+ ubt: "-",
+ latihanSoal: `${score}/${totalQuestions * 4} (${percent}%)`,
+ keterangan: html ? html.replace(/<[^>]+>/g, ' ').trim() : "Semua benar! Perfect!"
+ };
+ fetch(SPREADSHEET_URL, {
+ method: "POST",
+ headers: { "Content-Type": "application/json" },
+ body: JSON.stringify(dataToSend)
+ })
+ .then(res => res.json())
+ .then(data => console.log("Data terkirim ke sheet:", data))
+ .catch(err => {
+ console.error("Gagal kirim ke sheet:", err);
+ const params = new URLSearchParams(dataToSend);
+ window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
+ });
+ resultBox.innerHTML = `
+ <h2>Nilai: ${score}</h2>
+ ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
+ <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
+ };
 
-  function startTimer() {
-    interval = setInterval(() => {
-      timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
-      if (--time < 0) submitTop.onclick();
-    }, 1000);
-  }
+ function startTimer() {
+ interval = setInterval(() => {
+ timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
+ if (--time < 0) submitTop.onclick();
+ }, 1000);
+ }
 });
 </script>
 </body>
 </html>
-

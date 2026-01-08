@@ -4,49 +4,49 @@
     "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg",
     "options": { "a": "농부", "b": "요리사", "c": "경찰", "d": "회사원" },
     "answer": "c",
-    "explanation": "Gambar menunjukkan polisi (경찰)."
+    "explanation": "경찰."
   },
   {
     "question": "지금 몇시입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/cceb60cf-0a45-463d-b563-e0a85457fe1b.jpg",
     "options": { "a": "열두시 이십분 입니다.", "b": "일곱시 십오분 입니다.", "c": "여덟시 삼십분 입니다.", "d": "열한시 오십분 입니다." },
     "answer": "b",
-    "explanation": "jam 7:15 (일곱시 십오분 입니다)."
+    "explanation": "일곱시 십오분 입니다."
   },
   {
     "question": "이것은 무엇입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/79fc759e-425b-4d15-ade3-af98430b0922.jpg",
     "options": { "a": "냉장고", "b": "가스스토브", "c": "식탁", "d": "책장" },
     "answer": "b",
-    "explanation": "Gambar menunjukkan kompor gas(가스스토브)."
+    "explanation": "가스스토브."
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf.jpg",
     "options": { "a": "그림을 그리고있습니다.", "b": "산책을 하고있습니다.", "c": "책을 읽고있습니다.", "d": "사진을 찍고있습니다." },
     "answer": "d",
-    "explanation": "Gambar sedang memotret (사진을 찍고있습니다)."
+    "explanation": "사진을 찍고있습니다."
   },
   {
     "question": "이표지판은 무엇을 뜻입니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/b17f4ce8-b863-4053-adc0-33c3eebb73c2.jpg",
     "options": { "a": "고압전기 경고", "b": "줄입금지 경고", "c": "탑승금자 경고", "d": "고온 경고" },
     "answer": "a",
-    "explanation": "Gambar listrik tegangan tinggi (고압전기 경고)."
+    "explanation": "고압전기 경고."
   },
   {
     "question": "여기에서 무엇을 할수있습니까?",
     "image": "https://airnetcso.github.io/latbakor/image/01-1.jpg",
     "options": { "a": "차에 기름을 넣을수 있습니다.", "b": "차를 수리할수 있습니다.", "c": "차를 주차할수 있습니다.", "d": "차에 짐을 실을수 있습니다." },
     "answer": "a",
-    "explanation": "mengisikan BBM ke mobil (차에 기름을 넣을수 있습니다)."
+    "explanation": "차에 기름을 넣을수 있습니다."
   },
   {
     "question": "고양이가 몇마리 있습니까?",
     "image": "https://imagine-public.x.ai/imagine-public/images/c2fbc2ff-e35e-449b-ab4b-61b443b1393c.jpg",
     "options": { "a": "두개 있습니다.", "b": "두마리 있습니다.", "c": "세개 있습니다.", "d": "세마리 있습니다." },
     "answer": "d",
-    "explanation": "Kucing ada 3 ekor (세마리 있습니다)."
+    "explanation": "세마리 있습니다."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르세요",

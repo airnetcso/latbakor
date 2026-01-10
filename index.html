@@ -402,19 +402,20 @@ document.addEventListener("DOMContentLoaded", () => {
       keterangan: html ? html.replace(/<[^>]+>/g, ' ').trim() : "Semua benar! Perfect!"
     };
 
-    const formData = new URLSearchParams(dataToSend);
+    // FIX: Pakai GET query string (body nggak hilang pas redirect GAS)
+    const params = new URLSearchParams(dataToSend);
+    const url = SPREADSHEET_URL + "?" + params.toString() + "&_=" + Date.now();
 
-    fetch(SPREADSHEET_URL, {
-      method: "POST",
+    fetch(url, {
+      method: "GET",
       mode: "no-cors",
-      body: formData,
       redirect: "follow"
     })
     .then(() => {
-      console.log("Submit sukses (no-cors mode - data terkirim)");
+      console.log("Submit sukses via GET query string");
     })
     .catch(err => {
-      console.error("Gagal kirim:", err);
+      console.error("Gagal submit GET:", err);
     });
 
     resultBox.innerHTML = `

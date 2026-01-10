@@ -406,15 +406,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(SPREADSHEET_URL, {
       method: "POST",
-      mode: "no-cors",  // Kunci fix redirect body loss & CORS di GAS
+      mode: "no-cors",
       body: formData,
       redirect: "follow"
     })
     .then(() => {
-      console.log("Nilai terkirim ke sheet (no-cors mode)");
+      console.log("Submit sukses (no-cors mode - data terkirim)");
     })
     .catch(err => {
-      console.error("Gagal kirim ke sheet:", err);
+      console.error("Gagal kirim:", err);
     });
 
     resultBox.innerHTML = `

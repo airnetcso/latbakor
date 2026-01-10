@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEST BAHASA KOREA</title>
   <style>
-    /* Style lu yang lama, gue nggak ubah */
     body{margin:0;font-family:'Segoe UI',Arial,sans-serif;background:#f5f5f5}
     #login-page{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://raw.githubusercontent.com/airnetcso/eps/main/image/bg1.jpg') center/cover no-repeat;}
     @keyframes fadeSlideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
@@ -76,13 +75,36 @@
 </div>
 <script>
 const SPREADSHEET_URL = "https://script.google.com/macros/s/AKfycbxapcWi7Oegep2wwVADsdJLI8Fyumg30U-9hPpG88qtpVgIduEbwo6LYslkbEcpfqwewg/exec";
+
 const validCredentials = [
   {username: "Heri", password: "heri99"},
-  {username: "uus", password: "111"},
   {username: "hanarizka", password: "Nungkihana24!"},
-  // ... (semua credentials lu yang lain, gue singkat aja)
+  {username: "Fikrisurya", password: "464646"},
+  {username: "Mutiara2003", password: "Mutiara14"},
+  {username: "siwon", password: "kampus2"},
+  {username: "wantikas", password: "200022"},
+  {username: "uus", password: "123"},
+  {username: "user01", password: "12345"},
+  {username: "windi", password: "Windi2000"},
+  {username: "yppsdi", password: "global2026"},
+  {username: "rismaya97", password: "bahasakorea"},
+  {username: "sita77", password: "minyooki"},
+  {username: "Aini185", password: "Doraemon"},
+  {username: "Hangeulfei", password: "studykorea02"},
+  {username: "Hamdan106", password: "Fukuo106"},
+  {username: "Dininidia", password: "dininidia11"},
+  {username: "kaniarostayuni9", password: "Kania1313"},
+  {username: "Dikisetiawan07", password: "Diki2709"},
+  {username: "Aisyah18", password: "Aisyah18."},
+  {username: "Rizka2026", password: "butterfly24"},
+  {username: "Zhafif07", password: "20060722"},
+  {username: "admin", password: "admin123"},
+  {username: "koreafan", password: "hanguk789"},
+  {username:"Satria11",password:"Satria113"},
+  {username:"sultan2026",password:"sultandaulah"},
   {username: "topik2026", password: "seoul2026"}
 ];
+
 const kodeMapping = {
   "b12345": "soal1.json",
   "a09008": "soal2.json",
@@ -91,11 +113,12 @@ const kodeMapping = {
   "urinara": "soal5.json",
   "cincay": "soal_urinara.json"
 };
+
 const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
 let questions = [], answers = [], current = 0, time = 3000, interval;
 let currentUser = "", currentKode = "";
 
-// === HEARTBEAT MONITORING ===
+// HEARTBEAT MONITORING
 const HEARTBEAT_INTERVAL = 15000;
 let heartbeatIntervalId = null;
 
@@ -111,8 +134,16 @@ function sendHeartbeat() {
     sisa: time
   });
 
-  const beacon = new Image();
-  beacon.src = SPREADSHEET_URL + "?" + params.toString() + "&ts=" + Date.now();
+  console.log("[HEARTBEAT] Mengirim: " + params.toString());
+
+  fetch(SPREADSHEET_URL + "?" + params.toString() + "&ts=" + Date.now(), {
+    method: "GET",
+    keepalive: true,
+    cache: "no-cache",
+    redirect: "follow"
+  })
+  .then(() => console.log("[HEARTBEAT] Sukses terkirim"))
+  .catch(err => console.error("[HEARTBEAT] Gagal:", err.message));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -191,9 +222,11 @@ document.addEventListener("DOMContentLoaded", () => {
   submitTop.onclick = () => {
     const kosong = answers.findIndex(a => a === null);
     if (kosong !== -1) { alert("Soal " + (kosong + 1) + " belum dijawab"); show(kosong); return; }
+
     clearInterval(interval);
     quizPage.style.display = "none";
     resultPage.style.display = "block";
+
     let score = 0, html = "";
     questions.forEach((q, i) => {
       const benar = q.answer;
@@ -205,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
           ${q.explanation || "-"}
         </div>`;
     });
+
     const totalQuestions = questions.length;
     const percent = Math.round((score / (totalQuestions * 4)) * 100);
     const dataToSend = {
@@ -216,14 +250,20 @@ document.addEventListener("DOMContentLoaded", () => {
       latihanSoal: `${score}/${totalQuestions * 4} (${percent}%)`,
       keterangan: html ? html.replace(/<[^>]+>/g, ' ').trim() : "Semua benar! Perfect!"
     };
+
     const formData = new URLSearchParams(dataToSend);
+
+    console.log("[SKOR] Mengirim: " + formData.toString());
+
     fetch(SPREADSHEET_URL, {
       method: "POST",
-      mode: "no-cors",
-      keepalive: true,
       body: formData,
+      keepalive: true,
+      cache: "no-cache",
       redirect: "follow"
-    }).catch(err => console.error("Gagal POST:", err));
+    })
+    .then(() => console.log("[SKOR] Sukses terkirim"))
+    .catch(err => console.error("[SKOR] Gagal:", err.message));
 
     resultBox.innerHTML = `
       <h2>Nilai: ${score}</h2>
@@ -238,19 +278,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }
 
-  // Deteksi tab idle
   document.addEventListener("visibilitychange", sendHeartbeat);
 
-  // Cleanup saat tab ditutup
   window.addEventListener('beforeunload', () => {
     if (heartbeatIntervalId && currentUser) {
       clearInterval(heartbeatIntervalId);
-      const logoutParams = new URLSearchParams({ hb: "1", nu: currentUser, app: "latbakor", st: "logout" });
-      new Image().src = SPREADSHEET_URL + "?" + logoutParams + "&ts=" + Date.now();
+      const logoutParams = new URLSearchParams({
+        hb: "1",
+        nu: currentUser,
+        app: "latbakor",
+        st: "logout"
+      });
+      fetch(SPREADSHEET_URL + "?" + logoutParams.toString() + "&ts=" + Date.now(), {
+        method: "GET",
+        keepalive: true
+      }).catch(() => {});
     }
   });
 });
 </script>
 </body>
 </html>
-

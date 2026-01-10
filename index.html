@@ -26,8 +26,8 @@
 
     .login-container{
       width:90%;
-      max-width:300px; /* DIUBAH: dari 320px jadi 300px */
-      padding:35px 25px; /* DIUBAH: dari 40px 30px jadi 35px 25px */
+      max-width:300px;
+      padding:35px 25px;
       text-align:center;
       background:rgba(255,255,255,.12);
       backdrop-filter:blur(14px);
@@ -406,21 +406,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fetch(SPREADSHEET_URL, {
       method: "POST",
+      mode: "no-cors",  // Kunci fix redirect body loss & CORS di GAS
       body: formData,
       redirect: "follow"
     })
-    .then(res => {
-      if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-      return res.json();
-    })
-    .then(data => {
-      console.log("Data terkirim ke sheet:", data);
+    .then(() => {
+      console.log("Nilai terkirim ke sheet (no-cors mode)");
     })
     .catch(err => {
       console.error("Gagal kirim ke sheet:", err);
-      // Fallback dihapus biar nggak numpuk Anonymous
-      // const params = new URLSearchParams(dataToSend);
-      // window.open(SPREADSHEET_URL + "?" + params.toString(), "_blank");
     });
 
     resultBox.innerHTML = `

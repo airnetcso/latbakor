@@ -1,35 +1,35 @@
 [
   {
     "question": "이사람은 누구 입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/fd9b5055-e375-4e36-ab0a-f9cec68cbd66.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-1.jpg",
     "options": { "a": "농부", "b": "요리사", "c": "경찰", "d": "회사원" },
     "answer": "c",
     "explanation": "경찰."
   },
   {
     "question": "지금 몇시입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/cceb60cf-0a45-463d-b563-e0a85457fe1b.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-2.jpg",
     "options": { "a": "열두시 이십분 입니다.", "b": "일곱시 십오분 입니다.", "c": "여덟시 삼십분 입니다.", "d": "열한시 오십분 입니다." },
     "answer": "b",
     "explanation": "일곱시 십오분 입니다."
   },
   {
     "question": "이것은 무엇입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/79fc759e-425b-4d15-ade3-af98430b0922.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-3.jpg",
     "options": { "a": "냉장고", "b": "가스스토브", "c": "식탁", "d": "책장" },
     "answer": "b",
     "explanation": "가스스토브."
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/799cd38a-6d75-4c1c-95f1-e44b6b10c4bf.jpg",
+    "image": "hhttps://airnetcso.github.io/latbakor/image/1-4.jpg",
     "options": { "a": "그림을 그리고있습니다.", "b": "산책을 하고있습니다.", "c": "책을 읽고있습니다.", "d": "사진을 찍고있습니다." },
     "answer": "d",
     "explanation": "사진을 찍고있습니다."
   },
   {
     "question": "이표지판은 무엇을 뜻입니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/b17f4ce8-b863-4053-adc0-33c3eebb73c2.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-5.jpg",
     "options": { "a": "고압전기 경고", "b": "줄입금지 경고", "c": "탑승금자 경고", "d": "고온 경고" },
     "answer": "a",
     "explanation": "고압전기 경고."
@@ -43,21 +43,21 @@
   },
   {
     "question": "고양이가 몇마리 있습니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/c2fbc2ff-e35e-449b-ab4b-61b443b1393c.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-7.jpg",
     "options": { "a": "두개 있습니다.", "b": "두마리 있습니다.", "c": "세개 있습니다.", "d": "세마리 있습니다." },
     "answer": "d",
     "explanation": "세마리 있습니다."
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
-    "image": "https://imagine-public.x.ai/imagine-public/images/77a13f52-8742-4130-b3f5-28ac79589a09.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-8.jpg",
     "options": { "a": "산에서 나무를 심고있습니다.", "b": "작업장에서 용접하고있습니다.", "c": "강에서 낚시하고있습니다.", "d": "공장에서 청소하고있습니다." },
     "answer": "b",
     "explanation": "작업장에서 용접고있습니다."
   },
   {
     "question": "다음 그림을 보고 알맞은 답을 고르십시오.",
-    "image": "https://imagine-public.x.ai/imagine-public/images/eb806983-e618-4071-a9fc-3256cb03b09c.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-9.jpg",
     "options": { "a": "구름 속의 물방울이 커져서 땅으로 떨어지는 것은 비입니다.", "b": "기온이 낮을 때 물이 얼어서 겨울에 내리는 것은 눈입니다.", "c": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다.", "d": "공기 중의 물방울이나 얼음으로 만들어진 것은 구름입니다." },
     "answer": "c",
     "explanation": "비가 온 후 햇빛에 여러 색이 보이는 것은 무지개입니다."

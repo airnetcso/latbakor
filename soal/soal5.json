@@ -22,7 +22,7 @@
   },
   {
     "question": "이사람은 무엇을하고 있습니까?",
-    "image": "hhttps://airnetcso.github.io/latbakor/image/1-4.jpg",
+    "image": "https://airnetcso.github.io/latbakor/image/1-4.jpg",
     "options": { "a": "그림을 그리고있습니다.", "b": "산책을 하고있습니다.", "c": "책을 읽고있습니다.", "d": "사진을 찍고있습니다." },
     "answer": "d",
     "explanation": "사진을 찍고있습니다."

@@ -12,6 +12,7 @@
       background-size: cover;
       position: relative;
       color: #e0e0e0;
+      min-height: 100vh;
     }
     body::before {
       content: '';
@@ -21,8 +22,7 @@
       z-index: 0;
     }
 
-    /* LOGIN PAGE (EPS style: hanya User ID + Kode Soal) */
-    /* Karena Splash dihapus, login-page sekarang default flex bukan none */
+    /* LOGIN PAGE */
     #login-page {
       min-height: 100vh;
       display: flex;
@@ -31,11 +31,13 @@
       align-items: center;
       position: relative;
       z-index: 2;
+      padding: 20px;
+      box-sizing: border-box;
     }
 
     .login-container {
-      width: 95%;
-      max-width: 300px;
+      width: 100%;
+      max-width: 340px;
       padding: 35px 25px;
       text-align: center;
       background: rgba(40,40,40,0.92);
@@ -60,7 +62,7 @@
       text-shadow: 0 2px 6px rgba(0,0,0,.7);
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 16px;
       margin: 12px 0;
@@ -72,8 +74,19 @@
       box-sizing: border-box;
       transition: border-color 0.3s ease;
     }
+    select {
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23888888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
     input::placeholder { color: #888; opacity:1; }
-    input:focus { outline: none; border-color: #818cf8; }
+    input:focus, select:focus { outline: none; border-color: #818cf8; }
 
     button {
       width: 100%;
@@ -99,9 +112,10 @@
       color: rgba(255,255,255,.8);
       font-size: 13px;
       text-shadow: 0 1px 4px rgba(0,0,0,.8);
+      text-align: center;
     }
 
-    /* QUIZ PAGE & RESULT (tetap style lama /latbakor) */
+    /* QUIZ PAGE & RESULT */
     #quiz-page {
       display: none;
       min-height: 100vh;
@@ -150,14 +164,14 @@
     .question-wrapper { display: none; margin-bottom: 40px; }
     .question-wrapper.active { display: block; }
     .box-passage { padding: 0; margin-bottom: 20px; }
-    .box-passage audio, .box-passage img { width: 100%; margin-top: 10px; display: block; }
+    .box-passage audio, .box-passage img { width: 100%; margin-top: 10px; display: block; border-radius: 4px; }
 
-    /* AUDIO PLAYER DIBUAT POLOS, TANPA BORDER RADIUS, WARNA KREM */
+    /* AUDIO PLAYER DESIGN COZY */
     .box-passage audio {
-      background: #f5e8d3;          /* krem hangat sesuai tema quiz */
+      background: #f5e8d3;
       height: 48px;
-      border: 1px solid #d0b48a;    /* border tipis supaya kelihatan */
-      border-radius: 0 !important;  /* hapus border radius → polos */
+      border: 1px solid #d0b48a;
+      border-radius: 0 !important;
       outline: none;
     }
     .box-passage audio::-webkit-media-controls-panel {
@@ -165,9 +179,9 @@
       border-radius: 0 !important;
     }
 
-    .option-item { display: flex; align-items: center; margin: 18px 0; font-size: 16px; }
+    .option-item { display: flex; align-items: center; margin: 18px 0; font-size: 16px; cursor: pointer; }
     .option-item input { display: none; }
-    .option-circle { width: 32px; height: 32px; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0; font-weight: bold; font-size: 15px; }
+    .option-circle { width: 32px; height: 32px; border: 2px solid #333; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0; font-weight: bold; font-size: 15px; transition: all 0.2s; }
     .option-item input:checked + .option-circle { background: #bbdefb; border-color: #2196f3; color: #2196f3; }
 
     .nav-bottom {
@@ -182,13 +196,14 @@
     #prev { background: #2196f3; }
     #next { background: #ff9800; }
 
+    /* RESULT PAGE */
     #result-page {
       display: none;
       max-width: 600px; margin: auto; padding: 20px 15px;
       position: relative; z-index: 2;
       color: #333;
     }
-    .result-box { background: #fff; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 12px; }
+    .result-box { background: #fff; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 12px; margin-top: 30px; }
     .wrong-item { margin-top: 20px; padding: 15px; background: #ffebee; border-left: 5px solid #f44336; border-radius: 8px; color: #333; }
     .correct { color: green; font-weight: bold; }
     .back-btn {
@@ -196,7 +211,6 @@
       background: #3f51b5; color: #fff; text-align: center; font-weight: bold; font-size: 17px;
       border-radius: 12px; cursor: pointer;
     }
-    /* TULISAN KECIL INFO SOAL & WAKTU DI LOGIN PAGE */
     .info-kecil {
       font-size: 14px;
       color: rgba(255,255,255,0.5);
@@ -204,34 +218,76 @@
       text-align: center;
       letter-spacing: 0.5px;
     }
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      font-size: 18px;
+    }
+    .spinner {
+      border: 4px solid rgba(255,255,255,0.3);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border-left-color: #fff;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
 
-<!-- SPLASH PREMIUM TELAH DIHAPUS -->
+<!-- LOADING SPINNER -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div id="loadingText">Mengunduh soal...</div>
+</div>
 
-<!-- LOGIN PAGE (EPS style: hanya User ID + Kode Soal) -->
+<!-- LOGIN PAGE -->
 <div id="login-page">
   <div class="login-container">
     <h1>LATIHAN SOAL</h1>
     <div class="info-kecil">
       문항수 : 25문항 | 시간 : 50분
     </div>
-    <input id="userId" placeholder="User ID / 아이디">
-    <input id="kode" placeholder="Kode Soal / 시험코드">
+    <input id="userId" placeholder="User ID / 아이디" autocomplete="off">
+    <!-- Mengganti text input menjadi select dropdown yang elegan -->
+    <select id="kode">
+      <option value="" disabled selected>Pilih Kode Soal / 시험코드</option>
+      <option value="soal 01">Soal 01</option>
+      <option value="soal 02">Soal 02</option>
+      <option value="soal 03">Soal 03</option>
+      <option value="soal 04">Soal 04</option>
+      <option value="soal 05">Soal 05</option>
+      <option value="soal 06">Soal 06</option>
+      <option value="soal 07">Soal 07</option>
+      <option value="soal 08">Soal 08</option>
+      <option value="soal 09">Soal 09</option>
+      <option value="soal 10">Soal 10</option>
+    </select>
     <button id="btnLogin">LOGIN / 로그인</button>
   </div>
   <div class="copyright">© 2026 Denzuka - Kim Jongun. All Rights Reserved.</div>
 </div>
 
-<!-- QUIZ PAGE (style lama /latbakor) -->
+<!-- QUIZ PAGE -->
 <div id="quiz-page">
   <div class="header-fixed">
     <div class="submit-top" id="submitTop">SUBMIT</div>
     <div class="timer" id="timer">50:00</div>
   </div>
   <div class="container">
-    <form id="quiz-form"></form>
+    <form id="quiz-form" onsubmit="return false;"></form>
   </div>
   <div class="nav-bottom">
     <button id="prev">PREV</button>
@@ -245,30 +301,39 @@
 </div>
 
 <script>
-    // Data user dari file index(3) aslimu (tanpa field password)
-    const users = [
-      {username:"uus2000"}, {username:"windi"}, {username:"rismaya97"},
-      {username:"sita77"}, {username:"Aini185"}, {username:"Hangeulfei"},
-      {username:"Hamdan106"}, {username:"Heri"}, {username:"hanarizka"},
-      {username:"Fikrisurya"}, {username:"Mutiara2003"}, {username:"dinda"},
-      {username:"wantikas"}, {username:"Dininidia"}, {username:"kaniarostayuni9"},
-      {username:"Dikisetiawan07"}, {username:"Aisyah18"}, {username:"Rizka2026"},
-      {username:"Zhafif07"}, {username:"siwon"}, {username:"Satria11"},
-      {username:"sultan2026"}, {username:"yppsdi"}, {username:"Azizah27_"},
-      {username:"mila"},
-      {username:"admin", role:"admin"} // Tambahan contoh admin
-    ];
+// Data user valid
+const users = [
+  {username:"uus2000"}, {username:"windi"}, {username:"rismaya97"},
+  {username:"sita77"}, {username:"Aini185"}, {username:"Hangeulfei"},
+  {username:"Hamdan106"}, {username:"Heri"}, {username:"hanarizka"},
+  {username:"Fikrisurya"}, {username:"Mutiara2003"}, {username:"dinda"},
+  {username:"wantikas"}, {username:"Dininidia"}, {username:"kaniarostayuni9"},
+  {username:"Dikisetiawan07"}, {username:"Aisyah18"}, {username:"Rizka2026"},
+  {username:"Zhafif07"}, {username:"siwon"}, {username:"Satria11"},
+  {username:"sultan2026"}, {username:"yppsdi"}, {username:"Azizah27_"},
+  {username:"mila"},
+  {username:"admin", role:"admin"}
+];
 
+// Pemetaan kode soal baru sesuai dengan permintaan Anda
 const kodeMapping = {
-  "yongjin":"soal1.json",
-  "a09008":"soal2.json",
-  "sarewae":"test.json",
-  "maukimbap":"soal6.json",
-  "urinara":"soal5.json",
-  "mujigae":"soal21.json"
+  "soal 01": "soal1.json",
+  "soal 02": "soal2.json",
+  "soal 03": "test.json",
+  "soal 04": "soal6.json",
+  "soal 05": "soal5.json",
+  "soal 06": "soal1.json",
+  "soal 07": "soal2.json",
+  "soal 08": "test.json",
+  "soal 09": "soal6.json",
+  "soal 10": "soal21.json"
 };
 
+// URL Base Github Repository Soal Anda
 const BASE = "https://raw.githubusercontent.com/airnetcso/latbakor/main/soal/";
+
+// Silakan isi URL Web App Google Sheets Anda jika ada, atau biarkan kosong jika hanya tes lokal.
+const SPREADSHEET_URL = ""; 
 
 let questions = [], answers = [], current = 0, time = 3000, interval;
 let currentUser = "", currentKode = "";
@@ -276,7 +341,6 @@ let warned5min = false;
 let warnedLast = false;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Splash Screen dihapus dari logika
   const loginPage = document.getElementById("login-page");
   const quizPage = document.getElementById("quiz-page");
   const resultPage = document.getElementById("result-page");
@@ -285,28 +349,66 @@ document.addEventListener("DOMContentLoaded", () => {
   const quizForm = document.getElementById("quiz-form");
   const timerEl = document.getElementById("timer");
   const resultBox = document.getElementById("resultBox");
+  const loadingOverlay = document.getElementById("loadingOverlay");
 
-  // Halaman Login akan otomatis terlihat karena CSS display: flex
+  btnLogin.onclick = async () => {
+    const userIdInput = document.getElementById("userId").value.trim();
+    const kodeInput = document.getElementById("kode").value; // Mengambil value langsung dari dropdown
 
-  btnLogin.onclick = () => {
-    const userId = document.getElementById("userId").value.trim();
-    const kode = document.getElementById("kode").value.trim().toLowerCase();
-    const username = userIdToName[userId];
+    // Validasi User ID secara case-insensitive
+    const matchedUser = users.find(u => u.username.toLowerCase() === userIdInput.toLowerCase());
 
-    if (!username) { alert("User ID tidak terdaftar"); return; }
-    if (!kodeMapping[kode]) { alert("Kode soal salah"); return; }
+    if (!matchedUser) { 
+      alert("User ID tidak terdaftar"); 
+      return; 
+    }
+    
+    if (!kodeInput || !kodeMapping[kodeInput]) { 
+      alert("Silakan pilih Kode Soal terlebih dahulu"); 
+      return; 
+    }
 
-    currentUser = username;
-    currentKode = kode;
+    currentUser = matchedUser.username;
+    currentKode = kodeInput;
 
-    loginPage.style.display = "none";
-    quizPage.style.display = "block";
-    loadSoal(kodeMapping[kode]);
-    startTimer();
+    // Tampilkan loading sebelum mengambil soal dari Github
+    showLoading(true, "Mengunduh soal dari server...");
+
+    try {
+      const success = await loadSoal(kodeMapping[kodeInput]);
+      if (success) {
+        loginPage.style.display = "none";
+        quizPage.style.display = "block";
+        startTimer();
+      }
+    } catch (err) {
+      alert("Gagal memuat soal. Periksa koneksi internet atau ketersediaan file.");
+      console.error(err);
+    } finally {
+      showLoading(false);
+    }
   };
 
+  function showLoading(show, text = "") {
+    if (show) {
+      document.getElementById("loadingText").innerText = text;
+      loadingOverlay.style.display = "flex";
+    } else {
+      loadingOverlay.style.display = "none";
+    }
+  }
+
   async function loadSoal(file) {
-    let loaded = await (await fetch(BASE + file)).json();
+    const response = await fetch(BASE + file);
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+    
+    let loaded = await response.json();
+    if (!loaded || loaded.length === 0) {
+      alert("Data soal kosong!");
+      return false;
+    }
 
     // RANDOM SHUFFLE SOAL (Fisher-Yates shuffle)
     for (let i = loaded.length - 1; i > 0; i--) {
@@ -317,76 +419,135 @@ document.addEventListener("DOMContentLoaded", () => {
     questions = loaded;
     answers = Array(questions.length).fill(null);
     quizForm.innerHTML = "";
+    
     questions.forEach((q, i) => {
+      // Menyiapkan media audio & gambar yang aman
+      const audioTag = q.audio ? `<audio controls src="${q.audio}" preload="auto"></audio>` : "";
+      const imageTag = q.image ? `<img src="${q.image}" alt="Gambar Soal ${i+1}" onerror="this.style.display='none';">` : "";
+
+      // Validasi opsi jawaban
+      const optionsHtml = q.options ? Object.entries(q.options).map(([k, v], idx) => `
+        <label class="option-item">
+          <input type="radio" name="q${i}" value="${k}">
+          <span class="option-circle">${idx+1}</span>
+          <span>${v}</span>
+        </label>
+      `).join("") : "";
+
       quizForm.innerHTML += `
-        <div class="question-wrapper">
+        <div class="question-wrapper" id="qw-${i}">
           <div class="box-passage">
-            ${q.audio ? `<audio controls src="${q.audio}"></audio>` : ""}
-            ${q.image ? `<img src="${q.image}">` : ""}
+            ${audioTag}
+            ${imageTag}
           </div>
           <div class="box-question">
-            <p><b>${i+1}.</b> ${q.question}</p>
-            ${Object.entries(q.options).map(([k, v], idx) => `
-              <label class="option-item">
-                <input type="radio" name="q${i}" value="${k}">
-                <span class="option-circle">${idx+1}</span> ${v}
-              </label>
-            `).join("")}
+            <p><b>${i+1}.</b> ${q.question || "Pilihlah jawaban yang paling tepat."}</p>
+            ${optionsHtml}
           </div>
         </div>`;
     });
+
+    // Menghubungkan trigger klik opsi jawaban
     document.querySelectorAll("input[type=radio]").forEach(r => {
-      r.onchange = () => answers[+r.name.slice(1)] = r.value;
+      r.onchange = () => {
+        const questionIdx = parseInt(r.name.slice(1));
+        answers[questionIdx] = r.value;
+      };
     });
+
     show(0);
+    return true;
   }
 
   function show(n) {
-    document.querySelectorAll("audio").forEach(a => { a.pause(); a.currentTime = 0; });
-    document.querySelectorAll(".question-wrapper").forEach((q, i) => q.classList.toggle("active", i === n));
+    // Hentikan audio yang sedang diputar di halaman lain saat berpindah nomor
+    document.querySelectorAll("audio").forEach(a => { 
+      a.pause(); 
+      a.currentTime = 0; 
+    });
+
+    const wrappers = document.querySelectorAll(".question-wrapper");
+    wrappers.forEach((q, i) => {
+      q.classList.toggle("active", i === n);
+    });
+    
     current = n;
 
     if (current === questions.length - 1 && !warnedLast) {
-      alert("Berikut ini adalah soal terakhir ...");
+      alert("Berikut ini adalah soal terakhir...");
       warnedLast = true;
     }
   }
 
-  document.getElementById("prev").onclick = () => current > 0 && show(current - 1);
-  document.getElementById("next").onclick = () => current < questions.length - 1 && show(current + 1);
+  document.getElementById("prev").onclick = () => {
+    if (current > 0) show(current - 1);
+  };
+  
+  document.getElementById("next").onclick = () => {
+    if (current < questions.length - 1) show(current + 1);
+  };
 
   submitTop.onclick = () => {
+    // Cek apakah ada soal yang belum dijawab
     const kosong = answers.findIndex(a => a === null);
     if (kosong !== -1) { 
-      alert("Soal " + (kosong + 1) + " belum dijawab"); 
+      alert("Soal " + (kosong + 1) + " belum dijawab."); 
       show(kosong); 
       return; 
     }
 
-    if (confirm("Semua soal sudah dijawab. Mau cek lagi atau langsung SUBMIT?")) {
+    if (confirm("Semua soal sudah dijawab. Mau langsung SUBMIT?")) {
       clearInterval(interval);
       quizPage.style.display = "none";
       resultPage.style.display = "block";
-      let score = 0, html = "";
+      
+      let score = 0;
+      let html = "";
+      
       questions.forEach((q, i) => {
         const benar = q.answer;
-        if (answers[i] === benar) score += 4;
-        else html += `<div class="wrong-item"><b>Soal ${i+1} salah</b><br>Jawaban benar: <span class="correct">${benar}</span></div>`;
+        if (answers[i] === benar) {
+          score += 4; // Skor total maksimal = 100 jika jumlah soal 25
+        } else {
+          html += `
+            <div class="wrong-item">
+              <b>Soal ${i+1} salah</b><br>
+              Pilihan Anda: <span style="color:#d32f2f;">(${answers[i]})</span><br>
+              Jawaban benar: <span class="correct">${benar}. ${q.options[benar] || ''}</span>
+            </div>`;
+        }
       });
+      
       const totalQuestions = questions.length;
-      const percent = Math.round((score / (totalQuestions * 4)) * 100);
-      const formData = new URLSearchParams({
-        waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
-        namaSiswa: currentUser || "Anonymous",
-        code: currentKode || "Unknown",
-        latihanSoal: `${score}/${totalQuestions * 4} (${percent}%)`,
-        keterangan: html ? "Ada jawaban salah" : "Semua benar"
-      });
-      fetch(SPREADSHEET_URL, { method: "POST", mode: "no-cors", keepalive: true, body: formData });
+      const maxScore = totalQuestions * 4;
+      const percent = Math.round((score / maxScore) * 100);
+      
+      // Kirim data ke Spreadsheet jika URL tersedia
+      if (SPREADSHEET_URL && SPREADSHEET_URL !== "") {
+        const formData = new URLSearchParams({
+          waktu: new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' }),
+          namaSiswa: currentUser || "Anonymous",
+          code: currentKode || "Unknown",
+          latihanSoal: `${score}/${maxScore} (${percent}%)`,
+          keterangan: html ? "Ada jawaban salah" : "Semua benar"
+        });
+        
+        fetch(SPREADSHEET_URL, { 
+          method: "POST", 
+          mode: "no-cors", 
+          keepalive: true, 
+          body: formData 
+        }).catch(err => console.log("Gagal mengirim hasil ke spreadsheet:", err));
+      }
+
       resultBox.innerHTML = `
-        <h2>Nilai: ${score}</h2>
-        ${html || "<p class='correct'>Semua jawaban benar 🎉</p>"}
-        <div class="back-btn" onclick="location.reload()">KEMBALI</div>`;
+        <h2 style="margin-top:0;">Hasil Ujian</h2>
+        <p>Nama: <b>${currentUser}</b></p>
+        <p>Kode Ujian: <b>${currentKode.toUpperCase()}</b></p>
+        <hr style="border:0; border-top:1px solid #ddd; margin:15px 0;">
+        <h3 style="font-size:24px; color:#2196f3; margin:10px 0;">Nilai Anda: ${score} / ${maxScore} (${percent}%)</h3>
+        ${html || "<p class='correct' style='font-size:18px;'>Luar biasa! Semua jawaban benar 🎉</p>"}
+        <div class="back-btn" onclick="location.reload()">KEMBALI KE BERANDA</div>`;
     }
   };
 
@@ -394,13 +555,17 @@ document.addEventListener("DOMContentLoaded", () => {
     interval = setInterval(() => {
       timerEl.textContent = String(Math.floor(time / 60)).padStart(2, "0") + ":" + String(time % 60).padStart(2, "0");
 
-      if (time <= 300 && !warned5min) {
+      if (time === 300 && !warned5min) {
         alert("Waktu tinggal 5 menit! Segera selesaikan soal yang belum dijawab!");
         timerEl.style.background = "#f44336";
         warned5min = true;
       }
 
-      if (--time < 0) submitTop.onclick();
+      if (--time < 0) {
+        clearInterval(interval);
+        alert("Waktu habis! Jawaban Anda akan otomatis dikirim.");
+        submitTop.onclick();
+      }
     }, 1000);
   }
 });
